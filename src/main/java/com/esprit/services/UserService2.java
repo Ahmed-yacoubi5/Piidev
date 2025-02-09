@@ -29,7 +29,7 @@ public class UserService2 implements IService<User> {
             ps.setString(10, user.getStatus());
 
             ps.executeUpdate();
-            System.out.println("User ajouté successivement");
+            System.out.println("User ajouté avec succée");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -53,7 +53,7 @@ public class UserService2 implements IService<User> {
             ps.setInt(11, user.getId());
 
             ps.executeUpdate();
-            System.out.println("User modifié avec PreparedStatement");
+            System.out.println("User modifié avec Succés");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -67,7 +67,7 @@ public class UserService2 implements IService<User> {
             ps.setInt(1, user.getId());
 
             ps.executeUpdate();
-            System.out.println("User supprimé avec PreparedStatement");
+            System.out.println("User supprimé avec succée");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
