@@ -29,7 +29,7 @@ public class UserService2 implements IService<User> {
             ps.setString(10, user.getStatus());
 
             ps.executeUpdate();
-            System.out.println("User ajouté avec PreparedStatement");
+            System.out.println("User ajouté successivement");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
