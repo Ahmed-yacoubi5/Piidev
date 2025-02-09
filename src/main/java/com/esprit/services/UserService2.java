@@ -9,7 +9,7 @@ import java.util.List;
 
 public class UserService2 implements IService<User> {
 
-    private Connection connection = DataSource.getInstance().getConnection();
+    private final Connection connection = DataSource.getInstance().getConnection();
 
     @Override
     public void ajouter(User user) {
