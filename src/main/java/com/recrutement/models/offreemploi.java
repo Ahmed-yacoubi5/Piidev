@@ -26,6 +26,12 @@ public class offreemploi {
         this.statut = statut;
     }
 
+    public offreemploi(int id, String rrr, String ccc, int i, String refuser) {
+    }
+
+    public offreemploi(String aaa, String bbb, int i, String accepter) {
+    }
+
     public int getId() {
         return id;
     }
