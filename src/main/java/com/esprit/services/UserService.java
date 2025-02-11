@@ -7,7 +7,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserService2 implements IService<User> {
+public class UserService implements IService<User> {
 
     private final Connection connection = DataSource.getInstance().getConnection();
 
