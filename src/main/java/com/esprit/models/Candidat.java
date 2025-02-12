@@ -2,25 +2,25 @@ package com.esprit.models;
 
 import java.util.ArrayList;
 
-public class Candidat extends Profil {
+public class Candidat {
 
-
+    private int id;
     private String nom;
     private String prenom;
     private String email;
     private String cv;
     private ArrayList<Formation> formations = new ArrayList<>(); 
 
-    public Candidat(String niveauFormation, String exp, String comp, String cer
-    ,String n , String p , String e ,String cv ) {
-        super(id, niveauFormation, exp, comp, cer );
+    public Candidat(String n , String p , String e ,String cv , int id) {
+
         this.nom=n;
         this.prenom=p;
         this.email=e;
         this.cv=cv;
+        this.id=id;
     }
-    public Candidat(int id , String nom , String prenom){
-        super(id,niveauFormation,competence,experience,certification);
+    public Candidat(String nom , String prenom,int id){
+       this.id=id;
         this.nom=nom;
         this.prenom=prenom;
     }
@@ -58,7 +58,12 @@ public class Candidat extends Profil {
     public String toString() {
         return "Candidat [nom=" + nom + ", prenom=" + prenom + ", email=" + email + ", cv=" + cv + "]";
     }
-
+    public int getId(){
+        return id;
+    }
+    public void setId(int id){
+        this.id = id;
+    }
 
 
 }

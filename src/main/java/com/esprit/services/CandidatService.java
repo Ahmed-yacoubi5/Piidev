@@ -16,7 +16,7 @@ public class CandidatService implements IService<Candidat> {
 
     @Override
     public void ajouter(Candidat candidat) {
-        String req = "INSERT INTO candidat (nom, prenom,email,cv) VALUES ('"+candidat.getNom()+"','"+candidat.getPrenom()+"','"+candidat.getEmail()+"','"+candidat.getCv()+"')";
+        String req = "INSERT INTO candidat (nom, prenom,email,cv,id) VALUES ('"+candidat.getNom()+"','"+candidat.getPrenom()+"','"+candidat.getEmail()+"','"+candidat.getCv()+"','"+candidat.getId()+"')";
         try {
             Statement st = connection.createStatement();
             st.executeUpdate(req);
@@ -55,11 +55,11 @@ public class CandidatService implements IService<Candidat> {
         List<Candidat> candidat = new ArrayList<>();
 
         String req = "SELECT * FROM candidat";
-        try {
+       try {
             Statement st = connection.createStatement();
             ResultSet rs = st.executeQuery(req);
             while (rs.next()) {
-                candidat.add(new Candidat(rs.getInt("id"), rs.getString("nom"), rs.getString("prenom")));
+                candidat.add(new Candidat(rs.getString("nom"),rs.getString("prenom"),rs.getString("email"),rs.getString("cv"),rs.getInt("id")));
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());

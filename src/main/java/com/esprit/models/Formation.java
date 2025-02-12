@@ -1,6 +1,7 @@
 package com.esprit.models;
 
 public class Formation {
+   private int id;
     private String Diplome;
     private String institution;
     private int anneeObtention;
@@ -8,8 +9,9 @@ public class Formation {
 
 
     
-    public Formation(String diplome, String institution, int anneeObtention) {
-        Diplome = diplome;
+    public Formation(int id,String diplome, String institution, int anneeObtention) {
+       this.id=id;
+        this.Diplome = diplome;
         this.institution = institution;
         this.anneeObtention = anneeObtention;
     }
@@ -33,5 +35,11 @@ public class Formation {
     }
     public void setAnneeObtention(int anneeObtention) {
         this.anneeObtention = anneeObtention;
+    }
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
     }
 }

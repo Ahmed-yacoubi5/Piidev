@@ -13,7 +13,7 @@ public class ProfilService implements IService<Profil> {
 
     @Override
     public void ajouter(Profil profil) {
-        String req = "INSERT INTO personne (id,niveauFormation, competence, experience, certification) VALUES (?,?,?,?,?)";
+        String req = "INSERT INTO profil (id,niveauFormation, competence, experience, certification) VALUES (?,?,?,?,?)";
         try {
             PreparedStatement pst = connection.prepareStatement(req);
             pst.setInt(1, profil.getId());
@@ -30,7 +30,7 @@ public class ProfilService implements IService<Profil> {
     }
     @Override
     public void modifier(Profil profil) {
-        String req = "UPDATE personne SET niveauFormation=? ,competence=? , experience=?, certification=? WHERE id=?";
+        String req = "UPDATE profil SET niveauFormation=? ,competence=? , experience=?, certification=? WHERE id=?";
         try {
             PreparedStatement pst = connection.prepareStatement(req);
             pst.setString(1, profil.getNiveauFormation());
@@ -47,7 +47,7 @@ public class ProfilService implements IService<Profil> {
 
     @Override
     public void supprimer(Profil profil) {
-        String req = "DELETE from personne WHERE id=?";
+        String req = "DELETE from profil WHERE id=?";
         try {
             PreparedStatement pst = connection.prepareStatement(req);
             pst.setInt(1, profil.getId());
@@ -63,17 +63,16 @@ public class ProfilService implements IService<Profil> {
 
         List<Profil> profil = new ArrayList<>();
 
-      /**  String req = "SELECT * FROM personne";
+      String req = "SELECT * FROM personne";
         try {
             PreparedStatement pst = connection.prepareStatement(req);
             ResultSet rs = pst.executeQuery(req);
             while (rs.next()) {
-                personnes.add(new Profil(rs.getInt("id"), rs.getString("nom"), rs.getString("prenom")));
+                profil.add(new Profil(rs.getInt("id"), rs.getString("niveauFormation"), rs.getString("competence"), rs.getString("experience"), rs.getString("certification")));
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-
-       **/ return profil;
+        return profil;
   }
 }

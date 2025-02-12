@@ -59,7 +59,7 @@ public class EmployeService implements IService<Employe> {
             Statement st = connection.createStatement();
             ResultSet rs = st.executeQuery(req);
             while (rs.next()) {
-                employe.add(new Employe(rs.getInt("id"), rs.getString("nom"), rs.getString("prenom")));
+                employe.add(new Employe(rs.getInt("id"), rs.getString("nom"), rs.getString("prenom"),rs.getString("email"),rs.getString("poste"),rs.getDate("dateEmbauche")));
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());

@@ -1,5 +1,5 @@
 package com.esprit.models;
-
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -9,10 +9,10 @@ public class Employe extends Profil {
     private String prenom;
     private String email;
     private String poste;
-    private LocalDate dateEmbauche;
+    private Date dateEmbauche;
     private ArrayList<Formation> formations = new ArrayList<>();
 
-public Employe(int id ,String niveauFormation , String competence, String certification , String experience ,String n , String p , String email , String poste , LocalDate de){
+public Employe(int id ,String niveauFormation , String competence, String certification , String experience ,String n , String p , String email , String poste , Date de){
     super(id , niveauFormation , competence , certification , experience);
     this.nom=n;
     this.prenom=p;
@@ -26,7 +26,7 @@ public Employe(int id , String nom , String prenom){
     this.prenom=prenom;
 
 }
-    public Employe(String nom , String prenom , String email , String poste , LocalDate de) {
+    public Employe(int id , String nom , String prenom , String email , String poste , Date de) {
         super(id,niveauFormation,competence,experience,certification);
         this.nom=nom;
         this.prenom=prenom;
@@ -46,7 +46,7 @@ public Employe(int id , String nom , String prenom){
  public String getPoste(){
     return this.poste;
  }
- public LocalDate GetDateEmbauche(){
+ public Date GetDateEmbauche(){
     return this.dateEmbauche;
  }
 
@@ -62,7 +62,7 @@ public void setEmail(String e){
 public void setPoste(String p){
     this.poste=p;
 }
-public void setDateEmbauche(LocalDate de){
+public void setDateEmbauche(Date de){
     this.dateEmbauche=de;
 }
 public void addFormation(Formation f){
