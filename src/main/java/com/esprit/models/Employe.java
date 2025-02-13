@@ -3,8 +3,8 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class Employe extends Profil {
-
+public class Employe  {
+    private int id;
     private String nom;
     private String prenom;
     private String email;
@@ -13,7 +13,7 @@ public class Employe extends Profil {
     private ArrayList<Formation> formations = new ArrayList<>();
 
 public Employe(int id ,String niveauFormation , String competence, String certification , String experience ,String n , String p , String email , String poste , Date de){
-    super(id , niveauFormation , competence , certification , experience);
+    this.id=id;
     this.nom=n;
     this.prenom=p;
     this.email=email;
@@ -21,13 +21,13 @@ public Employe(int id ,String niveauFormation , String competence, String certif
     this.dateEmbauche=de;
 }
 public Employe(int id , String nom , String prenom){
-    super(id,niveauFormation,competence,experience,certification);
+    this.id=id;
     this.nom=nom;
     this.prenom=prenom;
 
 }
     public Employe(int id , String nom , String prenom , String email , String poste , Date de) {
-        super(id,niveauFormation,competence,experience,certification);
+       this.id=id;
         this.nom=nom;
         this.prenom=prenom;
         this.email=email;
@@ -49,6 +49,9 @@ public Employe(int id , String nom , String prenom){
  public Date GetDateEmbauche(){
     return this.dateEmbauche;
  }
+ public int getId(){
+    return this.id;
+    }
 
 public void setNom(String n){
     this.nom=n;
@@ -70,5 +73,8 @@ public void addFormation(Formation f){
 }
 public void supprimerFormation(int n){
     this.formations.remove(n);
+}
+public void setId(int id){
+    this.id=id;
 }
 }
