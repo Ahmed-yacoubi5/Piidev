@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<VBox spacing="20" alignment="CENTER" xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml" fx:controller="com.esprit.controllers.HomeController">
+    <Text text="🏡 Menu Principal" style="-fx-font-size: 24px; -fx-font-weight: bold;" />
+    <Button text="👨‍💼 Gérer les Absences" fx:id="btnAbsences" />
+    <Button text="🏖️ Gérer les Congés" fx:id="btnConges" />
+    <Button text="🌿 Gérer le Bien-être" fx:id="btnBienEtre" />
+    <Button text="❌ Quitter" fx:id="btnQuitter" />
+</VBox>
