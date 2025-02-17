@@ -4,16 +4,30 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="686.0" prefWidth="904.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.controllers.DetailsBienetreController">
-    <children>
-        <Label layoutX="254.0" layoutY="135.0" text="nom" />
-        <Label layoutX="245.0" layoutY="197.0" text="review" />
-        <Label layoutX="254.0" layoutY="266.0" text="rate" />
-        <TextField fx:id="ResultatNom" layoutX="365.0" layoutY="131.0" />
-        <TextField fx:id="ResultatReview" layoutX="365.0" layoutY="197.0" />
-        <TextField fx:id="ResultatRate" layoutX="365.0" layoutY="262.0" />
-        <Button layoutX="262.0" layoutY="396.0" mnemonicParsing="false" onAction="#ButtonActionModifier" text="Modifier" />
-        <Button layoutX="515.0" layoutY="396.0" mnemonicParsing="false" onAction="#ButtonActionSupprimer" text="supprimer" />
-    </children>
+<AnchorPane prefHeight="686.0" prefWidth="904.0" styleClass="root" stylesheets="@style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.controllers.DetailsBienetreController">
+
+    <!-- 🌿 Titre principal -->
+    <Text layoutX="319.0" layoutY="137.0" styleClass="title-text" text="🌿 Détails du Bien-être">
+      <font>
+         <Font size="25.0" />
+      </font></Text>
+
+    <!-- 📋 Formulaire des détails -->
+    <Label layoutX="257.0" layoutY="212.0" styleClass="form-label" text="🏷️ Nom :" />
+    <TextField fx:id="ResultatNom" layoutX="427.0" layoutY="206.0" styleClass="text-field" />
+
+    <Label layoutX="257.0" layoutY="282.0" styleClass="form-label" text="📝 Review :" />
+    <TextField fx:id="ResultatReview" layoutX="427.0" layoutY="276.0" styleClass="text-field" />
+
+    <Label layoutX="257.0" layoutY="352.0" styleClass="form-label" text="taux:" />
+    <TextField fx:id="ResultatRate" layoutX="427.0" layoutY="346.0" styleClass="text-field" />
+
+    <!-- ⚙️ Boutons d'action -->
+    <Button layoutX="212.0" layoutY="459.0" onAction="#ButtonActionModifier" styleClass="button" text="✏️ Modifier" />
+    <Button layoutX="362.0" layoutY="459.0" onAction="#ButtonActionSupprimer" styleClass="button-exit" text="🗑️ Supprimer" />
+    <Button layoutX="512.0" layoutY="459.0" onAction="#ButtonActionRetourMenu" styleClass="button-exit" text="🔙 Retour au Menu" />
+
 </AnchorPane>

@@ -5,17 +5,25 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="685.0" prefWidth="897.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.controllers.ListBienetreController">
-    <children>
-        <TableView fx:id="TableViewListBienetre" layoutX="17.0" layoutY="108.0" prefHeight="524.0" prefWidth="856.0">
-            <columns>
-                <TableColumn fx:id="ColumnId" prefWidth="26.399993896484375" text="Id" />
-                <TableColumn fx:id="ColumnNom" prefWidth="82.39999389648438" text="nom" />
-                <TableColumn fx:id="ColumnReview" prefWidth="92.79997253417969" text="review" />
-                <TableColumn fx:id="ColumnRate" prefWidth="87.20001220703125" text="rate" />
-            </columns>
-        </TableView>
-        <Button layoutX="777.0" layoutY="44.0" mnemonicParsing="false" onAction="#ButtonActionAjouterBienetre" text="Ajouter Bienetre" />
-        <Button text="🔙 Retour au Menu" onAction="#ButtonActionRetourMenu" />
-    </children>
+<AnchorPane prefHeight="685.0" prefWidth="897.0" styleClass="root"
+            stylesheets="@style.css"
+            xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.esprit.controllers.ListBienetreController">
+
+    <!-- 🌿 Titre principal -->
+    <Button layoutX="350.0" layoutY="30.0" text="🌱 Liste des Bien-Êtres" styleClass="title-button" disable="true"/>
+
+    <!-- 🖥️ Tableau de données -->
+    <TableView fx:id="TableViewListBienetre" layoutX="17.0" layoutY="80.0" prefHeight="524.0" prefWidth="856.0">
+        <columns>
+            <TableColumn fx:id="ColumnNom" prefWidth="200" text="🏷️ Nom" />
+            <TableColumn fx:id="ColumnReview" prefWidth="350" text="📝 Review" />
+            <TableColumn fx:id="ColumnRate" prefWidth="150" text="⭐ Taux " />
+        </columns>
+    </TableView>
+
+    <!-- ⚙️ Boutons d'action -->
+    <Button layoutX="700.0" layoutY="620.0" text="➕ Ajouter Bien-Être" onAction="#ButtonActionAjouterBienetre" styleClass="button"/>
+    <Button layoutX="500.0" layoutY="620.0" text="🔙 Retour Menu" onAction="#ButtonActionRetourMenu" styleClass="button-exit"/>
+
 </AnchorPane>

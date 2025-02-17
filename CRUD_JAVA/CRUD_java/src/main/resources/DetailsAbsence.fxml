@@ -4,20 +4,36 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="686.0" prefWidth="904.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.controllers.DetailsAbsenceController">
-    <children>
-        <Label layoutX="254.0" layoutY="135.0" text="type" />
-        <Label layoutX="245.0" layoutY="197.0" text="datedebut" />
-        <Label layoutX="254.0" layoutY="266.0" text="datefin" />
-        <Label layoutX="247.0" layoutY="330.0" text="employeeid" />
-        <Label layoutX="259.0" layoutY="389.0" prefHeight="18.0" prefWidth="38.0" text="statut" />
-        <TextField fx:id="ResultatType" layoutX="365.0" layoutY="131.0" />
-        <TextField fx:id="ResultatDateDebut" layoutX="365.0" layoutY="197.0" />
-        <TextField fx:id="ResultatDateFin" layoutX="365.0" layoutY="262.0" />
-        <TextField fx:id="ResultatEmployeeID" layoutX="365.0" layoutY="330.0" />
-        <TextField fx:id="ResultatStatut" layoutX="365.0" layoutY="386.0" />
-        <Button layoutX="260.0" layoutY="621.0" mnemonicParsing="false" onAction="#ButtonActionModifier" text="Modifier" />
-        <Button layoutX="467.0" layoutY="621.0" mnemonicParsing="false" onAction="#ButtonActionSupprimer" text="supprimer" />
-    </children>
+<AnchorPane prefHeight="686.0" prefWidth="904.0" styleClass="root" stylesheets="@style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.controllers.DetailsAbsenceController">
+
+    <!-- Titre principal -->
+    <Text layoutX="327.0" layoutY="131.0" styleClass="title-text" text="📋 Détails de l'Absence">
+      <font>
+         <Font size="26.0" />
+      </font></Text>
+
+    <!-- Formulaire des détails -->
+    <Label layoutX="184.0" layoutY="207.0" styleClass="form-label" text="📑 Type :" />
+    <TextField fx:id="ResultatType" layoutX="501.0" layoutY="202.0" styleClass="text-field" />
+
+    <Label layoutX="184.0" layoutY="267.0" styleClass="form-label" text="📅 Date Début (yyyy-MM-dd) :" />
+    <TextField fx:id="ResultatDateDebut" layoutX="501.0" layoutY="262.0" styleClass="text-field" />
+
+    <Label layoutX="184.0" layoutY="327.0" styleClass="form-label" text="📆 Date Fin (yyyy-MM-dd) :" />
+    <TextField fx:id="ResultatDateFin" layoutX="501.0" layoutY="322.0" styleClass="text-field" />
+
+    <Label layoutX="184.0" layoutY="387.0" styleClass="form-label" text="👤 ID Employé :" />
+    <TextField fx:id="ResultatEmployeeID" editable="false" layoutX="501.0" layoutY="382.0" styleClass="text-field" />
+
+    <Label layoutX="184.0" layoutY="447.0" styleClass="form-label" text="🔍 Statut :" />
+    <TextField fx:id="ResultatStatut" layoutX="501.0" layoutY="442.0" styleClass="text-field" />
+
+    <!-- Boutons d'action -->
+    <Button layoutX="292.0" layoutY="546.0" onAction="#ButtonActionModifier" styleClass="button" text="✏️ Modifier" />
+    <Button layoutX="442.0" layoutY="546.0" onAction="#ButtonActionSupprimer" styleClass="button-exit" text="🗑️ Supprimer" />
+
+
 </AnchorPane>

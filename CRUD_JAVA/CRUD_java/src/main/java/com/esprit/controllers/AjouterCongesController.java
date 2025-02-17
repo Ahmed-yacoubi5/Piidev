@@ -1,17 +1,23 @@
 package com.esprit.controllers;
 
 import com.esprit.models.conges;
-
 import com.esprit.services.ServiceConges;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class AjouterCongesController {
+
+    @FXML
+    private TextField TextFieldType;
 
     @FXML
     private TextField TextFieldDateDebut;
@@ -26,46 +32,68 @@ public class AjouterCongesController {
     private TextField TextFieldStatut;
 
     @FXML
-    private TextField TextFieldType;
-
-    @FXML
     void ButtonActionAjouter(ActionEvent event) {
-        // Récupération et validation des données
         String type = TextFieldType.getText().trim();
-        String datedebut = TextFieldDateDebut.getText().trim();
-        String datefin = TextFieldDateFin.getText().trim();
+        String dateDebut = TextFieldDateDebut.getText().trim();
+        String dateFin = TextFieldDateFin.getText().trim();
         String statut = TextFieldStatut.getText().trim();
 
-        // Validation et conversion de l'ID de l'employé
-        int employeeId;
+        if (type.isEmpty() || dateDebut.isEmpty() || dateFin.isEmpty() || statut.isEmpty()) {
+            afficherAlerte("⚠️ Champs vides", "Tous les champs doivent être remplis.");
+            return;
+        }
+
+
+
         try {
-            employeeId = Integer.parseInt(TextFieldEmployeeId.getText().trim());
+            LocalDate debut = LocalDate.parse(dateDebut, DateTimeFormatter.ISO_LOCAL_DATE);
+            LocalDate fin = LocalDate.parse(dateFin, DateTimeFormatter.ISO_LOCAL_DATE);
+
+            if (fin.isBefore(debut)) {
+                afficherAlerte("⚠️ Erreur", "La date de fin doit être postérieure à la date de début.");
+                return;
+            }
+
+            int employeeId = Integer.parseInt(TextFieldEmployeeId.getText().trim());
+
+            conges nouveauConges = new conges(type, dateDebut, dateFin, employeeId, statut);
+            ServiceConges service = new ServiceConges();
+            service.ajouter(nouveauConges);
+            afficherAlerte("✅ Succès", "Congé ajouté avec succès !");
+            ButtonActionRetourListe(event);
+
         } catch (NumberFormatException e) {
-            System.out.println("❌ Erreur : L'ID de l'employé doit être un nombre valide.");
-            return;
+            afficherAlerte("🚫 Erreur", "L'ID de l'employé doit être un nombre valide.");
+        } catch (DateTimeParseException e) {
+            afficherAlerte("🚫 Erreur", "Les dates doivent être au format 'yyyy-MM-dd'.");
         }
+    }
 
-        // Vérification du format des dates
-        if (!datedebut.matches("\\d{4}-\\d{2}-\\d{2}") || !datefin.matches("\\d{4}-\\d{2}-\\d{2}")) {
-            System.out.println("❌ Erreur : Les dates doivent être au format 'yyyy-MM-dd'.");
-            return;
-        }
-
-        // Création d'un objet  (congé)
-        conges newConges = new conges(type, datedebut, datefin, employeeId, statut);
-
-        // Ajout du congé via le service
-        ServiceConges serviceConges = new ServiceConges();
-        serviceConges.ajouter(newConges);
-
-        // Confirmation et redirection
-        System.out.println("✅ Congé ajouté avec succès !");
+    @FXML
+    void ButtonActionRetourListe(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ListConges.fxml"));
-            Parent root = loader.load();
+            Parent root = FXMLLoader.load(getClass().getResource("/ListConges.fxml"));
             TextFieldType.getScene().setRoot(root);
         } catch (IOException e) {
-            System.out.println("❌ Erreur lors du chargement de la vue : " + e.getMessage());
+            afficherAlerte("❌ Erreur", "Impossible de retourner à la liste des congés.");
         }
+    }
+
+    @FXML
+    void ButtonActionRetourMenu(ActionEvent event) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/Home.fxml"));
+            TextFieldType.getScene().setRoot(root);
+        } catch (IOException e) {
+            afficherAlerte("❌ Erreur", "Impossible de retourner au menu principal.");
+        }
+    }
+
+    private void afficherAlerte(String titre, String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(titre);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }

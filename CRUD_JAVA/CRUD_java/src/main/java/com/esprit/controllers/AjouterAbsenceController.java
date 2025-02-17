@@ -6,11 +6,18 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class AjouterAbsenceController {
+
+    @FXML
+    private TextField TextFieldType;
 
     @FXML
     private TextField TextFieldDateDebut;
@@ -25,39 +32,69 @@ public class AjouterAbsenceController {
     private TextField TextFieldStatut;
 
     @FXML
-    private TextField TextFieldType;
-
-    @FXML
     void ButtonActionAjouter(ActionEvent event) {
-        // Récupération des données saisies par l'utilisateur
-        String type = TextFieldType.getText();
-        String datedebut = TextFieldDateDebut.getText();
-        String datefin = TextFieldDateFin.getText();
-        String statut = TextFieldStatut.getText();
+        String type = TextFieldType.getText().trim();
+        String dateDebut = TextFieldDateDebut.getText().trim();
+        String dateFin = TextFieldDateFin.getText().trim();
+        String statut = TextFieldStatut.getText().trim();
 
-        // Validation et conversion de l'ID de l'employé
-        int employeeId;
-        try {
-            employeeId = Integer.parseInt(TextFieldEmployeeId.getText());
-        } catch (NumberFormatException e) {
-            System.out.println("L'ID de l'employé doit être un nombre valide.");
+        if (type.isEmpty() || dateDebut.isEmpty() || dateFin.isEmpty() || statut.isEmpty()) {
+            afficherAlerte("⚠️ Champs vides", "Tous les champs doivent être remplis.");
             return;
         }
 
-        // Création d'un objet absence
-        absence newAbsence = new absence(type, datedebut, datefin, employeeId, statut);
 
-        // Ajout de l'absence via le service
-        ServiceAbsence serviceAbsence = new ServiceAbsence();
-        serviceAbsence.ajouter(newAbsence);
 
-        // Redirection vers l'interface ListAbsence après l'ajout
+
+
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ListAbsence.fxml"));
-            Parent root = loader.load();
+            LocalDate debut = LocalDate.parse(dateDebut, DateTimeFormatter.ISO_LOCAL_DATE);
+            LocalDate fin = LocalDate.parse(dateFin, DateTimeFormatter.ISO_LOCAL_DATE);
+
+            if (fin.isBefore(debut)) {
+                afficherAlerte("⚠️ Erreur", "La date de fin doit être postérieure à la date de début.");
+                return;
+            }
+
+            int employeeId = Integer.parseInt(TextFieldEmployeeId.getText().trim());
+
+            absence nouvelleAbsence = new absence(type, dateDebut, dateFin, employeeId, statut);
+            ServiceAbsence service = new ServiceAbsence();
+            service.ajouter(nouvelleAbsence);
+            afficherAlerte("✅ Succès", "Absence ajoutée avec succès !");
+            redirigerVersListeAbsences();
+
+        } catch (NumberFormatException e) {
+            afficherAlerte("🚫 Erreur", "L'ID de l'employé doit être un nombre valide.");
+        } catch (DateTimeParseException e) {
+            afficherAlerte("🚫 Erreur", "Les dates doivent être au format 'yyyy-MM-dd'.");
+        }
+    }
+
+    private void redirigerVersListeAbsences() {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/ListAbsence.fxml"));
             TextFieldType.getScene().setRoot(root);
         } catch (IOException e) {
-            System.out.println("Erreur lors du chargement de la vue : " + e.getMessage());
+            afficherAlerte("❌ Erreur", "Impossible d'ouvrir la liste des absences.");
+        }
+    }
+
+    private void afficherAlerte(String titre, String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(titre);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+    @FXML
+    void ButtonActionRetourMenu(ActionEvent event) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/Home.fxml"));
+            TextFieldType.getScene().setRoot(root);
+        } catch (IOException e) {
+            afficherAlerte("❌ Erreur", "Impossible de retourner au menu principal.");
         }
     }
 }

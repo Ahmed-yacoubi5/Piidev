@@ -19,6 +19,7 @@
 
     <!-- Dépendances -->
     <dependencies>
+
         <!-- MySQL Connector -->
         <dependency>
             <groupId>mysql</groupId>

@@ -1,13 +1,9 @@
 package com.esprit.controllers;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Tooltip;
 import javafx.stage.Stage;
-
-import java.io.IOException;
 
 public class HomeController {
 
@@ -25,27 +21,28 @@ public class HomeController {
 
     @FXML
     public void initialize() {
-        // Gestion du bouton Absences
-        btnAbsences.setOnAction(event -> ouvrirInterface("/ListAbsence.fxml", "Gestion des Absences"));
+        // Ajouter des tooltips
+        btnAbsences.setTooltip(new Tooltip("Accédez à la gestion des absences"));
+        btnConges.setTooltip(new Tooltip("Accédez à la gestion des congés"));
+        btnBienEtre.setTooltip(new Tooltip("Accédez à la gestion du bien-être"));
+        btnQuitter.setTooltip(new Tooltip("Quittez l'application"));
 
-        // Gestion du bouton Congés
-        btnConges.setOnAction(event -> ouvrirInterface("/ListConges.fxml", "Gestion des Congés"));
-
-        // Gestion du bouton Bien-être
-        btnBienEtre.setOnAction(event -> ouvrirInterface("/ListBienEtre.fxml", "Gestion du Bien-être"));
-
-        // Gestion du bouton Quitter
+        // Gestion des actions
+        btnAbsences.setOnAction(event -> ouvrirInterface("/ListAbsence.fxml"));
+        btnConges.setOnAction(event -> ouvrirInterface("/ListConges.fxml"));
+        btnBienEtre.setOnAction(event -> ouvrirInterface("/ListBienEtre.fxml"));
         btnQuitter.setOnAction(event -> fermerApplication());
     }
 
-    // Méthode pour charger et afficher une interface
-    private void ouvrirInterface(String fxmlPath, String titre) {
+    // Méthode pour ouvrir une nouvelle interface
+    private void ouvrirInterface(String fxmlPath) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource(fxmlPath));
-            Stage stage = (Stage) btnAbsences.getScene().getWindow();
-            stage.setTitle(titre);
-            stage.setScene(new Scene(root));
-        } catch (IOException e) {
+            javafx.fxml.FXMLLoader loader = new javafx.fxml.FXMLLoader(getClass().getResource(fxmlPath));
+            javafx.scene.Parent root = loader.load();
+            javafx.stage.Stage stage = (Stage) btnAbsences.getScene().getWindow();
+            stage.setScene(new javafx.scene.Scene(root));
+            stage.show();
+        } catch (java.io.IOException e) {
             System.out.println("❌ Erreur lors de l'ouverture de l'interface : " + e.getMessage());
             e.printStackTrace();
         }

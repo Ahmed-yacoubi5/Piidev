@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 
 import java.io.IOException;
@@ -16,40 +17,83 @@ public class AjouterBienetreController {
     private TextField TextFieldNom;
 
     @FXML
-    private TextField TextFieldRate;
-
-    @FXML
     private TextField TextFieldReview;
 
     @FXML
+    private TextField TextFieldRate;
+
+    /**
+     * 🆕 Action : Ajouter un nouvel enregistrement de bien-être
+     */
+    @FXML
     void ButtonActionAjouter(ActionEvent event) {
-        // Récupération des données saisies par l'utilisateur
+        // 🔍 Récupération et validation des champs
         String nom = TextFieldNom.getText();
         String review = TextFieldReview.getText();
 
-        // Validation et conversion du taux
-        int rate;
-        try {
-            rate = Integer.parseInt(TextFieldRate.getText());
-        } catch (NumberFormatException e) {
-            System.out.println("Le taux doit être un nombre entier valide.");
+        if (nom.isEmpty() || review.isEmpty() || TextFieldRate.getText().isEmpty()) {
+            afficherAlerte("⚠️ Champs vides", "Veuillez remplir tous les champs.");
             return;
         }
 
-        // Création d'un objet Bienetre
-        bienetre newBienetre = new bienetre(nom, review, rate);
-
-        // Ajout du bien-être via le service
-        ServiceBienetre serviceBienetre = new ServiceBienetre();
-        serviceBienetre.ajouter(newBienetre);
-
-        // Redirection vers l'interface ListBienetre après l'ajout
+        // 🎯 Validation du taux (rate)
+        int rate;
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ListBienetre.fxml"));
-            Parent root = loader.load();
+            rate = Integer.parseInt(TextFieldRate.getText());
+            if (rate < 1 || rate > 5) {
+                afficherAlerte("🚫 Erreur de saisie", "Le taux doit être compris entre 1 et 5.");
+                return;
+            }
+        } catch (NumberFormatException e) {
+            afficherAlerte("🚫 Erreur de saisie", "Le taux doit être un nombre entier.");
+            return;
+        }
+
+        // 📋 Création de l'objet Bienetre
+        bienetre nouveauBienetre = new bienetre(nom, review, rate);
+
+        // ⚙️ Ajout via le service
+        ServiceBienetre serviceBienetre = new ServiceBienetre();
+        serviceBienetre.ajouter(nouveauBienetre);
+        afficherAlerte("✅ Succès", "Bien-être ajouté avec succès !");
+
+        // 🔄 Redirection vers la liste des bien-être
+        redirigerVersListeBienetre();
+    }
+
+    /**
+     * 🚀 Rediriger vers la liste des enregistrements de bien-être
+     */
+    private void redirigerVersListeBienetre() {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/ListBienetre.fxml"));
             TextFieldNom.getScene().setRoot(root);
         } catch (IOException e) {
-            System.out.println("Erreur lors du chargement de la vue : " + e.getMessage());
+            afficherAlerte("❌ Erreur", "Impossible de charger la liste des bien-être.");
         }
+    }
+
+    /**
+     * 🔙 Retour au menu principal
+     */
+    @FXML
+    void ButtonActionRetourMenu(ActionEvent event) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/Home.fxml"));
+            TextFieldNom.getScene().setRoot(root);
+        } catch (IOException e) {
+            afficherAlerte("❌ Erreur", "Impossible de retourner au menu principal.");
+        }
+    }
+
+    /**
+     * 🛑 Afficher une alerte d'information
+     */
+    private void afficherAlerte(String titre, String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(titre);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }
