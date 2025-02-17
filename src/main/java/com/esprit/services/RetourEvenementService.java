@@ -15,7 +15,7 @@ import java.util.List;
 
         // Ajouter un retour d'événement
         public void ajouter(RetourEvenement re) {
-            String req = "INSERT INTO retour_evenement (evenement_id, utilisateur_id, commentaire, note, date_retour) VALUES (?, ?, ?, ?, ?)";
+            String req = "INSERT INTO retourevenement (evenement_id, utilisateur_id, commentaire, note, date_retour) VALUES (?, ?, ?, ?, ?)";
             try {
                 PreparedStatement pst = con.prepareStatement(req);
                 pst.setInt(1, re.getEvenementId());
@@ -32,7 +32,7 @@ import java.util.List;
 
         // Modifier un retour d'événement
         public void modifier(RetourEvenement re) {
-            String req = "UPDATE retour_evenement SET commentaire=?, note=?, date_retour=? WHERE id=?";
+            String req = "UPDATE retourevenement SET commentaire=?, note=?, date_retour=? WHERE id=?";
             try {
                 PreparedStatement pst = con.prepareStatement(req);
                 pst.setString(1, re.getCommentaire());
@@ -52,7 +52,7 @@ import java.util.List;
 
         // Supprimer un retour d'événement
         public void supprimer(int id) {
-            String req = "DELETE FROM retour_evenement WHERE id=?";
+            String req = "DELETE FROM retourevenement WHERE id=?";
             try {
                 PreparedStatement pst = con.prepareStatement(req);
                 pst.setInt(1, id);

@@ -10,21 +10,27 @@ public class Evenement {
     private Date DateDebut;
     private Date DateFin;
 
-    public Evenement(int id,String nom,String type,String titre,Date DateDebut,Date DateFin){
-        this.id=id;
-        this.nom=nom;
-        this.type=type;
-        this.titre=titre;
-        this.DateDebut=DateDebut;
-        this.DateFin=DateFin;
+    // No-argument constructor
+    public Evenement() {
     }
-    public Evenement(String nom, String type,String titre,Date DateDebut,Date DateFin) {
+
+    public Evenement(int id, String nom, String type, String titre, Date DateDebut, Date DateFin) {
+        this.id = id;
         this.nom = nom;
         this.type = type;
         this.titre = titre;
         this.DateDebut = DateDebut;
         this.DateFin = DateFin;
     }
+
+    public Evenement(String nom, String type, String titre, Date DateDebut, Date DateFin) {
+        this.nom = nom;
+        this.type = type;
+        this.titre = titre;
+        this.DateDebut = DateDebut;
+        this.DateFin = DateFin;
+    }
+
     public int getId() {
         return id;
     }
@@ -48,11 +54,12 @@ public class Evenement {
     public void setType(String type) {
         this.type = type;
     }
-    public String getTitle() {
+
+    public String getTitre() {
         return titre;
     }
 
-    public void setTitre(String id) {
+    public void setTitre(String titre) {
         this.titre = titre;
     }
 
@@ -71,7 +78,6 @@ public class Evenement {
     public void setDateFin(Date DateFin) {
         this.DateFin = DateFin;
     }
-
 
     @Override
     public String toString() {

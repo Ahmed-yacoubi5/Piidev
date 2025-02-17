@@ -15,7 +15,7 @@ public class TypeEvenementService {
     }
 
     public void ajouter(TypeEvenement te) {  // Vérifie bien que c'est TypeEvenement et pas Evenement
-        String req = "INSERT INTO type_evenement (nom, description) VALUES (?, ?)";
+        String req = "INSERT INTO typeevenement (nom, description) VALUES (?, ?)";
         try {
             PreparedStatement pst = con.prepareStatement(req);
             pst.setString(1, te.getNom());
@@ -28,7 +28,7 @@ public class TypeEvenementService {
     }
 
     public void modifier(TypeEvenement te) {  // Vérifie bien que c'est TypeEvenement et pas Evenement
-        String req = "UPDATE type_evenement SET nom=?, description=? WHERE id=?";
+        String req = "UPDATE typeevenement SET nom=?, description=? WHERE id=?";
         try {
             PreparedStatement pst = con.prepareStatement(req);
             pst.setString(1, te.getNom());
@@ -46,7 +46,7 @@ public class TypeEvenementService {
     }
 
     public void supprimer(int id) {  // Vérifie bien que la méthode prend un ID et non un objet TypeEvenement
-        String req = "DELETE FROM type_evenement WHERE id=?";
+        String req = "DELETE FROM typeevenement WHERE id=?";
         try {
             PreparedStatement pst = con.prepareStatement(req);
             pst.setInt(1, id);

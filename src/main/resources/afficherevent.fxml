@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.Controllers.AfficherEvenement">
+    <children>
+        <TableView fx:id="affichertable" layoutX="83.0" layoutY="32.0" prefHeight="235.0" prefWidth="523.0">
+            <columns>
+                <TableColumn fx:id="nom" prefWidth="75.0" text="Nom" />
+                <TableColumn fx:id="type" prefWidth="127.3333740234375" text="Type" />
+                <TableColumn fx:id="titre" prefWidth="108.66665649414062" text="Titre" />
+                <TableColumn fx:id="dateDebut" prefWidth="80.00006103515625" text="Date Début" />
+                <TableColumn fx:id="dateFin" prefWidth="169.333251953125" text="Date Fin" />
+            </columns>
+        </TableView>
+        <VBox layoutY="-1.0" prefHeight="400.0" prefWidth="83.0" style="-fx-background-color: #3e8594;" />
+        <Button fx:id="add_button" layoutX="130.0" layoutY="323.0" mnemonicParsing="false" onAction="#ajouterEvenement" text="Ajouter">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Button>
+        <Button fx:id="modif_button" layoutX="250.0" layoutY="323.0" mnemonicParsing="false" onAction="#modifierEvenement" text="Modifier">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Button>
+        <Button fx:id="supp_button" layoutX="370.0" layoutY="323.0" mnemonicParsing="false" onAction="#supprimer_event" text="Supprimer" textAlignment="RIGHT" textFill="#483f8f">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Button>
+        <Label fx:id="lbNom" layoutX="83.0" layoutY="285.0" text="Nom" />
+        <Label fx:id="lbType" layoutX="83.0" layoutY="315.0" text="Type" />
+        <Label fx:id="lbTitre" layoutX="83.0" layoutY="345.0" text="Titre" />
+        <Label fx:id="lbDateDebut" layoutX="83.0" layoutY="375.0" text="Date Début" />
+        <Label fx:id="lbDateFin" layoutX="83.0" layoutY="405.0" text="Date Fin" />
+    </children>
+</AnchorPane>
