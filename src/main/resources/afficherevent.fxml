@@ -19,7 +19,14 @@
                 <TableColumn fx:id="dateFin" prefWidth="169.333251953125" text="Date Fin" />
             </columns>
         </TableView>
-        <VBox layoutY="-1.0" prefHeight="400.0" prefWidth="83.0" style="-fx-background-color: #3e8594;" />
+        <VBox layoutY="-1.0" prefHeight="400.0" prefWidth="83.0" style="-fx-background-color: #3e8594;">
+         <children>
+              <Label fx:id="lbNom" text="Nom" />
+              <Label fx:id="lbType" text="Type" />
+              <Label fx:id="lbTitre" text="Titre" />
+              <Label fx:id="lbDateDebut" text="Date Début" />
+              <Label fx:id="lbDateFin" prefHeight="0.0" prefWidth="44.0" text="Date Fin" />
+         </children></VBox>
         <Button fx:id="add_button" layoutX="130.0" layoutY="323.0" mnemonicParsing="false" onAction="#ajouterEvenement" text="Ajouter">
             <font>
                 <Font size="18.0" />
@@ -35,10 +42,5 @@
                 <Font size="18.0" />
             </font>
         </Button>
-        <Label fx:id="lbNom" layoutX="83.0" layoutY="285.0" text="Nom" />
-        <Label fx:id="lbType" layoutX="83.0" layoutY="315.0" text="Type" />
-        <Label fx:id="lbTitre" layoutX="83.0" layoutY="345.0" text="Titre" />
-        <Label fx:id="lbDateDebut" layoutX="83.0" layoutY="375.0" text="Date Début" />
-        <Label fx:id="lbDateFin" layoutX="83.0" layoutY="405.0" text="Date Fin" />
     </children>
 </AnchorPane>
