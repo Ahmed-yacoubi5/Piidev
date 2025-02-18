@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="767.0" prefWidth="923.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.Controllers.Summary">
+   <children>
+      <TableView fx:id="employeTableView" layoutX="14.0" layoutY="95.0" prefHeight="289.0" prefWidth="588.0" AnchorPane.rightAnchor="321.0">
+         <columns>
+            <TableColumn fx:id="empId" prefWidth="65.0" text="Id">
+               <cellValueFactory>
+                  <PropertyValueFactory property="id" />
+               </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="empNom" prefWidth="152.0" text="Nom">
+               <cellValueFactory>
+                  <PropertyValueFactory property="nom" />
+               </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="empPrenom" prefWidth="131.0" text="Prenom">
+               <cellValueFactory>
+                  <PropertyValueFactory property="prenom" />
+               </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="empEmail" prefWidth="239.0" text="Email">
+               <cellValueFactory>
+                  <PropertyValueFactory property="email" />
+               </cellValueFactory>
+            </TableColumn>
+         </columns>
+      </TableView>
+
+      <TableView fx:id="candidatTableView" layoutX="14.0" layoutY="451.0" prefHeight="289.0" prefWidth="588.0">
+         <columns>
+            <!-- Correctly define the TableColumn elements using fx:factory -->
+            <TableColumn fx:id="cli" prefWidth="65.0" text="Id">
+               <cellValueFactory>
+                  <PropertyValueFactory property="id" />
+               </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="cln" prefWidth="152.0" text="Nom">
+               <cellValueFactory>
+                  <PropertyValueFactory property="nom" />
+               </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="clp" prefWidth="131.0" text="Prenom">
+               <cellValueFactory>
+                  <PropertyValueFactory property="prenom" />
+               </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="cle" prefWidth="239.0" text="Email">
+               <cellValueFactory>
+                  <PropertyValueFactory property="email" />
+               </cellValueFactory>
+            </TableColumn>
+         </columns>
+      </TableView>
+
+
+      <Label layoutX="14.0" layoutY="384.0" prefHeight="70.0" prefWidth="202.0" text="Candidat" />
+      <Label layoutX="14.0" layoutY="14.0" prefHeight="70.0" prefWidth="202.0" text="Employe" />
+      <Button fx:id="editEmploye" layoutX="611.0" layoutY="279.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="173.0" text="EDIT" />
+      <Button fx:id="addButtonEmp" layoutX="611.0" layoutY="95.0" mnemonicParsing="false" onAction="#handleAddButtonEmp" prefHeight="25.0" prefWidth="173.0" text="ADD" />
+      <Button fx:id="viewProfileEmploye" layoutX="611.0" layoutY="246.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="173.0" text="View Profile" />
+      <Button fx:id="deleteEmploye" onAction="#empDeleteButton" layoutX="611.0" layoutY="359.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="52.0" text="X" />
+      <Button fx:id="editCandidat" layoutX="609.0" layoutY="669.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="173.0" text="EDIT" />
+      <Button fx:id="addButtonCand" layoutX="611.0" layoutY="451.0" mnemonicParsing="false" onAction="#handleAddButtonCand" prefHeight="25.0" prefWidth="173.0" text="ADD" />
+      <Button fx:id="viewProfileCandidat" layoutX="609.0" layoutY="633.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="173.0" text="View Profile" />
+      <Button fx:id="deleteCandidat" onAction="#candDeleteButton" layoutX="611.0" layoutY="715.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="52.0" text="X" />
+      <ListView fx:id="employeFormationView" layoutX="611.0" layoutY="118.0" prefHeight="129.0" prefWidth="306.0" />
+      <ListView fx:id="dateEmbauche" layoutX="722.0" layoutY="316.0" prefHeight="25.0" prefWidth="187.0" />
+      <Label layoutX="611.0" layoutY="320.0" text="Date Embauche" />
+      <Button fx:id="modifyFormationEmploye" layoutX="884.0" layoutY="246.0" mnemonicParsing="false" onAction="#empFormationRedirect" prefHeight="25.0" prefWidth="33.0" text="+" />
+      <ListView fx:id="candidatFormationView" layoutX="611.0" layoutY="476.0" prefHeight="157.0" prefWidth="306.0" />
+      <Button fx:id="modifyFormationCandidat" layoutX="884.0" layoutY="633.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="33.0" text="+" />
+   </children>
+</AnchorPane>
