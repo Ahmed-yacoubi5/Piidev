@@ -9,9 +9,9 @@ public class offreemploi {
     private String titre;
     private String description;
     private Date date_publication;
-    private String statut;
+    private statut statut;
 
-    public offreemploi(int id, String titre, String description, Date date_publication, String statut) {
+    public offreemploi(int id, String titre, String description, Date date_publication, statut statut) {
         this.id = id;
         this.titre = titre;
         this.description = description;
@@ -19,7 +19,7 @@ public class offreemploi {
         this.statut = statut;
     }
 
-    public offreemploi(String titre, String description, Date date_publication, String statut) {
+    public offreemploi(String titre, String description, Date date_publication, statut statut) {
         this.titre = titre;
         this.description = description;
         this.date_publication = date_publication;
@@ -57,17 +57,17 @@ public class offreemploi {
         this.date_publication = date_publication;
     }
 
-    public String getStatut() {
+    public statut getStatut() {
         return statut;
     }
 
-    public void setStatut(String statut) {
+    public void setStatut(statut statut) {
         this.statut = statut;
     }
 
     @Override
     public String toString() {
-        return "Personne{" +
+        return "offreemploi{" +
                 "id=" + id +
                 ", titre='" + titre + '\'' +
                 ", description='" + description + '\'' +

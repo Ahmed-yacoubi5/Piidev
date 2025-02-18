@@ -17,10 +17,10 @@ public class CvServices implements iservices<cv> {
             PreparedStatement pst = connection.prepareStatement(req);
             pst.setString(1, cv.getNom());
             pst.setString(2, cv.getPrenom());
-            pst.setDate(2, new java.sql.Date(cv.getDate_de_naissance().getTime()));
-            pst.setString(2, cv.getAdresse());
-            pst.setString(2, cv.getEmail());
-            pst.setInt(2, cv.getTelephone());
+            pst.setDate(3, new java.sql.Date(cv.getDate_de_naissance().getTime()));
+            pst.setString(4, cv.getAdresse());
+            pst.setString(5, cv.getEmail());
+            pst.setInt(6, cv.getTelephone());
             pst.executeUpdate();
             System.out.println("cv ajoutée");
         } catch (SQLException e) {

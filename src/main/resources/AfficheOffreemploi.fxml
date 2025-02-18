@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.recrutement.controllers.AfficheOffreemploi">
+    <children>
+        <Label layoutX="220.0" layoutY="50.0" text="Détails de l'Offre d'Emploi" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+
+        <Label layoutX="50.0" layoutY="120.0" text="Titre :" />
+        <Label fx:id="txtTitre" layoutX="200.0" layoutY="120.0" text="-" />
+
+        <Label layoutX="50.0" layoutY="160.0" text="Description :" />
+        <Label fx:id="txtDescription" layoutX="200.0" layoutY="160.0" wrapText="true" maxWidth="300.0" text="-" />
+
+        <Label layoutX="50.0" layoutY="200.0" text="Statut :" />
+        <Label fx:id="cmbStatut" layoutX="200.0" layoutY="200.0" text="-" />
+
+        <Label layoutX="50.0" layoutY="240.0" text="Date de Publication :" />
+        <Label fx:id="txtDatePublication" layoutX="200.0" layoutY="240.0" text="-" />
+
+        <Button layoutX="250.0" layoutY="320.0" mnemonicParsing="false" text="Retour" onAction="#retourAccueil"/>
+    </children>
+</AnchorPane>
