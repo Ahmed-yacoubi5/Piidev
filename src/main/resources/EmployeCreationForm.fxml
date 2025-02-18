@@ -6,7 +6,6 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
 <AnchorPane prefHeight="767.0" prefWidth="923.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.Controllers.AjouterEmploye">
    <children>
       <Label layoutX="252.0" layoutY="123.0" prefWidth="90.0" text="ID" />
@@ -15,13 +14,14 @@
       <Label layoutX="252.0" layoutY="286.0" prefHeight="17.0" prefWidth="90.0" text="Email" />
       <Label layoutX="252.0" layoutY="389.0" prefHeight="17.0" prefWidth="90.0" text="Date aEmbauche" />
       <Label layoutX="252.0" layoutY="339.0" prefHeight="17.0" prefWidth="90.0" text="Poste" />
-      <TextField layoutX="387.0" layoutY="119.0" />
-      <TextField layoutX="387.0" layoutY="177.0" prefHeight="25.0" prefWidth="296.0" />
-      <TextField layoutX="387.0" layoutY="238.0" prefHeight="25.0" prefWidth="296.0" />
-      <TextField layoutX="387.0" layoutY="291.0" prefHeight="25.0" prefWidth="296.0" />
-      <TextField layoutX="387.0" layoutY="344.0" prefHeight="25.0" prefWidth="296.0" />
-      <Button layoutX="588.0" layoutY="119.0" mnemonicParsing="false" text="Auto-Generate" />
-      <Button layoutX="250.0" layoutY="499.0" mnemonicParsing="false" prefHeight="77.0" prefWidth="437.0" text="Submit" />
-      <DatePicker layoutX="388.0" layoutY="385.0" prefHeight="25.0" prefWidth="149.0" />
+      <TextField id="id" fx:id="id" layoutX="387.0" layoutY="119.0" />
+      <TextField id="nom" fx:id="nom" layoutX="387.0" layoutY="177.0" prefHeight="25.0" prefWidth="296.0" />
+      <TextField id="prenom" fx:id="prenom" layoutX="387.0" layoutY="238.0" prefHeight="25.0" prefWidth="296.0" />
+      <TextField id="email" fx:id="email" layoutX="387.0" layoutY="291.0" prefHeight="25.0" prefWidth="296.0" />
+      <TextField id="poste" fx:id="poste" layoutX="387.0" layoutY="344.0" prefHeight="25.0" prefWidth="296.0" />
+      <Button fx:id="autoGenete" onAction="#autoId" layoutX="588.0" layoutY="119.0" mnemonicParsing="false" text="Auto-Generate" />
+      <Button fx:id="addButton" layoutX="250.0" layoutY="499.0" mnemonicParsing="false" onAction="#ajouterEmploye" prefHeight="77.0" prefWidth="437.0" text="Submit" />
+      <DatePicker id="dateEmbauche" fx:id="dateEmbauche" layoutX="388.0" layoutY="385.0" prefHeight="25.0" prefWidth="149.0" />
+      <Label fx:id="errorLabel" layoutX="709.0" layoutY="123.0" />
    </children>
 </AnchorPane>

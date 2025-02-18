@@ -16,11 +16,11 @@ public class TestJavaFx extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/CandidatCreationForm.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/SummaryView.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
-        primaryStage.setTitle("CreateCandidat");
+        primaryStage.setTitle("CreateEmploye");
         primaryStage.show();
     }
 }

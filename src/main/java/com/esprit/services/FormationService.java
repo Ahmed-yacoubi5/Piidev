@@ -1,5 +1,6 @@
 package com.esprit.services;
 import com.esprit.models.Formation;
+import com.esprit.utils.AppData;
 import com.esprit.utils.DataSource;
 
 import java.sql.*;
@@ -32,7 +33,7 @@ public class FormationService {
             pst.setString(1, formation.getDiplome());
             pst.setString(2, formation.getInstitution());
             pst.setInt(3, formation.getAnneeObtention());
-            pst.setInt(4, formation.getId());
+            pst.setInt(4, AppData.getInstance().getCurrentSelectedId());
             pst.executeUpdate();
             System.out.println("Personne modifiée");
         } catch (SQLException e) {
@@ -57,12 +58,12 @@ public class FormationService {
     public List<Formation> rechercher() {
         List<Formation> formation = new ArrayList<>();
 
-        String req = "SELECT * FROM personne";
+        String req = "SELECT diplome FROM formation where id= "+ AppData.getInstance().getCurrentSelectedId();
         try {
             PreparedStatement pst = connection.prepareStatement(req);
             ResultSet rs = pst.executeQuery(req);
             while (rs.next()) {
-                formation.add(new Formation(rs.getInt("id"), rs.getString("diplome"), rs.getString("institution"), rs.getInt("anneeobtention")));
+                formation.add(new Formation( rs.getString("diplome")));
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());

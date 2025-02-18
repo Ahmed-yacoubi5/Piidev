@@ -16,8 +16,11 @@ public class Formation {
         this.anneeObtention = anneeObtention;
     }
 
+    public Formation(String diplome) {
+        this.Diplome = diplome;
+    }
 
-    
+
     public String getDiplome() {
         return Diplome;
     }
@@ -41,5 +44,10 @@ public class Formation {
     }
     public void setId(int id) {
         this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return ("diplome: " + Diplome + '\n');
     }
 }

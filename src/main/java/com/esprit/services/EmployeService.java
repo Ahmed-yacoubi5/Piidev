@@ -3,6 +3,7 @@ package com.esprit.services;
 import com.esprit.models.Employe;
 import com.esprit.utils.DataSource;
 
+import java.sql.Date;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,11 +13,11 @@ import java.util.List;
 
 public class EmployeService implements IService<Employe> {
 
-    private Connection connection = DataSource.getInstance().getConnection();
+    private final Connection connection = DataSource.getInstance().getConnection();
 
     @Override
     public void ajouter(Employe employe) {
-        String req = "INSERT INTO employe (id,nom, prenom, email, poste, dateEmbauche) VALUES ('"+employe.getId()+ "''"+employe.getNom()+"','"+employe.getPrenom()+"','"+employe.getEmail()+"','"+employe.getPoste()+"','"+ employe.GetDateEmbauche()+"')";
+        String req = "INSERT INTO employe (id,nom, prenom, email, poste, dateEmbauche) VALUES ('"+employe.getId()+ "','"+employe.getNom()+"','"+employe.getPrenom()+"','"+employe.getEmail()+"','"+employe.getPoste()+"','"+ employe.GetDateEmbauche()+"')";
         try {
             Statement st = connection.createStatement();
             st.executeUpdate(req);
@@ -28,7 +29,7 @@ public class EmployeService implements IService<Employe> {
 
     @Override
     public void modifier(Employe employe) {
-        String req = "UPDATE employe SET id='"+employe.getId()+"' ,nom='"+employe.getNom()+"',prenom='"+employe.getPrenom()+"', email='"+employe.getEmail()+"',poste='"+employe.getPoste()+"',dateEmbauche='"+employe.GetDateEmbauche()+"' WHERE id="+employe.getId();
+        String req = "UPDATE employe SET id='"+employe.getId()+"',nom='"+employe.getNom()+"',prenom='"+employe.getPrenom()+"', email='"+employe.getEmail()+"',poste='"+employe.getPoste()+"',dateEmbauche='"+employe.GetDateEmbauche()+"' WHERE id='"+employe.getId()+"'";
         try {
             Statement st = connection.createStatement();
             st.executeUpdate(req);
@@ -66,5 +67,21 @@ public class EmployeService implements IService<Employe> {
         }
 
         return employe;
+    }
+    public Date dateEmbauche(int id) {
+        Date dateEmbauche = null;
+       String req = "SELECT dateEmbauche FROM employe WHERE id = " + id;
+        try {
+            Statement st = connection.createStatement();
+            ResultSet rs = st.executeQuery(req);
+            if (rs.next()) {
+                dateEmbauche = rs.getDate("dateEmbauche");
+            }
+
+            } catch(SQLException e){
+                throw new RuntimeException(e);
+            }
+
+        return dateEmbauche;
     }
 }
