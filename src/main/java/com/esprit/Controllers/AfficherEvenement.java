@@ -9,36 +9,32 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-
 import javafx.event.ActionEvent;
 import java.io.IOException;
+import java.util.Optional;
 
 public class AfficherEvenement {
-    private EvenementService evenementService = new EvenementService();
+    private final EvenementService evenementService = new EvenementService();
 
     @FXML
     private TableView<Evenement> affichertable;
-
     @FXML
     private TableColumn<Evenement, String> nom;
-
     @FXML
     private TableColumn<Evenement, String> type;
-
     @FXML
     private TableColumn<Evenement, String> titre;
-
     @FXML
     private TableColumn<Evenement, java.sql.Date> dateDebut;
-
     @FXML
     private TableColumn<Evenement, java.sql.Date> dateFin;
 
-    private ObservableList<Evenement> evenementList = FXCollections.observableArrayList();
+    private final ObservableList<Evenement> evenementList = FXCollections.observableArrayList();
 
     @FXML
     public void initialize() {
@@ -58,6 +54,7 @@ public class AfficherEvenement {
 
     public void refreshTable() {
         evenementList.setAll(evenementService.getAllEvenements());
+        affichertable.refresh();
     }
 
     @FXML
@@ -68,7 +65,8 @@ public class AfficherEvenement {
             Stage stage = new Stage();
             stage.setTitle("Ajouter Événement");
             stage.setScene(new Scene(root));
-            stage.show();
+            stage.showAndWait();
+            refreshTable();
         } catch (IOException e) {
             afficherAlerte("Erreur", "Impossible de charger la fenêtre d'ajout.");
             e.printStackTrace();
@@ -77,18 +75,27 @@ public class AfficherEvenement {
 
     @FXML
     void modifierEvenement(ActionEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/modifierevent.fxml"));
-            Parent root = loader.load();
-            ModifierEvenement controller = loader.getController();
-            controller.setAfficherEvenementController(this);
-            Stage stage = new Stage();
-            stage.setTitle("Modifier Événement");
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (IOException e) {
-            afficherAlerte("Erreur", "Impossible de charger la fenêtre de modification.");
-            e.printStackTrace();
+        Evenement selectedEvent = affichertable.getSelectionModel().getSelectedItem();
+        if (selectedEvent != null) {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/modifierevent.fxml"));
+                Parent root = loader.load();
+
+                ModifierEvenement controller = loader.getController();
+                controller.setEvenement(selectedEvent); // Remplissage des champs avec l'événement sélectionné
+
+                Stage stage = new Stage();
+                stage.setTitle("Modifier Événement");
+                stage.setScene(new Scene(root));
+                stage.showAndWait();
+
+                refreshTable(); // Rafraîchir la table après modification
+            } catch (IOException e) {
+                afficherAlerte("Erreur", "Impossible de charger la fenêtre de modification.");
+                e.printStackTrace();
+            }
+        } else {
+            afficherAlerte("Erreur", "Veuillez sélectionner un événement à modifier.");
         }
     }
 
@@ -96,9 +103,17 @@ public class AfficherEvenement {
     void supprimer_event(ActionEvent event) {
         Evenement selectedEvent = affichertable.getSelectionModel().getSelectedItem();
         if (selectedEvent != null) {
-            evenementService.supprimer(selectedEvent);
-            afficherAlerte("Succès", "Événement supprimé avec succès !");
-            refreshTable(); // Rafraîchir la TableView après suppression
+            Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION);
+            confirmation.setTitle("Confirmation");
+            confirmation.setHeaderText("Suppression d'un événement");
+            confirmation.setContentText("Êtes-vous sûr de vouloir supprimer cet événement ?");
+
+            Optional<ButtonType> result = confirmation.showAndWait();
+            if (result.isPresent() && result.get() == ButtonType.OK) {
+                evenementService.supprimer(selectedEvent);
+                afficherAlerte("Succès", "Événement supprimé avec succès !");
+                refreshTable();
+            }
         } else {
             afficherAlerte("Erreur", "Veuillez sélectionner un événement à supprimer.");
         }

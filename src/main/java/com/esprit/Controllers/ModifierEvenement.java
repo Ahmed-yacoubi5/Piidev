@@ -4,68 +4,54 @@ import com.esprit.models.Evenement;
 import com.esprit.services.EvenementService;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+
 import java.sql.Date;
 
 public class ModifierEvenement {
-    private EvenementService evenementService = new EvenementService();
+    private final EvenementService evenementService = new EvenementService();
+    private Evenement evenement;
 
     @FXML
-    private TextField tf_id;
+    private TextField tf_nom, tf_type, tf_titre, tf_id;
     @FXML
-    private TextField tf_nom;
-    @FXML
-    private TextField tf_type;
-    @FXML
-    private TextField tf_titre;
-    @FXML
-    private DatePicker dp_datedebut;
-    @FXML
-    private DatePicker dp_datefin;
-    @FXML
-    private TableView<Evenement> affichertable;
+    private DatePicker dp_datedebut, dp_datefin;
 
-    @FXML
-    public void initialize() {
-        affichertable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-            if (newSelection != null) {
-                populateFields(newSelection);
-            }
-        });
-    }
+    // Setter pour initialiser l'événement dans l'interface
+    public void setEvenement(Evenement evenement) {
+        this.evenement = evenement;
+        tf_id.setText(String.valueOf(evenement.getId()));
+        tf_nom.setText(evenement.getNom());
+        tf_type.setText(evenement.getType());
+        tf_titre.setText(evenement.getTitre());
 
-    private void populateFields(Evenement selectedEvent) {
-        tf_id.setText(String.valueOf(selectedEvent.getId()));
-        tf_nom.setText(selectedEvent.getNom());
-        tf_type.setText(selectedEvent.getType());
-        tf_titre.setText(selectedEvent.getTitre());
-
-        // Correction des conversions de dates en évitant LocalDate
-        if (selectedEvent.getDateDebut() != null) {
-            dp_datedebut.setValue(selectedEvent.getDateDebut().toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate());
+        // Vérification si les dates sont nulles avant d'assigner
+        if (evenement.getDateDebut() != null) {
+            dp_datedebut.setValue(evenement.getDateDebut().toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate());
         }
-        if (selectedEvent.getDateFin() != null) {
-            dp_datefin.setValue(selectedEvent.getDateFin().toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate());
+        if (evenement.getDateFin() != null) {
+            dp_datefin.setValue(evenement.getDateFin().toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate());
         }
     }
 
+    // Méthode pour modifier l'événement avec les nouvelles valeurs
     @FXML
-    public void modifierEvenement() {
-        Evenement evenement = new Evenement();
-        evenement.setId(Integer.parseInt(tf_id.getText()));
-        evenement.setNom(tf_nom.getText());
-        evenement.setType(tf_type.getText());
-        evenement.setTitre(tf_titre.getText());
-        evenement.setDateDebut(Date.valueOf(dp_datedebut.getValue()));
-        evenement.setDateFin(Date.valueOf(dp_datefin.getValue()));
-        evenementService.modifier(evenement);
-        System.out.println("Événement modifié");
+    private void modifierEvenement() {
+        if (evenement != null) {
+            evenement.setNom(tf_nom.getText());
+            evenement.setType(tf_type.getText());
+            evenement.setTitre(tf_titre.getText());
+            evenement.setDateDebut(Date.valueOf(dp_datedebut.getValue()));
+            evenement.setDateFin(Date.valueOf(dp_datefin.getValue()));
 
-        AfficherEvenement afficherEvenement = new AfficherEvenement();
-        afficherEvenement.refreshTable();
+            evenementService.modifier(evenement);
+            fermerFenetre();
+        }
     }
 
-    public void setAfficherEvenementController(AfficherEvenement afficherEvenement) {
+    // Méthode pour fermer la fenêtre de modification
+    private void fermerFenetre() {
+        ((Stage) tf_nom.getScene().getWindow()).close();
     }
 }

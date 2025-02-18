@@ -1,6 +1,7 @@
 package com.esprit.models;
 
 import java.util.Date;
+import java.util.Objects;
 
 public class Evenement {
     private int id;
@@ -89,5 +90,18 @@ public class Evenement {
                 ", DateDebut=" + DateDebut +
                 ", DateFin=" + DateFin +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Evenement evenement = (Evenement) o;
+        return id == evenement.id && Objects.equals(nom, evenement.nom) && Objects.equals(type, evenement.type) && Objects.equals(titre, evenement.titre) && Objects.equals(DateDebut, evenement.DateDebut) && Objects.equals(DateFin, evenement.DateFin);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, nom, type, titre, DateDebut, DateFin);
     }
 }
