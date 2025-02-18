@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.gui.UpdateUser">
+    <children>
+        <VBox alignment="CENTER" layoutX="50" layoutY="50" spacing="10">
+            <!-- Title Label -->
+            <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Update User" />
+
+            <!-- Input Fields -->
+            <TextField fx:id="nom_input" promptText="Nom" />
+            <TextField fx:id="prenom_input" promptText="Prenom" />
+            <TextField fx:id="email_input" promptText="Email" />
+            <TextField fx:id="numtel_input" promptText="Phone" />
+            <TextField fx:id="adresse_input" promptText="Address" />
+            <TextField fx:id="mdp_input" promptText="Password" />
+
+            <!-- Gender ComboBox -->
+            <ComboBox fx:id="gender_combobox" promptText="Gender">
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                        <String fx:value="Male" />
+                        <String fx:value="Female" />
+                        <String fx:value="Other" />
+                    </FXCollections>
+                </items>
+            </ComboBox>
+
+            <!-- Role ComboBox -->
+            <ComboBox fx:id="role_combobox" editable="true" promptText="Role">
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                        <String fx:value="Admin" />
+                        <String fx:value="User" />
+                    </FXCollections>
+                </items>
+            </ComboBox>
+
+            <!-- Status ComboBox -->
+            <ComboBox fx:id="status_combobox" promptText="Status">
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                        <String fx:value="Active" />
+                        <String fx:value="Inactive" />
+                    </FXCollections>
+                </items>
+            </ComboBox>
+
+            <!-- Privileges ComboBox -->
+            <ComboBox fx:id="privileges_combobox" promptText="Privileges">
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                        <String fx:value="Read" />
+                        <String fx:value="Write" />
+                        <String fx:value="Admin" />
+                    </FXCollections>
+                </items>
+            </ComboBox>
+
+            <ComboBox fx:id="departement_combobox" promptText="Department">
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                        <String fx:value="IT" />
+                        <String fx:value="HR" />
+                        <String fx:value="Finance" />
+                        <String fx:value="Marketing" />
+                    </FXCollections>
+                </items>
+            </ComboBox>
+
+
+            <TextField fx:id="fidelityPoints_input" layoutX="200.0" layoutY="400.0" promptText="Fidelity Points"/>
+
+
+
+            <!-- Date of Birth DatePicker -->
+            <DatePicker fx:id="birthday_input" promptText="Date of Birth" />
+
+            <!-- Error Message Text -->
+            <Text fx:id="error" style="-fx-fill: red;" />
+
+            <!-- Buttons -->
+            <HBox alignment="CENTER" spacing="10">
+                <!-- Modify Button -->
+                <Button onAction="#modify_admin" text="Update User" />
+                <!-- Reset Button -->
+                <Button onAction="#reset_input" text="Reset" />
+                <!-- Back Button -->
+                <Button onAction="#back_to_list" text="Back" />
+            </HBox>
+        </VBox>
+    </children>
+</AnchorPane>
