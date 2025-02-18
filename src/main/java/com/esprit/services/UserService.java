@@ -12,7 +12,7 @@ public class UserService implements IService<User> {
     private final Connection connection = DataSource.getInstance().getConnection();
 
     @Override
-    public void ajouter(User user) {
+    public static void ajouter(User user) {
         String req = "INSERT INTO user (email, password, nom, prenom, date_de_naissance, roles, genre, adresse, num_de_telephone, status) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try {

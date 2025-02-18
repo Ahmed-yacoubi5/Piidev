@@ -7,8 +7,8 @@ import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
-import com.esprit.models.Client;
-import com.esprit.services.ClientService;
+import com.esprit.models.User;
+import com.esprit.services.UserService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -129,22 +129,11 @@ public class RegistreUserController implements Initializable {
             return;
         }
 
-        Client nouvelleUser = new Client(
-                0,
-                email,
-                pass,
-                nom,
-                nom2,
-                birthDate,
-                gender,
-                address,
-                num_t,
-                "Active",
-                "DefaultImageString",
-                0
-        );
+        User nouvelleUser = new User(
 
-        ClientService bs = new ClientService();
+                email_input.getText(), mdp_input.getText(), nom_input.getText(), prenom_input.getText(), dateDeNaissance, role_combobox.getValue(), selectedGender, adresse_input.getText(), numtel_input.getText(), "Active", "default.png", privileges, fidelityPoints, selectedDepartment);
+
+        UserService bs = new UserService();
         bs.ajouter(nouvelleUser);
 
         Alert alert2 = new Alert(AlertType.CONFIRMATION);

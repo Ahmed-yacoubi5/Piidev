@@ -129,7 +129,7 @@ public class AddUser {
             String privileges = privilegesField.getText();
 
             // Now create the Admin object
-            Admin admin = new Admin(
+            User admin = new User(
                     email_input.getText(),
                     mdp_input.getText(),
                     nom_input.getText(),
@@ -148,8 +148,8 @@ public class AddUser {
 
 
             // Add the admin using the AdminService
-            AdminService adminService = new AdminService();
-            adminService.ajouter(admin);
+            UserService userService = new UserService();
+            UserService.ajouter(admin);
         }
     }
 

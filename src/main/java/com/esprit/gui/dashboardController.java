@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.esprit.models.Admin;
-import com.esprit.services.AdminService;
+import com.esprit.services.UserService;
 import com.esprit.utils.DataSource;
 
 import javafx.collections.FXCollections;

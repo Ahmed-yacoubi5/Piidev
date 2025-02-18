@@ -1,7 +1,7 @@
 package com.esprit.gui;
 
 import com.esprit.models.Admin;
-import com.esprit.services.AdminService;
+import com.esprit.services.UserService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -58,7 +58,7 @@ public class UpdateUser {
     private TextField fidelityPoints_input;
 
     private Admin admin;
-    private AdminService adminService = new AdminService();
+    private UserService adminService = new UserService();
 
     @FXML
     public void initialize() {
@@ -93,13 +93,12 @@ public class UpdateUser {
         mdp_input.setText(admin.getPassword());
         gender_combobox.setValue(admin.getGenre());
         status_combobox.setValue(admin.getStatus());
-        privileges_combobox.setValue(admin.getPrivileges());
-        departement_combobox.setValue(admin.getDepartement());
+
 
         if (admin.getDateDeNaissance() != null) {
             birthday_input.setValue(LocalDate.parse(admin.getDateDeNaissance().toString()));
         }
-        fidelityPoints_input.setText(String.valueOf(admin.getFidelityPoints()));
+
     }
     @FXML
     void back_to_list(ActionEvent event) throws IOException {
@@ -174,9 +173,7 @@ public class UpdateUser {
         admin.setNumDeTelephone(numtel);
         admin.setRoles(role);
         admin.setStatus(status);
-        admin.setPrivileges(privileges);
-        admin.setDepartement(departement);
-        admin.setFidelityPoints(fidelityPoints);
+
 
 
         adminService.modifier(admin);

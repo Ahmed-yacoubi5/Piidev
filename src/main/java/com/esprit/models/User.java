@@ -55,6 +55,10 @@ public class User {
         this.status = active;
 
     }
+
+    public User(String text, String mdpInputText, String nomInputText, String prenomInputText, Date dateDeNaissance, String value, String selectedGender, String adresseInputText, String numtelInputText, String active, String image, String privileges, int fidelityPoints, String selectedDepartment) {
+
+    }
 // Getters and Setters
 
     public int getId() { return id; }

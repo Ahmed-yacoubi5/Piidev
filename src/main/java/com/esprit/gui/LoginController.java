@@ -1,11 +1,10 @@
 package com.esprit.gui;
 
-import com.esprit.services.AdminService;
-import com.esprit.services.ClientService;
-import com.esprit.services.EmployeService;
+import com.esprit.services.UserService;
+
 import com.esprit.models.Admin;
-import com.esprit.models.Client;
-import com.esprit.models.Employe;
+import com.esprit.models.Employé;
+import com.esprit.models.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -39,16 +38,12 @@ public class LoginController implements Initializable {
     @FXML
     private Button regs;
 
-    private AdminService adminService;
-    private ClientService clientService;
-    private EmployeService employeService;
+    private UserService userService;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // Initialize the services
-        adminService = new AdminService();
-        clientService = new ClientService();
-        employeService = new EmployeService();
+        UserService userService = new UserService();
     }
 
     @FXML
@@ -69,7 +64,7 @@ public class LoginController implements Initializable {
         // Try to find the user in Admin, Client, or Employe
         Admin admin = adminService.getAdminByUsername(username);
         Client client = clientService.getClientByUsername(username);
-        Employe employe = employeService.getEmployeByUsername(username);
+        Employé employe = employeService.getEmployeByUsername(username);
 
         // Check if the user exists
         if (admin != null) {
