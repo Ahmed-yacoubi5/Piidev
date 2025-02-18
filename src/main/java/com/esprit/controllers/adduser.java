@@ -1,0 +1,43 @@
+package com.esprit.controllers;
+
+
+    
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.TextField;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.Label;
+
+    public class adduser {
+
+        @FXML
+        private TextField usernameField;
+
+        @FXML
+        private PasswordField passwordField;
+
+        @FXML
+        private TextField emailField;
+
+        @FXML
+        private Label feedbackLabel;
+
+        @FXML
+        private void handleAddUser(ActionEvent event) {
+            String username = usernameField.getText();
+            String password = passwordField.getText();
+            String email = emailField.getText();
+
+            if (username.isEmpty() || password.isEmpty() || email.isEmpty()) {
+                feedbackLabel.setText("Please fill in all fields.");
+            } else {
+                // Simulate adding user to the database
+                feedbackLabel.setText("User added successfully!");
+
+
+
+
+            }
+        }
+    }
+
