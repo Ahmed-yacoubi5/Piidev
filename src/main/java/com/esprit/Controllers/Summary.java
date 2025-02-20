@@ -6,7 +6,10 @@ import com.esprit.models.Formation;
 import com.esprit.services.CandidatService;
 import com.esprit.services.EmployeService;
 import com.esprit.services.FormationService;
+import com.esprit.services.ProfilService;
 import com.esprit.utils.AppData;
+import com.esprit.utils.IdUtil;
+import com.esprit.utils.ImageSrc;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -20,6 +23,7 @@ import javafx.stage.Stage;
 import javafx.scene.control.ButtonType;
 import java.io.IOException;
 import java.sql.Date;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,6 +61,8 @@ public class Summary {
     private ListView<Formation> employeFormationView;
     @FXML
     private Button deleteEmploye;
+    @FXML
+    private ListView<Formation> candidatFormationView;
 
     private CandidatService candidatService;
     private EmployeService employeService;
@@ -96,13 +102,28 @@ public class Summary {
             if (newValue != null) {
                 try {
                     handleDateEmbauche(newValue.getId());
-                   AppData.getInstance().setCurrentSelectedId(newValue.getId());
+                    AppData.getInstance().setCurrentSelectedId(newValue.getId());
                     fillEmployeFormation();
 
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
 
+
+            }
+        });
+        List<Candidat> candidats = candidatService.rechercher();
+        candidatTableView.setItems(FXCollections.observableList(candidats));
+        candidatTableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                try {
+                    AppData.getInstance().setSelectedCandidatId(newValue.getId());
+                    fillCandidatFormation();
+                    System.out.print("Selected Candidat with ID : " + AppData.getInstance().getSelectedCandidatId());
+                }
+                catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
@@ -165,10 +186,33 @@ public class Summary {
         }
 
         }
+    public void canFormationRedirect() throws IOException {
+
+        if (AppData.getInstance().getSelectedCandidatId() != 0) {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AddFormationCand.fxml"));
+            AnchorPane newPane = loader.load();
+
+
+            // Get the current stage and switch the scene
+            Stage currentStage = (Stage) modifyFormationEmploye.getScene().getWindow();
+            currentStage.setScene(new Scene(newPane));
+            currentStage.show();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Erreur");
+            alert.setHeaderText(null);
+            alert.setContentText("Please Select a user first");
+            alert.show();
+        }
+    }
 public void fillEmployeFormation() {
-    List <Formation> formationList = formationService.rechercher();
+    List <Formation> formationList = formationService.rechercher(AppData.getInstance().getCurrentSelectedId());
     employeFormationView.setItems(FXCollections.observableList(formationList));
    System.out.println(formationList);
+    }
+    public void fillCandidatFormation (){
+        List <Formation> candidatList = formationService.rechercher(AppData.getInstance().getSelectedCandidatId());
+        candidatFormationView.setItems(FXCollections.observableList(candidatList));
     }
 
     public void empDeleteButton() throws IOException {
@@ -221,8 +265,103 @@ public void fillEmployeFormation() {
 
         });
     }
+    public void deleteEmployeFormation () throws SQLException {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation");
+        alert.setHeaderText("Are you sure you want to proceed?");
+        alert.setContentText("Click Yes to confirm, No to cancel.");
+        alert.showAndWait().ifPresent(response -> {
+            if (response == ButtonType.OK) {
+                FormationService formationService = new FormationService();
+                Formation formation = new Formation(AppData.getInstance().getCurrentSelectedId(), employeFormationView.getSelectionModel().getSelectedItem().getDiplome()
+                        ,employeFormationView.getSelectionModel().getSelectedItem().getInstitution(),employeFormationView.getSelectionModel().getSelectedItem().getAnneeObtention());
+                formationService.supprimer(formation);
+                employeFormationView.getItems().remove(employeFormationView.getSelectionModel().getSelectedItem());
+                System.out.println("id: "+formation.getId() + "a"+formation.getAnneeObtention());
+            }
+        });
+
+    }
+    public void deleteCandidatFormation () throws SQLException {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation");
+        alert.setHeaderText("Are you sure you want to proceed?");
+        alert.setContentText("Click Yes to confirm, No to cancel.");
+        alert.showAndWait().ifPresent(response -> {
+            if (response == ButtonType.OK) {
+                FormationService formationService = new FormationService();
+                Formation formation = new Formation(AppData.getInstance().getSelectedCandidatId(), candidatFormationView.getSelectionModel().getSelectedItem().getDiplome()
+                        ,candidatFormationView.getSelectionModel().getSelectedItem().getInstitution(),candidatFormationView.getSelectionModel().getSelectedItem().getAnneeObtention());
+                formationService.supprimer(formation);
+                candidatFormationView.getItems().remove(candidatFormationView.getSelectionModel().getSelectedItem());
+                System.out.println("id: "+formation.getId() + "a"+formation.getAnneeObtention());
+            }
+        });
+    }
+public void viewEmpProfile() throws IOException {
+    ProfilService profilService = new ProfilService();
+    if(profilService.haveProfil(AppData.getInstance().getCurrentSelectedId())) {
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Profile.fxml"));
+        AnchorPane newPane = loader.load();
 
 
+        // Get the current stage and switch the scene
+        Stage currentStage = (Stage) modifyFormationEmploye.getScene().getWindow();
+        currentStage.setScene(new Scene(newPane));
+        currentStage.show();
+    }
+    else {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("No profile found");
+        alert.setHeaderText("No profile found, do you want to Set-up a profile for this Employe?");
+        alert.setContentText("Click Yes to confirm, No to cancel.");
+        alert.showAndWait();
+        if(alert.getResult() == ButtonType.OK) {
+            AppData.getInstance().setPendingId(AppData.getInstance().getCurrentSelectedId());
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ProfileSetup.fxml"));
+            AnchorPane newPane = loader.load();
+
+
+            // Get the current stage and switch the scene
+            Stage currentStage = (Stage) modifyFormationEmploye.getScene().getWindow();
+            currentStage.setScene(new Scene(newPane));
+            currentStage.show();
+        }
+    }
+}
+
+    public void viewCanProfile() throws IOException {
+        ProfilService profilService = new ProfilService();
+        if(profilService.haveProfil(AppData.getInstance().getSelectedCandidatId())) {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Profile.fxml"));
+            AnchorPane newPane = loader.load();
+
+
+            // Get the current stage and switch the scene
+            Stage currentStage = (Stage) modifyFormationEmploye.getScene().getWindow();
+            currentStage.setScene(new Scene(newPane));
+            currentStage.show();
+        }
+        else {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("No profile found");
+            alert.setHeaderText("No profile found, do you want to Set-up a profile for this Candidat?");
+            alert.setContentText("Click Yes to confirm, No to cancel.");
+            alert.showAndWait();
+            if(alert.getResult() == ButtonType.OK) {
+                AppData.getInstance().setPendingId(AppData.getInstance().getSelectedCandidatId());
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/ProfileSetup.fxml"));
+                AnchorPane newPane = loader.load();
+
+
+                // Get the current stage and switch the scene
+                Stage currentStage = (Stage) modifyFormationEmploye.getScene().getWindow();
+                currentStage.setScene(new Scene(newPane));
+                currentStage.show();
+            }
+        }
+    }
 }
 
 

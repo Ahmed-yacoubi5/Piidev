@@ -40,8 +40,12 @@ public class FormationController {
         alert.show();
 
     }
-    public void addButton(ActionEvent actionEvent) throws IOException {
+    public void addButtonEmp(ActionEvent actionEvent) throws IOException {
         ajouterFormation(AppData.getInstance().getCurrentSelectedId());
+
+    }
+    public void addButtonCand(ActionEvent actionEvent) throws IOException {
+        ajouterFormation(AppData.getInstance().getSelectedCandidatId());
 
     }
 

@@ -17,7 +17,7 @@ public class ProfilService implements IService<Profil> {
         try {
             PreparedStatement pst = connection.prepareStatement(req);
             pst.setInt(1, profil.getId());
-            pst.setString(2, profil.getNiveauFormation());
+            pst.setDouble(2, profil.getNiveauFormation());
             pst.setString(3, profil.getCompetence());
             pst.setString(4, profil.getExperince());
             pst.setString(5, profil.getCertification());
@@ -33,7 +33,7 @@ public class ProfilService implements IService<Profil> {
         String req = "UPDATE profil SET niveauFormation=? ,competence=? , experience=?, certification=? WHERE id=?";
         try {
             PreparedStatement pst = connection.prepareStatement(req);
-            pst.setString(1, profil.getNiveauFormation());
+            pst.setDouble(1, profil.getNiveauFormation());
             pst.setString(2, profil.getCompetence());
             pst.setInt(5, profil.getId());
             pst.setString(3, profil.getExperince());
@@ -68,11 +68,40 @@ public class ProfilService implements IService<Profil> {
             PreparedStatement pst = connection.prepareStatement(req);
             ResultSet rs = pst.executeQuery(req);
             while (rs.next()) {
-                profil.add(new Profil(rs.getInt("id"), rs.getString("niveauFormation"), rs.getString("competence"), rs.getString("experience"), rs.getString("certification")));
+                profil.add(new Profil(rs.getInt("id"), rs.getDouble("niveauFormation"), rs.getString("competence"), rs.getString("experience"), rs.getString("certification")));
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
         return profil;
   }
+  public boolean haveProfil(int id){
+        boolean result = false;
+        String req = "SELECT id FROM profil WHERE id=" + id;
+        try {
+            PreparedStatement pst = connection.prepareStatement(req);
+            ResultSet rs = pst.executeQuery(req);
+            while (rs.next()) {
+                if (rs.getInt("id") == id) {
+                    result = true;
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return result;
+  }
+    public void handleImageProfile(int id, String src) {
+        String query = "INSERT INTO imageprofil (src,id) VALUES (?, ?)";
+        try {
+            PreparedStatement st = connection.prepareStatement(query);
+            st.setInt(2, id);      // Set the id parameter
+            st.setString(1, src);   // Set the url parameter
+            st.executeUpdate();      // Execute the query
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }

@@ -1,8 +1,12 @@
 package com.esprit.utils;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class AppData {
     private static AppData instance;
-    private int selectedEmployeeId;
+    private int selectedCandidatId;
+    private int pendingId;
 
     private AppData() {
         // Private constructor to prevent instantiation
@@ -23,4 +27,22 @@ public class AppData {
     public void setCurrentSelectedId(int currentSelectedId) {
         this.currentSelectedId = currentSelectedId;
     }
+    public int getSelectedCandidatId() {
+        return selectedCandidatId;
+    }
+    public void setSelectedCandidatId(int selectedCandidatId) {
+        this.selectedCandidatId = selectedCandidatId;
+    }
+    public int getPendingId() {
+        return pendingId;
+    }
+    public void setPendingId(int pendingId) {
+        this.pendingId = pendingId;
+    }
+    public static String getCurrentDateTime() {
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
+        return currentDateTime.format(formatter);
+    }
+
 }

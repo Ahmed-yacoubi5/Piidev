@@ -2,6 +2,8 @@ package com.esprit.Controllers;
 
 import com.esprit.models.Employe;
 import com.esprit.services.EmployeService;
+import com.esprit.utils.AppData;
+import com.esprit.utils.IdUtil;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -22,6 +24,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import static com.esprit.utils.IdUtil.*;
+import static java.lang.Integer.parseInt;
 
 public class AjouterEmploye implements Initializable {
     @FXML
@@ -51,7 +54,7 @@ public class AjouterEmploye implements Initializable {
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
                 try {
                     // Get the existing IDs from the database
-                    List<Integer> existingIds = empGetExistingIdsFromDatabase();
+                    List<Integer> existingIds = getExistingIdsFromDatabase();
 
                     // Check if the ID exists in the database
                     if (newValue.isEmpty()) {
@@ -72,25 +75,58 @@ public class AjouterEmploye implements Initializable {
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
-                    errorLabel.setText("Error while checking the ID.");
+                    errorLabel.setText("Please enter a valid ID");
                 }
             }
         });
     }
 
-    public void ajouterEmploye(javafx.event.ActionEvent actionEvent) throws IOException {
+    public void ajouterEmploye(javafx.event.ActionEvent actionEvent) throws IOException, SQLException {
         LocalDate ld = dateEmbauche.getValue();
         Date sqldate = Date.valueOf(ld);
         EmployeService es = new EmployeService();
-        es.ajouter(new Employe(Integer.valueOf(this.id.getText()), nom.getText(), prenom.getText(), email.getText(), poste.getText(), sqldate));
+        if (!IdUtil.getExistingIdsFromDatabase().contains(parseInt(this.id.getText()))) {
+            es.ajouter(new Employe(Integer.valueOf(this.id.getText()), nom.getText(), prenom.getText(), email.getText(), poste.getText(), sqldate));
 
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Confirmation");
-        alert.setContentText("Employee added");
-        alert.show();
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Confirmation");
+            alert.setContentText("Employee added");
+            alert.show();
+            AppData.getInstance().setPendingId(Integer.valueOf(id.getText()));
+
+            Alert proceedAlert = new Alert(Alert.AlertType.CONFIRMATION);
+            proceedAlert.setTitle("Proceed to profile setup ?");
+            proceedAlert.setHeaderText(null);
+            proceedAlert.setContentText("Do you want to finish setting up a profile for this user ?");
+            proceedAlert.showAndWait();
+            if (proceedAlert.getResult() == ButtonType.OK) {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/ProfileSetup.fxml"));
+                AnchorPane newPane = loader.load();
+
+                Stage currentStage = (Stage) email.getScene().getWindow();
+                currentStage.setScene(new Scene(newPane));
+                currentStage.show();
+            }
+            else{
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/SummaryView.fxml"));
+                AnchorPane newPane = loader.load();
+
+                Stage currentStage = (Stage) email.getScene().getWindow();
+                currentStage.setScene(new Scene(newPane));
+                currentStage.show();
+            }
+        }
+        else {
+            Alert idAlert = new Alert(Alert.AlertType.ERROR);
+            idAlert.setTitle("Erreur");
+            idAlert.setHeaderText(null);
+            idAlert.setContentText("Id already exists.");
+            idAlert.showAndWait();
+        }
+
     }
     public void autoId() throws SQLException {
-        List<Integer> usedId = empGetExistingIdsFromDatabase();
+        List<Integer> usedId = getExistingIdsFromDatabase();
         String autogen = String.valueOf(empGenerateUniqueRandomId(usedId));
         this.id.setText(autogen);
     }

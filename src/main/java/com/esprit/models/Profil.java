@@ -3,13 +3,13 @@ package com.esprit.models;
 public class Profil {
 
     protected static int id;
-    protected static String niveauFormation;
+    protected static double niveauFormation;
     protected static String competence;
     protected static String experience;
     protected static String certification;
 
     @SuppressWarnings("static-access")
-    public Profil(int id, String niveauFormation , String exp, String comp , String cer) {
+    public Profil(int id, double niveauFormation , String exp, String comp , String cer) {
         this.id = id;
         this.niveauFormation = niveauFormation;
         this.experience = exp;
@@ -18,7 +18,7 @@ public class Profil {
     }
 
     @SuppressWarnings("static-access")
-    public Profil(String exp, String niveauFormation , String comp , String cer) {
+    public Profil(String exp, double niveauFormation , String comp , String cer) {
         this.niveauFormation = niveauFormation ;
         this.experience = exp;
         this.competence = comp;
@@ -35,12 +35,12 @@ public class Profil {
     }
     
     @SuppressWarnings("static-access")
-    public String getNiveauFormation(){
+    public double getNiveauFormation(){
         return this.niveauFormation;
     }
 
     @SuppressWarnings("static-access")
-    public void setNiveauFormation(String nf){
+    public void setNiveauFormation(double nf){
         this.niveauFormation=nf;
     }
     public String getExperince() {
