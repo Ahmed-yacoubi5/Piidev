@@ -49,7 +49,7 @@ public class DetailsCongesController {
             afficherAlerte("⚠️ Champs vides", "Tous les champs doivent être remplis.");
             return;
         }
-       
+
         try {
             LocalDate debut = LocalDate.parse(dateDebut, DateTimeFormatter.ISO_LOCAL_DATE);
             LocalDate fin = LocalDate.parse(dateFin, DateTimeFormatter.ISO_LOCAL_DATE);

@@ -51,5 +51,4 @@ public class absence {
                 ", statut='" + statut + '\'' +
                 '}';
     }
-
 }

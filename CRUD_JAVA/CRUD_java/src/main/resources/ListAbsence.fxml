@@ -8,48 +8,38 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.paint.Color?>
-<?import javafx.scene.paint.LinearGradient?>
-<?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="685.0" prefWidth="897.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.controllers.ListAbsenceController">
-   <Label layoutX="-6.0" prefHeight="687.0" prefWidth="254.0" style="-fx-background-color: #F4E7FF;" />
+<AnchorPane prefHeight="685.0" prefWidth="897.0" stylesheets="@style.css"
+            xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.esprit.controllers.ListAbsenceController">
+
+    <Label layoutX="-6.0" prefHeight="687.0" prefWidth="254.0" style="-fx-background-color: #F4E7FF;" />
 
     <!-- Titre -->
-    <Text layoutX="446.0" layoutY="77.0" styleClass="title-text" text="Gestion des Absences" textAlignment="CENTER" wrappingWidth="254.40000000000003">
-      <font>
-         <Font size="25.0" />
-      </font>
-      <fill>
-         <LinearGradient endX="1.0" endY="1.0">
-            <stops>
-               <Stop>
-                  <color>
-                     <Color />
-                  </color>
-               </Stop>
-               <Stop offset="1.0">
-                  <color>
-                     <Color red="0.7400701642036438" green="0.4014035165309906" blue="0.75789475440979" />
-                  </color>
-               </Stop>
-            </stops>
-         </LinearGradient>
-      </fill></Text>
+    <Text layoutX="446.0" layoutY="77.0" styleClass="title-text" text="Gestion des Absences" textAlignment="CENTER" wrappingWidth="254.4">
+        <font>
+            <Font size="25.0" />
+        </font>
+    </Text>
 
     <!-- Tableau des absences -->
     <TableView fx:id="TableViewListAbsence" layoutX="300.0" layoutY="233.0" prefHeight="370.0" prefWidth="554.0" styleClass="table-view">
         <columns>
             <TableColumn fx:id="ColumnId" prefWidth="60" text="ID" />
             <TableColumn fx:id="ColumnType" minWidth="0.0" prefWidth="64.0" text="Type" />
-            <TableColumn fx:id="ColumnDateDebut" prefWidth="99.20001220703125" text="Date Début" />
-            <TableColumn fx:id="ColumnDateFin" minWidth="0.7999267578125" prefWidth="78.4000244140625" text="Date Fin" />
-            <TableColumn fx:id="ColumnEmployeeId" prefWidth="117.60003662109375" text="ID Employé" />
-            <TableColumn fx:id="ColumnStatut" prefWidth="63.2000732421875" text="Statut" />
+            <TableColumn fx:id="ColumnDateDebut" prefWidth="99.2" text="Date Début" />
+            <TableColumn fx:id="ColumnDateFin" minWidth="0.8" prefWidth="78.4" text="Date Fin" />
+            <TableColumn fx:id="ColumnEmployeeId" prefWidth="117.6" text="ID Employé" />
+            <TableColumn fx:id="ColumnStatut" prefWidth="63.2" text="Statut" />
         </columns>
     </TableView>
+
+    <!-- Champ de recherche -->
+    <TextField fx:id="searchField" layoutX="502.0" layoutY="148.0" prefHeight="39.0" prefWidth="347.0"
+               promptText="🔍 Rechercher..."
+               style="-fx-background-color: #ffffff; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" />
 
     <!-- Boutons d'action -->
     <Button layoutX="27.0" layoutY="273.0" onAction="#ButtonActionAjouterAbsence" styleClass="button" text=" Ajouter Absence">
@@ -61,7 +51,8 @@
             </ImageView>
         </graphic>
     </Button>
-    <Button layoutX="22.0" layoutY="342.0" prefHeight="44.0" prefWidth="196.0" styleClass="button" text=" Statestiques">
+
+    <Button layoutX="22.0" layoutY="342.0" onAction="#afficherStatistiques" prefHeight="44.0" prefWidth="196.0" styleClass="button" text=" Statistiques">
         <graphic>
             <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                 <image>
@@ -69,7 +60,9 @@
                 </image>
             </ImageView>
         </graphic>
-    </Button>    <Button layoutX="22.0" layoutY="412.0" onAction="#ButtonActionRetourMenu" prefHeight="44.0" prefWidth="203.0" styleClass="button-exit" text="   Retour au Menu">
+    </Button>
+
+    <Button layoutX="22.0" layoutY="412.0" onAction="#ButtonActionRetourMenu" prefHeight="44.0" prefWidth="203.0" styleClass="button-exit" text="   Retour au Menu">
         <graphic>
             <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                 <image>
@@ -78,17 +71,5 @@
             </ImageView>
         </graphic>
     </Button>
-   
-   <Label layoutX="338.0" layoutY="132.0" style="-fx-background-color: #ffffffff;" text="22000" textFill="#14469c">
-      <font>
-         <Font name="System Bold" size="26.0" />
-      </font>
-   </Label>
-   <Label layoutX="331.0" layoutY="178.0" style="-fx-background-color: #ffffffff;" text="Total Absences" textFill="#2e2c2c" />
-   <TextField layoutX="502.0" layoutY="148.0" prefHeight="39.0" prefWidth="347.0" promptText="search" style="-fx-background-color: #ffffff; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" />
-   <ImageView fitHeight="134.0" fitWidth="131.0" layoutX="56.0" layoutY="65.0">
-      <image>
-         <Image url="@images/jimmy-fallon.png" />
-      </image>
-   </ImageView>
+
 </AnchorPane>

@@ -34,6 +34,6 @@
     <!-- Boutons d'action -->
     <Button layoutX="210.0" layoutY="516.0" onAction="#ButtonActionModifier" styleClass="button" text="✏️ Modifier" />
     <Button layoutX="360.0" layoutY="516.0" onAction="#ButtonActionSupprimer" styleClass="button-exit" text="🗑️ Supprimer" />
-    <Button layoutX="510.0" layoutY="516.0" onAction="#ButtonActionRetourListe" styleClass="button-exit" text="🔙 Retour à la Liste" />
+
 
 </AnchorPane>
