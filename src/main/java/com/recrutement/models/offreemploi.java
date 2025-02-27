@@ -68,7 +68,6 @@ public class offreemploi {
     @Override
     public String toString() {
         return "offreemploi{" +
-                "id=" + id +
                 ", titre='" + titre + '\'' +
                 ", description='" + description + '\'' +
                 ", date_publication='" + date_publication + '\'' +

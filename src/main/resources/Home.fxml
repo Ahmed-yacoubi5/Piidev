@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.recrutement.controllers.HomeController">
+    <children>
+        <Button layoutX="230.0" layoutY="100.0" mnemonicParsing="false" onAction="#goToOffreEmploi" prefHeight="50.0" prefWidth="150.0" text="Offres d'Emploi">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Button>
+        <Button layoutX="230.0" layoutY="200.0" mnemonicParsing="false" onAction="#goToAjoutCV" prefHeight="50.0" prefWidth="150.0" text="Ajouter un CV">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Button>
+    </children>
+</AnchorPane>

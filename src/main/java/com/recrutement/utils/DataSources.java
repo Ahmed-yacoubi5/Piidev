@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 public class DataSources {
 
-        private Connection connection;
+        private static Connection connection;
         private static DataSources instance;
 
         private final String URL = "jdbc:mysql://localhost:3306/gestion_recrutement";
@@ -28,7 +28,7 @@ public class DataSources {
             return instance;
         }
 
-        public Connection getConnection() {
+        public static Connection getConnection() {
             return connection;
         }
     }
