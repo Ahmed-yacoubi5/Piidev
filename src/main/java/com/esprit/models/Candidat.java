@@ -11,6 +11,9 @@ public class Candidat {
     private String cv;
     private ArrayList<Formation> formations = new ArrayList<>(); 
 
+    public Candidat() {
+
+    }
     public Candidat(String n , String p , String e ,String cv , int id) {
 
         this.nom=n;

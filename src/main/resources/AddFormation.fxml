@@ -8,10 +8,8 @@
 
 <?import javafx.scene.layout.HBox?>
 <AnchorPane prefHeight="583.0" prefWidth="853.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.Controllers.FormationController">
-   <HBox>
-      <fx:include source="NavBar.fxml" />
-   </HBox>
    <children>
+      <fx:include source="NavBar.fxml" />
       <TextField fx:id="diplome" layoutX="278.0" layoutY="124.0" prefHeight="25.0" prefWidth="245.0" />
       <Label layoutX="102.0" layoutY="128.0" prefHeight="17.0" prefWidth="118.0" text="Diplome" />
       <Label layoutX="102.0" layoutY="221.0" text="Institution" />

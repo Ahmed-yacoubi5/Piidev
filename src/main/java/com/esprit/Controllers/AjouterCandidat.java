@@ -12,9 +12,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
@@ -42,7 +46,14 @@ public class AjouterCandidat implements Initializable {
     // Initialize method to add listener to the id field
     @Override
     public void initialize(java.net.URL location, java.util.ResourceBundle resources) {
-        // Add a listener to the id TextField to check real-time changes
+       id.setVisible(false);
+       generateId.setVisible(false);
+        try {
+            autoId();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
         id.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
@@ -78,7 +89,6 @@ public class AjouterCandidat implements Initializable {
             }
         });
     }
-
     public void ajouterCandidat(javafx.event.ActionEvent actionEvent) throws SQLException, IOException {
         CandidatService cs = new CandidatService();
         if (!IdUtil.getExistingIdsFromDatabase().contains(parseInt(this.id.getText()))) {
@@ -128,4 +138,49 @@ public class AjouterCandidat implements Initializable {
         String autogen = String.valueOf(generateUniqueRandomId(usedId));
         this.id.setText(autogen);
     }
+    public void uploadCv() {
+        // Create a file chooser to select an image
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("PDF Files", "*.pdf"));
+
+        // Open the file chooser and wait for the user to select a file
+        File selectedFile = fileChooser.showOpenDialog(new Stage());
+
+        if (selectedFile != null) {
+            try {
+                // Generate the destination filename using the current ID
+                String fileName = id.getText() + getFileExtension(selectedFile);
+
+                // Define the destination path
+                File destinationFile = new File("profile/Cv/" + fileName);
+
+                // Create the directories if they do not exist
+                destinationFile.getParentFile().mkdirs();
+
+                // Copy the selected file to the destination directory
+                Files.copy(selectedFile.toPath(), destinationFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                System.out.println(destinationFile.getAbsolutePath());
+
+                // Update the cv field with the file path
+                String filePath = destinationFile.getAbsolutePath();
+                cv.setText("profile/cv/"+String.valueOf(id.getText()));
+
+
+
+            } catch (IOException e) {
+                System.out.println("Error copying the image: " + e.getMessage());
+
+            }
+        } else {
+            System.out.println("No file selected.");
+
+        }
+    }
+
+    private String getFileExtension(File file) {
+        String fileName = file.getName();
+        int index = fileName.lastIndexOf('.');
+        return (index > 0) ? fileName.substring(index) : "";
+    }
+
 }

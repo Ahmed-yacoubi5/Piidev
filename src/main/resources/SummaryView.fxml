@@ -8,9 +8,8 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.cell.PropertyValueFactory?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.VBox?>
-
 <?import javafx.scene.layout.HBox?>
+
 <AnchorPane prefHeight="767.0" prefWidth="923.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.Controllers.Summary">
    <children>
       <HBox>
@@ -70,13 +69,13 @@
 
       <Label layoutX="14.0" layoutY="384.0" prefHeight="70.0" prefWidth="202.0" text="Candidat" />
       <Label layoutX="14.0" layoutY="14.0" prefHeight="70.0" prefWidth="202.0" text="Employe" />
-      <Button fx:id="editEmploye" layoutX="611.0" layoutY="279.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="173.0" text="EDIT" />
+      <Button fx:id="editEmploye" layoutX="611.0" layoutY="279.0" mnemonicParsing="false" onAction="#editEmp" prefHeight="25.0" prefWidth="173.0" text="EDIT" />
       <Button fx:id="addButtonEmp" layoutX="611.0" layoutY="95.0" mnemonicParsing="false" onAction="#handleAddButtonEmp" prefHeight="25.0" prefWidth="173.0" text="ADD" />
-      <Button fx:id="viewProfileEmploye" onAction="#viewEmpProfile" layoutX="611.0" layoutY="246.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="173.0" text="View Profile" />
+      <Button fx:id="viewProfileEmploye" layoutX="611.0" layoutY="246.0" mnemonicParsing="false" onAction="#viewEmpProfile" prefHeight="25.0" prefWidth="173.0" text="View Profile" />
       <Button fx:id="deleteEmploye" layoutX="611.0" layoutY="359.0" mnemonicParsing="false" onAction="#empDeleteButton" prefHeight="25.0" prefWidth="52.0" text="X" />
-      <Button fx:id="editCandidat" layoutX="609.0" layoutY="669.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="173.0" text="EDIT" />
+      <Button fx:id="editCandidat" layoutX="609.0" layoutY="669.0" mnemonicParsing="false" onAction="#editCand" prefHeight="25.0" prefWidth="173.0" text="EDIT" />
       <Button fx:id="addButtonCand" layoutX="611.0" layoutY="451.0" mnemonicParsing="false" onAction="#handleAddButtonCand" prefHeight="25.0" prefWidth="173.0" text="ADD" />
-      <Button fx:id="viewProfileCandidat" onAction="#viewCanProfile" layoutX="609.0" layoutY="633.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="173.0" text="View Profile" />
+      <Button fx:id="viewProfileCandidat" layoutX="609.0" layoutY="633.0" mnemonicParsing="false" onAction="#viewCanProfile" prefHeight="25.0" prefWidth="173.0" text="View Profile" />
       <Button fx:id="deleteCandidat" layoutX="611.0" layoutY="715.0" mnemonicParsing="false" onAction="#candDeleteButton" prefHeight="25.0" prefWidth="52.0" text="X" />
       <ListView fx:id="employeFormationView" layoutX="611.0" layoutY="118.0" prefHeight="129.0" prefWidth="306.0" />
       <ListView fx:id="dateEmbauche" layoutX="722.0" layoutY="316.0" prefHeight="25.0" prefWidth="187.0" />
@@ -87,5 +86,6 @@
       <ButtonBar layoutX="656.0" layoutY="14.0" prefHeight="40.0" prefWidth="257.0" />
       <Button layoutX="851.0" layoutY="246.0" mnemonicParsing="false" onAction="#deleteEmployeFormation" prefHeight="25.0" prefWidth="33.0" text="-" />
       <Button layoutX="851.0" layoutY="633.0" mnemonicParsing="false" onAction="#deleteCandidatFormation" prefHeight="25.0" prefWidth="33.0" text="-" />
+      <Button layoutX="720.0" layoutY="715.0" mnemonicParsing="false" onAction="#openCv" text="Open Cv" />
    </children>
 </AnchorPane>

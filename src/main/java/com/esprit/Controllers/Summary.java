@@ -3,6 +3,7 @@ package com.esprit.Controllers;
 import com.esprit.models.Employe;
 import com.esprit.models.Candidat;
 import com.esprit.models.Formation;
+import com.esprit.models.Profil;
 import com.esprit.services.CandidatService;
 import com.esprit.services.EmployeService;
 import com.esprit.services.FormationService;
@@ -16,11 +17,17 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import javafx.scene.control.ButtonType;
+
+import java.awt.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
@@ -70,6 +77,8 @@ public class Summary {
 
     public void initialize() {
         // Initialize services
+        empId.setVisible(false);
+        cli.setVisible(false);
         candidatService = new CandidatService();
         employeService = new EmployeService();
         formationService = new FormationService();
@@ -120,8 +129,7 @@ public class Summary {
                     AppData.getInstance().setSelectedCandidatId(newValue.getId());
                     fillCandidatFormation();
                     System.out.print("Selected Candidat with ID : " + AppData.getInstance().getSelectedCandidatId());
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
@@ -167,17 +175,16 @@ public class Summary {
 
     public void empFormationRedirect() throws IOException {
 
-        if(AppData.getInstance().getCurrentSelectedId()!=0){
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/AddFormation.fxml"));
-        AnchorPane newPane = loader.load();
+        if (AppData.getInstance().getCurrentSelectedId() != 0) {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AddFormation.fxml"));
+            AnchorPane newPane = loader.load();
 
 
-        // Get the current stage and switch the scene
-        Stage currentStage = (Stage) modifyFormationEmploye.getScene().getWindow();
-        currentStage.setScene(new Scene(newPane));
-        currentStage.show();
-    }
-        else{
+            // Get the current stage and switch the scene
+            Stage currentStage = (Stage) modifyFormationEmploye.getScene().getWindow();
+            currentStage.setScene(new Scene(newPane));
+            currentStage.show();
+        } else {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Erreur");
             alert.setHeaderText(null);
@@ -185,7 +192,8 @@ public class Summary {
             alert.show();
         }
 
-        }
+    }
+
     public void canFormationRedirect() throws IOException {
 
         if (AppData.getInstance().getSelectedCandidatId() != 0) {
@@ -205,13 +213,15 @@ public class Summary {
             alert.show();
         }
     }
-public void fillEmployeFormation() {
-    List <Formation> formationList = formationService.rechercher(AppData.getInstance().getCurrentSelectedId());
-    employeFormationView.setItems(FXCollections.observableList(formationList));
-   System.out.println(formationList);
+
+    public void fillEmployeFormation() {
+        List<Formation> formationList = formationService.rechercher(AppData.getInstance().getCurrentSelectedId());
+        employeFormationView.setItems(FXCollections.observableList(formationList));
+        System.out.println(formationList);
     }
-    public void fillCandidatFormation (){
-        List <Formation> candidatList = formationService.rechercher(AppData.getInstance().getSelectedCandidatId());
+
+    public void fillCandidatFormation() {
+        List<Formation> candidatList = formationService.rechercher(AppData.getInstance().getSelectedCandidatId());
         candidatFormationView.setItems(FXCollections.observableList(candidatList));
     }
 
@@ -227,7 +237,10 @@ public void fillEmployeFormation() {
         // Show the alert and capture the result of the user's action
         alert.showAndWait().ifPresent(response -> {
             if (response == ButtonType.OK) {
+                ProfilService profilService = new ProfilService();
                 // Proceed with the delete action if 'Yes' is clicked
+                formationService.suppressionComplete(employeTableView.getSelectionModel().getSelectedItem().getId());
+                profilService.suppressionTotale(employeTableView.getSelectionModel().getSelectedItem().getId());
                 employeService.supprimer(employeTableView.getSelectionModel().getSelectedItem());
                 employeTableView.getItems().remove(employeTableView.getSelectionModel().getSelectedItem());
                 employeTableView.refresh();
@@ -240,6 +253,7 @@ public void fillEmployeFormation() {
 
         });
     }
+
     public void candDeleteButton() throws IOException {
 
         // Create the confirmation alert
@@ -252,8 +266,12 @@ public void fillEmployeFormation() {
         // Show the alert and capture the result of the user's action
         alert.showAndWait().ifPresent(response -> {
             if (response == ButtonType.OK) {
+                ProfilService profilService = new ProfilService();
+
                 // Proceed with the delete action if 'Yes' is clicked
                 candidatService.supprimer(candidatTableView.getSelectionModel().getSelectedItem());
+                formationService.suppressionComplete(candidatTableView.getSelectionModel().getSelectedItem().getId());
+                profilService.suppressionTotale(candidatTableView.getSelectionModel().getSelectedItem().getId());
                 candidatTableView.getItems().remove(candidatTableView.getSelectionModel().getSelectedItem());
                 candidatTableView.refresh();
 
@@ -265,7 +283,8 @@ public void fillEmployeFormation() {
 
         });
     }
-    public void deleteEmployeFormation () throws SQLException {
+
+    public void deleteEmployeFormation() throws SQLException {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmation");
         alert.setHeaderText("Are you sure you want to proceed?");
@@ -274,15 +293,16 @@ public void fillEmployeFormation() {
             if (response == ButtonType.OK) {
                 FormationService formationService = new FormationService();
                 Formation formation = new Formation(AppData.getInstance().getCurrentSelectedId(), employeFormationView.getSelectionModel().getSelectedItem().getDiplome()
-                        ,employeFormationView.getSelectionModel().getSelectedItem().getInstitution(),employeFormationView.getSelectionModel().getSelectedItem().getAnneeObtention());
+                        , employeFormationView.getSelectionModel().getSelectedItem().getInstitution(), employeFormationView.getSelectionModel().getSelectedItem().getAnneeObtention());
                 formationService.supprimer(formation);
                 employeFormationView.getItems().remove(employeFormationView.getSelectionModel().getSelectedItem());
-                System.out.println("id: "+formation.getId() + "a"+formation.getAnneeObtention());
+                System.out.println("id: " + formation.getId() + "a" + formation.getAnneeObtention());
             }
         });
 
     }
-    public void deleteCandidatFormation () throws SQLException {
+
+    public void deleteCandidatFormation() throws SQLException {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmation");
         alert.setHeaderText("Are you sure you want to proceed?");
@@ -291,67 +311,26 @@ public void fillEmployeFormation() {
             if (response == ButtonType.OK) {
                 FormationService formationService = new FormationService();
                 Formation formation = new Formation(AppData.getInstance().getSelectedCandidatId(), candidatFormationView.getSelectionModel().getSelectedItem().getDiplome()
-                        ,candidatFormationView.getSelectionModel().getSelectedItem().getInstitution(),candidatFormationView.getSelectionModel().getSelectedItem().getAnneeObtention());
+                        , candidatFormationView.getSelectionModel().getSelectedItem().getInstitution(), candidatFormationView.getSelectionModel().getSelectedItem().getAnneeObtention());
                 formationService.supprimer(formation);
                 candidatFormationView.getItems().remove(candidatFormationView.getSelectionModel().getSelectedItem());
-                System.out.println("id: "+formation.getId() + "a"+formation.getAnneeObtention());
+                System.out.println("id: " + formation.getId() + "a" + formation.getAnneeObtention());
             }
         });
     }
-public void viewEmpProfile() throws IOException {
-    ProfilService profilService = new ProfilService();
-    if(profilService.haveProfil(AppData.getInstance().getCurrentSelectedId())) {
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Profile.fxml"));
-        AnchorPane newPane = loader.load();
-
-
-        // Get the current stage and switch the scene
-        Stage currentStage = (Stage) modifyFormationEmploye.getScene().getWindow();
-        currentStage.setScene(new Scene(newPane));
-        currentStage.show();
-    }
-    else {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("No profile found");
-        alert.setHeaderText("No profile found, do you want to Set-up a profile for this Employe?");
-        alert.setContentText("Click Yes to confirm, No to cancel.");
-        alert.showAndWait();
-        if(alert.getResult() == ButtonType.OK) {
-            AppData.getInstance().setPendingId(AppData.getInstance().getCurrentSelectedId());
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ProfileSetup.fxml"));
-            AnchorPane newPane = loader.load();
-
-
-            // Get the current stage and switch the scene
-            Stage currentStage = (Stage) modifyFormationEmploye.getScene().getWindow();
-            currentStage.setScene(new Scene(newPane));
-            currentStage.show();
-        }
-    }
-}
-
-    public void viewCanProfile() throws IOException {
-        ProfilService profilService = new ProfilService();
-        if(profilService.haveProfil(AppData.getInstance().getSelectedCandidatId())) {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Profile.fxml"));
-            AnchorPane newPane = loader.load();
-
-
-            // Get the current stage and switch the scene
-            Stage currentStage = (Stage) modifyFormationEmploye.getScene().getWindow();
-            currentStage.setScene(new Scene(newPane));
-            currentStage.show();
-        }
-        else {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+    public void viewEmpProfile() throws IOException {
+        if (AppData.getInstance().getCurrentSelectedId() == 0) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("No profile found");
-            alert.setHeaderText("No profile found, do you want to Set-up a profile for this Candidat?");
-            alert.setContentText("Click Yes to confirm, No to cancel.");
+            alert.setHeaderText("No Employe is selected");
+            alert.setContentText("please select an employe");
             alert.showAndWait();
-            if(alert.getResult() == ButtonType.OK) {
-                AppData.getInstance().setPendingId(AppData.getInstance().getSelectedCandidatId());
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/ProfileSetup.fxml"));
+        } else {
+            ProfilService profilService = new ProfilService();
+            if (profilService.haveProfil(AppData.getInstance().getCurrentSelectedId())) {
+                AppData.getInstance().setRedirectionFrom("employe");
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Profile.fxml"));
                 AnchorPane newPane = loader.load();
 
 
@@ -359,9 +338,136 @@ public void viewEmpProfile() throws IOException {
                 Stage currentStage = (Stage) modifyFormationEmploye.getScene().getWindow();
                 currentStage.setScene(new Scene(newPane));
                 currentStage.show();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("No profile found");
+                alert.setHeaderText("No profile found, do you want to Set-up a profile for this Employe?");
+                alert.setContentText("Click Yes to confirm, No to cancel.");
+                alert.showAndWait();
+                if (alert.getResult() == ButtonType.OK) {
+                    AppData.getInstance().setPendingId(AppData.getInstance().getCurrentSelectedId());
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/ProfileSetup.fxml"));
+                    AnchorPane newPane = loader.load();
+
+
+                    // Get the current stage and switch the scene
+                    Stage currentStage = (Stage) modifyFormationEmploye.getScene().getWindow();
+                    currentStage.setScene(new Scene(newPane));
+                    currentStage.show();
+                }
             }
         }
     }
+
+    public void viewCanProfile() throws IOException {
+        ProfilService profilService = new ProfilService();
+        if (AppData.getInstance().getSelectedCandidatId() == 0) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("No profile found");
+            alert.setHeaderText("No Candidat is selected");
+            alert.setContentText("please select a Candidat");
+            alert.showAndWait();
+
+        } else {
+            if (profilService.haveProfil(AppData.getInstance().getSelectedCandidatId())) {
+                AppData.getInstance().setRedirectionFrom("candidat");
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Profile.fxml"));
+                AnchorPane newPane = loader.load();
+
+
+                // Get the current stage and switch the scene
+                Stage currentStage = (Stage) modifyFormationEmploye.getScene().getWindow();
+                currentStage.setScene(new Scene(newPane));
+                currentStage.show();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("No profile found");
+                alert.setHeaderText("No profile found, do you want to Set-up a profile for this Candidat?");
+                alert.setContentText("Click Yes to confirm, No to cancel.");
+                alert.showAndWait();
+                if (alert.getResult() == ButtonType.OK) {
+                    AppData.getInstance().setPendingId(AppData.getInstance().getSelectedCandidatId());
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/ProfileSetup.fxml"));
+                    AnchorPane newPane = loader.load();
+
+
+                    // Get the current stage and switch the scene
+                    Stage currentStage = (Stage) modifyFormationEmploye.getScene().getWindow();
+                    currentStage.setScene(new Scene(newPane));
+                    currentStage.show();
+                }
+            }
+        }
+    }
+
+    public void editEmp() throws IOException {
+        if (AppData.getInstance().getCurrentSelectedId() == 0) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("No profile found");
+            alert.setHeaderText("No Employe is selected");
+            alert.setContentText("please select an Employe");
+            alert.showAndWait();
+        } else {
+            AppData.getInstance().setSelectedCandidatId(0);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Edit.fxml"));
+            AnchorPane newPane = loader.load();
+
+
+            // Get the current stage and switch the scene
+            Stage currentStage = (Stage) modifyFormationEmploye.getScene().getWindow();
+            currentStage.setScene(new Scene(newPane));
+            currentStage.show();
+        }
+    }
+
+    public void editCand() throws IOException {
+        if (AppData.getInstance().getSelectedCandidatId() == 0) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("No profile found");
+            alert.setHeaderText("No Candidat is selected");
+            alert.setContentText("please select a Candidat");
+            alert.showAndWait();
+        } else {
+            AppData.getInstance().setCurrentSelectedId(0);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Edit.fxml"));
+            AnchorPane newPane = loader.load();
+
+
+            // Get the current stage and switch the scene
+            Stage currentStage = (Stage) modifyFormationEmploye.getScene().getWindow();
+            currentStage.setScene(new Scene(newPane));
+            currentStage.show();
+        }
+    }
+
+    public void openCv() {
+        Candidat candidat = new Candidat();
+        candidat.setId(AppData.getInstance().getSelectedCandidatId());
+        CandidatService candidatService = new CandidatService();
+        candidatService.candidatAff(candidat);
+        String filePath = candidat.getCv() + ".pdf";
+
+        File file = new File(filePath);
+
+        if (!file.exists()) {
+            System.out.println("File does not exist: " + filePath);
+            return;
+        }
+
+        // Use Desktop class to open the file with the system's default application
+        if (Desktop.isDesktopSupported()) {
+            try {
+                Desktop.getDesktop().open(file);
+                System.out.println("Opening file: " + filePath);
+            } catch (IOException e) {
+                System.out.println("Error opening the file: " + e.getMessage());
+                e.printStackTrace();
+            }
+        } else {
+            System.out.println("Desktop is not supported on this system.");
+        }
+    }
+
 }
 
 

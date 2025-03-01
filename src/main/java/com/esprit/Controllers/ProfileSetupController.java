@@ -10,6 +10,8 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.fxml.Initializable;
@@ -35,12 +37,19 @@ public class ProfileSetupController {
     private TextArea certification;
     @FXML
     private Button chooseImageButton;
+    @FXML
+    private Circle chooseCheck ;
+    @FXML
+    private Label checkLabel;
 
     private String newImageUrl;
 
     private Profil profile;
     private String fn;
+    private boolean imageIsSet = false;
 public void initialize() {
+    slider.setMin(0);
+    slider.setMax(100);
     chooseImageButton.setOnAction(event -> handleChooseImage());
 
 }
@@ -48,8 +57,12 @@ public void setupProfile() throws IOException {
     profile = new Profil(AppData.getInstance().getPendingId(), slider.getValue(), competence.getText(), experience.getText(), certification.getText());
     ProfilService ps = new ProfilService();
     ps.ajouter(profile);
-    ps.handleImageProfile(AppData.getInstance().getPendingId(),getNewImageUrl() );
-
+    if(imageIsSet) {
+        ps.handleImageProfile(AppData.getInstance().getPendingId(), getNewImageUrl());
+    }
+    else {
+        ps.handleImageProfile(AppData.getInstance().getPendingId(), "/images/Default.jpg");
+    }
     Alert alert = new Alert(Alert.AlertType.INFORMATION);
     alert.setTitle("Information");
     alert.setHeaderText("Information");
@@ -73,6 +86,7 @@ public void setupProfile() throws IOException {
 
         if (selectedFile != null) {
             try {
+
                 // Generate a new unique filename for the server (e.g., UUID)
                 String fileName = String.valueOf(AppData.getInstance().getPendingId())+"_"+AppData.getCurrentDateTime() + getFileExtension(selectedFile);
 
@@ -89,6 +103,10 @@ public void setupProfile() throws IOException {
                 Image image = new Image(destinationFile.toURI().toString());
 
                 System.out.println("Image successfully uploaded. New image URL: " + newImageUrl);
+                this.imageIsSet = true;
+                chooseCheck.setFill(Color.GREEN);
+                checkLabel.setText("Image Loaded Successfully");
+                checkLabel.setTextFill(Color.GREEN);
 
             } catch (IOException e) {
                 System.out.println("Error copying the image: " + e.getMessage());

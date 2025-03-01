@@ -9,6 +9,9 @@ public class Profil {
     protected static String certification;
 
     @SuppressWarnings("static-access")
+    public Profil() {
+
+    }
     public Profil(int id, double niveauFormation , String exp, String comp , String cer) {
         this.id = id;
         this.niveauFormation = niveauFormation;
@@ -68,6 +71,10 @@ public class Profil {
     @SuppressWarnings("static-access")
     public void setCertification(String cer){
         this.certification = cer ;
+    }
+
+    public void setExperience(String experience) {
+        Profil.experience = experience;
     }
 
     @Override

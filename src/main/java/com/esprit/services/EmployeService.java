@@ -1,5 +1,6 @@
 package com.esprit.services;
 
+import com.esprit.models.Candidat;
 import com.esprit.models.Employe;
 import com.esprit.utils.DataSource;
 
@@ -83,5 +84,36 @@ public class EmployeService implements IService<Employe> {
             }
 
         return dateEmbauche;
+    }
+    public void empAff(Employe employe) {
+        int id = 0;
+        String nom = "";
+        String prenom = "";
+        String poste = "";
+        String email = "";
+        Date dateEmbauche = null;
+
+        String req = "SELECT * FROM employe where id = " + employe.getId();
+        try {
+            Statement st = connection.createStatement();
+            ResultSet rs = st.executeQuery(req);
+            while (rs.next()) {
+                id = rs.getInt("id");
+                nom = rs.getString("nom");
+                prenom = rs.getString("prenom");
+                poste = rs.getString("poste");
+                email = rs.getString("email");
+                dateEmbauche = rs.getDate("dateEmbauche");
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        employe.setId(id);
+        employe.setPrenom(prenom);
+        employe.setEmail(email);
+        employe.setNom(nom);
+        employe.setPoste("poste");
+        employe.setDateEmbauche(dateEmbauche);
+
     }
 }

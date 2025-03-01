@@ -7,7 +7,7 @@ public class AppData {
     private static AppData instance;
     private int selectedCandidatId;
     private int pendingId;
-
+    private String redirectionFrom;
     private AppData() {
         // Private constructor to prevent instantiation
     }
@@ -44,5 +44,10 @@ public class AppData {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
         return currentDateTime.format(formatter);
     }
-
+   public String getRedirectionFrom() {
+        return redirectionFrom;
+   }
+   public void setRedirectionFrom(String redirectionFrom) {
+        this.redirectionFrom = redirectionFrom;
+   }
 }

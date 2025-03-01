@@ -57,18 +57,28 @@ public class ProfilService implements IService<Profil> {
             System.out.println(e.getMessage());
         }
     }
+    public void suppressionTotale(int id){
+        String req = "DELETE from profil WHERE id=?";
+        try {
+            PreparedStatement pst = connection.prepareStatement(req);
+            pst.setInt(1, id);
+            pst.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
   @Override
     public List<Profil> rechercher() {
 
         List<Profil> profil = new ArrayList<>();
 
-      String req = "SELECT * FROM personne";
+      String req = "SELECT * FROM profil";
         try {
             PreparedStatement pst = connection.prepareStatement(req);
             ResultSet rs = pst.executeQuery(req);
             while (rs.next()) {
-                profil.add(new Profil(rs.getInt("id"), rs.getDouble("niveauFormation"), rs.getString("competence"), rs.getString("experience"), rs.getString("certification")));
+                profil.add(new Profil(rs.getInt("id"), rs.getDouble(  "niveauFormation"), rs.getString("competence"), rs.getString("experience"), rs.getString("certification")));
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -102,6 +112,26 @@ public class ProfilService implements IService<Profil> {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+    public Profil getProfile(int id) {
+        Profil profil = new Profil();
+        String req = "SELECT * FROM profil WHERE id= ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(req);
+            st.setInt(1,id);
+            st.executeQuery();
+            ResultSet rs = st.getResultSet();
+            while (rs.next()) {
+            profil.setId(rs.getInt("id"));
+            profil.setNiveauFormation(rs.getDouble("niveauFormation"));
+            profil.setCompetence(rs.getString("competence"));
+            profil.setCertification(rs.getString("certification"));
+            profil.setExperience(rs.getString("experience"));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return profil;
     }
 
 }

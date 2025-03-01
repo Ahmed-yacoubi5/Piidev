@@ -54,17 +54,28 @@ public class FormationService {
             System.out.println(e.getMessage());
         }
     }
+    public void suppressionComplete(int id) {
+        String req = "DELETE from formation WHERE id=? ";
+        try {
+            PreparedStatement pst = connection.prepareStatement(req);
+            pst.setInt(1,id);
+            pst.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 
     public List<Formation> rechercher(int id) {
         List<Formation> formation = new ArrayList<>();
 
-        String req = "SELECT diplome FROM formation where id= "+id;
+        String req = "SELECT * FROM formation where id= "+id;
         try {
             PreparedStatement pst = connection.prepareStatement(req);
             ResultSet rs = pst.executeQuery(req);
             while (rs.next()) {
-                formation.add(new Formation( rs.getString("diplome")));
+                formation.add(new Formation(id, rs.getString("diplome"),rs.getString("institution"),rs.getInt("anneeobtention")));
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());

@@ -48,7 +48,12 @@ public class AjouterEmploye implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // Add listener to the 'id' TextField
+        try {
+            autoId();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        id.setVisible(false);
         id.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
@@ -67,15 +72,18 @@ public class AjouterEmploye implements Initializable {
                             // Set the text field to red if the ID already exists
                             id.setStyle("-fx-border-color: red;");
                             errorLabel.setText("This ID already exists.");
+                            addButton.setDisable(true);
                         } else {
                             // Reset the text field style if the ID doesn't exist
                             id.setStyle("-fx-border-color: green;");
                             errorLabel.setText("ID Available");
+                            addButton.setDisable(false);
                         }
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
                     errorLabel.setText("Please enter a valid ID");
+                    addButton.setDisable(true);
                 }
             }
         });

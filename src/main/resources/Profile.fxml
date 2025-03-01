@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.image.ImageView?>
@@ -11,10 +13,10 @@
 
 <AnchorPane prefHeight="600" prefWidth="800" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.Controllers.ProfileController">
     <!-- Profile Image -->
-    <ImageView fx:id="profileImageView" fitHeight="150" fitWidth="150" layoutX="20" layoutY="20" preserveRatio="true" />
 
-    <!-- CV Image (Bigger and placed under profile image) -->
-    <ImageView fx:id="cvImage" fitHeight="631.0" fitWidth="292.0" layoutX="500.0" layoutY="18.0" preserveRatio="true" />
+        <fx:include source="NavBar.fxml" />
+
+    <ImageView fx:id="profileImageView" fitHeight="196.0" fitWidth="184.0" layoutY="156.0" preserveRatio="true" />
 
     <!-- Name, Surname, Email (Labels to display from DB) -->
     <VBox layoutX="200" layoutY="20" spacing="10">
@@ -34,26 +36,28 @@
 
     <!-- Competence Level Slider -->
     <VBox alignment="CENTER" layoutX="200" layoutY="220" spacing="10">
-        <Text text="Niveau de compétence" />
-        <Slider max="10" min="0" value="5" />
-        <Text fx:id="competenceLevelText" text="Competence Level: 5" />
+        <Text text="Niveau de Formation" />
+        <Slider fx:id="niveauFormation" max="10" min="0" prefHeight="14.0" prefWidth="293.0" value="5" />
+        <Text fx:id="competenceLevelText" text=" Level: " wrappingWidth="112.576171875" />
     </VBox>
 
-    <!-- Competence TextArea -->
+       <!-- Competence TextArea -->
     <VBox alignment="CENTER" layoutX="200" layoutY="300" spacing="10">
         <Text text="Compétences" />
-        <TextArea prefHeight="100" prefWidth="300" promptText="Enter your skills..." />
+        <TextArea fx:id="competence" prefHeight="100" prefWidth="585.0" promptText="Enter your skills..." />
     </VBox>
 
     <!-- Experience TextArea -->
     <VBox alignment="CENTER" layoutX="200" layoutY="420" spacing="10">
         <Text text="Expérience" />
-        <TextArea prefHeight="100" prefWidth="300" promptText="Enter your work experience..." />
+        <TextArea fx:id="experience" prefHeight="100" prefWidth="585.0" promptText="Enter your work experience..." />
     </VBox>
 
     <!-- Certification TextArea -->
     <VBox alignment="CENTER" layoutX="200" layoutY="540" spacing="10">
         <Text text="Certification" />
-        <TextArea prefHeight="100" prefWidth="300" promptText="Enter your certifications..." />
+        <TextArea fx:id="certification" prefHeight="100" prefWidth="585.0" promptText="Enter your certifications..." />
     </VBox>
+   <ListView fx:id="formationListView" layoutX="475.0" layoutY="14.0" prefHeight="126.0" prefWidth="308.0" />
+   <Button fx:id="emailButton" layoutX="200.0" layoutY="108.0" mnemonicParsing="false" onAction="#sendVerificationEmail" prefHeight="55.0" prefWidth="174.0" text="Send verification Email" />
 </AnchorPane>

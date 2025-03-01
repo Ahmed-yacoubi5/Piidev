@@ -67,11 +67,11 @@ public class CandidatService implements IService<Candidat> {
         return candidat;
     }
     public void candidatAff(Candidat candidat) {
-         int id;
-         String nom;
-         String prenom;
-         String cv;
-         String email;
+         int id = 0;
+         String nom = "";
+         String prenom = "";
+         String cv = "";
+         String email = "";
 
         String req = "SELECT * FROM candidat where id = " + candidat.getId();
         try {
@@ -87,6 +87,11 @@ public class CandidatService implements IService<Candidat> {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+        candidat.setId(id);
+        candidat.setPrenom(prenom);
+        candidat.setEmail(email);
+        candidat.setNom(nom);
+        candidat.setCv(cv);
 
     }
 }

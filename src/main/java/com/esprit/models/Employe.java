@@ -1,6 +1,5 @@
 package com.esprit.models;
 import java.sql.Date;
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Employe  {
@@ -12,7 +11,7 @@ public class Employe  {
     private Date dateEmbauche;
     private ArrayList<Formation> formations = new ArrayList<>();
 
-public Employe(int id ,String niveauFormation , String competence, String certification , String experience ,String n , String p , String email , String poste , Date de){
+public Employe(int id , String n , String p, String email , Date de){
     this.id=id;
     this.nom=n;
     this.prenom=p;
@@ -20,6 +19,9 @@ public Employe(int id ,String niveauFormation , String competence, String certif
     this.poste=poste;
     this.dateEmbauche=de;
 }
+    public Employe(){
+
+    }
 public Employe(int id , String nom , String prenom){
     this.id=id;
     this.nom=nom;
