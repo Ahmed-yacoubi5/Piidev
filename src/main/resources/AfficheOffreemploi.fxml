@@ -1,24 +1,101 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.recrutement.controllers.AfficheOffreemploi">
-    <children>
-        <Label layoutX="220.0" layoutY="50.0" style="-fx-font-size: 16px; -fx-font-weight: bold;" text="Liste des Offres d'Emploi" />
+<AnchorPane prefHeight="685.0" prefWidth="897.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.recrutement.controllers.AfficheOffreemploi">
 
-        <!-- ListView pour afficher les offres -->
-        <ListView fx:id="listViewOffres" layoutX="50.0" layoutY="100.0" prefWidth="500.0" prefHeight="200.0" />
+    <Label layoutX="-6.0" prefHeight="687.0" prefWidth="254.0" style="-fx-background-color: #F4E7FF;" />
 
-        <Button fx:id="btnRetour" layoutX="250.0" layoutY="320.0" mnemonicParsing="false" onAction="#handleRetour" text="Retour" />
-        <Button fx:id="btnModifier" layoutX="150.0" layoutY="320.0" mnemonicParsing="false" onAction="#handleModifier" text="Modifier" />
-        <Button fx:id="btnSupprimer" layoutX="350.0" layoutY="320.0" mnemonicParsing="false" onAction="#handleSupprimer" text="Supprimer" />
-        <Button fx:id="btnTrier" layoutX="500.0" layoutY="50.0" onAction="#handleTrier" text="Trier par Titre"/>
-        <Button fx:id="btnRechercher" text="Rechercher" layoutX="200" layoutY="20" onAction="#handleRechercher"/>
-        <TextField fx:id="txtRecherche" layoutX="20" layoutY="20" promptText="Entrez le titre de l'offre"/>
+    <!-- Titre -->
+    <Text layoutX="-3.0" layoutY="74.0" styleClass="title-text" text="Gestion des Offres d'Emploi" textAlignment="CENTER" wrappingWidth="254.4">
+        <font>
+            <Font size="25.0" />
+        </font>
+    </Text>
 
-    </children>
+    <!-- TableView pour afficher les offres -->
+    <TableView fx:id="tableViewOffres" layoutX="34.0" layoutY="155.0" prefHeight="318.0" prefWidth="844.0" styleClass="table-view">
+        <columns>
+            <TableColumn fx:id="colTitre" prefWidth="159.0" text="Titre" />
+            <TableColumn fx:id="colDescription" prefWidth="256.0" text="Description" />
+            <TableColumn fx:id="colDatePublication" prefWidth="246.0" text="Date Publication" />
+            <TableColumn fx:id="colStatut" prefWidth="136.0" text="Statut" />
+
+        </columns>
+    </TableView>
+
+    <!-- Champ de recherche -->
+    <TextField fx:id="txtRecherche" layoutX="267.0" layoutY="100.0" prefHeight="39.0" prefWidth="214.0" promptText="🔍 Rechercher par titre..." style="-fx-background-color: #ffffff; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" />
+    <Button fx:id="btnRechercher" layoutX="509.0" layoutY="100.0" onAction="#handleRechercher" styleClass="button" text="Rechercher" />
+
+    <!-- Boutons d'action -->
+    <Button layoutX="42.0" layoutY="496.0" onAction="#handleAjouter" styleClass="button" text="Ajouter Offre">
+        <graphic>
+            <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                <image>
+                    <Image url="@/images/add.png" />
+                </image>
+            </ImageView>
+        </graphic>
+    </Button>
+    <Button layoutX="34.0" layoutY="598.0" onAction="#handleAjouterFavoris" prefHeight="44.0" prefWidth="203.0" styleClass="button" text="Ajouter aux Favoris">
+        <graphic>
+            <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                <image>
+                    <Image url="@/images/favorite.png" />
+                </image>
+            </ImageView>
+        </graphic>
+    </Button>
+    <Button layoutX="248.0" layoutY="494.0" onAction="#handleModifier" prefHeight="44.0" prefWidth="196.0" styleClass="button" text="Modifier Offre">
+        <graphic>
+            <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                <image>
+                    <Image url="@/images/3597075.png" />
+                </image>
+            </ImageView>
+        </graphic>
+    </Button>
+
+    <Button layoutX="474.0" layoutY="494.0" onAction="#handleSupprimer" prefHeight="44.0" prefWidth="203.0" styleClass="button-exit" text="Supprimer Offre">
+        <graphic>
+            <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                <image>
+                    <Image url="@/images/blue-delete-button-png-29.png" />
+                </image>
+            </ImageView>
+        </graphic>
+    </Button>
+
+    <Button layoutX="274.0" layoutY="28.0" onAction="#handleStatistiquesParStatut" prefHeight="39.0" prefWidth="200.0" styleClass="button" text="Statistiques par Statut" />
+    <Button layoutX="280.0" layoutY="598.0" onAction="#handleAfficherFavoris" prefHeight="44.0" prefWidth="188.0" styleClass="button" text="Afficher les Favoris" />
+
+    <Button layoutX="695.0" layoutY="494.0" onAction="#handleRetour" prefHeight="44.0" prefWidth="203.0" styleClass="button-exit" text="Retour au Menu">
+        <graphic>
+            <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                <image>
+                    <Image url="@/images/home.png" />
+                </image>
+            </ImageView>
+        </graphic>
+    </Button>
+    <Button layoutX="600.0" layoutY="28.0" onAction="#handleExportToExcel" prefHeight="39.0" prefWidth="150.0" styleClass="button" text="Exporter vers Excel">
+
+    </Button>
+    <PieChart fx:id="statChart" layoutX="200" layoutY="150" prefHeight="300" prefWidth="400" />
+
+
+    <!-- Bouton Trier -->
+    <Button fx:id="btnTrier" layoutX="676.0" layoutY="100.0" onAction="#handleTrier" styleClass="button" text="Trier par Titre" />
+
 </AnchorPane>

@@ -7,17 +7,29 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Date;
 import java.time.LocalDate;
-import java.util.List;
 
 public class AjoutCvController {
 
+    @FXML
+    private ImageView imageView;
+
+    @FXML
     public Button btnRetour;
+
     @FXML
     private TextField txtNom, txtPrenom, txtAdresse, txtEmail, txtTelephone;
 
@@ -28,6 +40,22 @@ public class AjoutCvController {
     private Button btnAjouter, btnAnnuler;
 
     private CvServices cvServices = new CvServices();
+
+    @FXML
+    void handleImageUpload(ActionEvent event) {
+        // Ouvrir une boîte de dialogue pour sélectionner un fichier image
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg"));
+
+        // Afficher la fenêtre de sélection de fichier
+        File file = fileChooser.showOpenDialog(null);
+
+        if (file != null) {
+            // Créer un objet Image en utilisant le fichier sélectionné
+            Image image = new Image(file.toURI().toString());
+            imageView.setImage(image); // Afficher l'image dans l'ImageView
+        }
+    }
 
     @FXML
     void ajouterCv() {
@@ -44,49 +72,46 @@ public class AjoutCvController {
             return;
         }
 
-        int telephone;
-        try {
-            telephone = Integer.parseInt(telephoneStr); // Corrected to parse properly as an integer
-        } catch (NumberFormatException e) {
-            showAlert("Erreur", "Le téléphone doit être un nombre valide.");
-            return;
-        }
+        // Validation du format du téléphone
         if (!telephoneStr.matches("\\d{8}")) {
             showAlert("Erreur", "Le téléphone doit être un nombre valide avec exactement 8 chiffres.");
             return;
         }
+
+        // Validation du format de l'email
         if (!email.matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")) {
             showAlert("Erreur", "L'email n'est pas valide.");
             return;
         }
 
-        // Création du CV
-        cv newCv = new cv(nom, prenom, Date.valueOf(dateDeNaissance), adresse, email, telephone);
+        int telephone;
+        try {
+            telephone = Integer.parseInt(telephoneStr);  // Utilisation correcte pour convertir le numéro en entier
+        } catch (NumberFormatException e) {
+            showAlert("Erreur", "Le téléphone doit être un nombre valide.");
+            return;
+        }
+
+        // Vérifier si une image a été sélectionnée
+        if (this.imageView.getImage() == null) {
+            showAlert("Erreur", "Veuillez sélectionner une image.");
+            return;
+        }
+
+        // Récupérer le fichier image
+        File file = new File(this.imageView.getImage().getUrl().replace("file:/", ""));
+        String imagePath = file.getAbsolutePath();  // Enregistrer le chemin du fichier au lieu des octets de l'image
+
+        // Création du CV avec l'image sous forme de chemin
+        cv newCv = new cv(0, nom, prenom, Date.valueOf(dateDeNaissance), adresse, email, telephone, imagePath);
+
+        // Appel à la méthode de service pour ajouter le CV
         cvServices.ajouter(newCv);
 
         showAlert("Succès", "CV ajouté avec succès !");
-        annuler();
+        annuler();  // Réinitialisation des champs
     }
 
-    @FXML
-    void afficherCVs(ActionEvent event) throws IOException {
-        // Récupérer toutes les offres d'emploi depuis la base de données
-        CvServices service = new CvServices();
-        List<cv> cvs = service.getAllCVs(); // Récupérer la liste des offres
-
-        // Charger le fichier FXML de la scène qui affiche les résultats
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficheCV.fxml"));
-        Parent root = loader.load();
-
-        // Passer les données (les offres d'emploi) au contrôleur de la nouvelle scène
-        AfficheCV controller = loader.getController();
-        controller.setcv(cvs); // Passer la liste des offres au contrôleur
-
-        // Créer une nouvelle scène et l'afficher
-        Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
-        stage.setScene(new Scene(root));
-        stage.show();
-    }
 
     @FXML
     void annuler() {
@@ -96,10 +121,12 @@ public class AjoutCvController {
         txtEmail.clear();
         txtTelephone.clear();
         datePicker.setValue(null);
+        imageView.setImage(null);  // Réinitialisation de l'image
     }
+
     @FXML
     void handleRetour(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Home.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficheCV.fxml"));
         Parent root = loader.load();
 
         // Récupérer la fenêtre actuelle et modifier la scène
@@ -107,6 +134,7 @@ public class AjoutCvController {
         stage.setScene(new Scene(root));
         stage.show();
     }
+
     private void showAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);

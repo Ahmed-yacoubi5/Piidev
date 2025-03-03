@@ -4,16 +4,23 @@ import com.recrutement.models.offreemploi;
 import com.recrutement.models.statut;
 import com.recrutement.services.OffreEmploiServices;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent; // Correction de l'importation
 
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class ModifierOffreEmploiController implements Initializable {
+
+    @FXML
+    private DatePicker datePickerPublication; // Assurez-vous que vous utilisez cette variable pour le DatePicker
 
     @FXML
     private TextField txtTitre;
@@ -25,7 +32,7 @@ public class ModifierOffreEmploiController implements Initializable {
     private ComboBox<statut> cmbStatut;
 
     @FXML
-    private DatePicker datePicker;
+    private DatePicker datePicker; // Si vous en avez besoin, vous pouvez l'utiliser aussi
 
     @FXML
     private Button btnModifier;
@@ -44,6 +51,11 @@ public class ModifierOffreEmploiController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         // Remplir la ComboBox avec les valeurs de l'énumération Statut
         cmbStatut.setItems(javafx.collections.FXCollections.observableArrayList(statut.values()));
+
+        if (datePickerPublication != null) {
+            // Par exemple, vous pouvez définir une date par défaut si nécessaire
+            datePickerPublication.setValue(LocalDate.now());
+        }
     }
 
     public void setOffreToModify(offreemploi offre) {
@@ -51,14 +63,11 @@ public class ModifierOffreEmploiController implements Initializable {
         txtTitre.setText(offre.getTitre());
         txtDescription.setText(offre.getDescription());
         cmbStatut.setValue(offre.getStatut());
+
         if (offre.getDate_publication() != null) {
-            // Vérifie si c'est bien une instance de java.sql.Date avant de convertir
-            if (offre.getDate_publication() instanceof java.sql.Date) {
-                LocalDate localDate = ((java.sql.Date) offre.getDate_publication()).toLocalDate();
-                datePicker.setValue(localDate);
-            } else {
-                System.err.println("❌ Erreur : date_publication n'est pas une instance de java.sql.Date !");
-            }
+            // Convertir la date uniquement si nécessaire (vérifiez si c'est déjà un LocalDate)
+            LocalDate localDate = offre.getDate_publication().toLocalDate();
+            datePickerPublication.setValue(localDate);
         }
     }
 
@@ -66,7 +75,7 @@ public class ModifierOffreEmploiController implements Initializable {
     void handleModifier(ActionEvent event) {
         String titre = txtTitre.getText();
         String description = txtDescription.getText();
-        LocalDate selectedDate = datePicker.getValue();
+        LocalDate selectedDate = datePickerPublication.getValue();
         statut Statut = cmbStatut.getValue();
 
         if (titre.isEmpty() || description.isEmpty() || selectedDate == null || Statut == null) {
@@ -107,5 +116,16 @@ public class ModifierOffreEmploiController implements Initializable {
         // Fermer la fenêtre de modification sans sauvegarder
         Stage stage = (Stage) btnAnnuler.getScene().getWindow();
         stage.close();
+    }
+
+    @FXML
+    void handleRetour(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficheCV.fxml"));
+        Parent root = loader.load();
+
+        // Récupérer la fenêtre actuelle et modifier la scène
+        Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(root));
+        stage.show();
     }
 }

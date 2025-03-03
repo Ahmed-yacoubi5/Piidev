@@ -1,4 +1,3 @@
-
 package com.recrutement.controllers;
 
 import com.recrutement.models.cv;
@@ -6,11 +5,10 @@ import com.recrutement.services.CvServices;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-
 import javafx.event.ActionEvent;
-
 import java.sql.Date;
 import java.time.LocalDate;
+import javafx.scene.control.TableView;
 
 public class ModifierCVController {
 
@@ -36,10 +34,16 @@ public class ModifierCVController {
     public Button btnModifier;
 
     @FXML
-    public Button btnAnnulerr;
+    public Button btnAnnuler;
+
+    private TableView<cv> tableViewCVs; // Changer ListView en TableView
 
     private cv cvToModify;
     private CvServices cvService = new CvServices();
+
+    public void setTableViewCV(TableView<cv> tableViewCVs) {
+        this.tableViewCVs = tableViewCVs;
+    }
 
     // Méthode pour initialiser le CV à modifier
     public void setCV(cv cv) {
@@ -55,7 +59,7 @@ public class ModifierCVController {
                 LocalDate localDate = ((java.sql.Date) cv.getDateDeNaissance()).toLocalDate();
                 datePickerNaissance.setValue(localDate);
             } else {
-                System.err.println("❌ Erreur : date_publication n'est pas une instance de java.sql.Date !");
+                System.err.println("❌ Erreur : date_de_naissance n'est pas une instance de java.sql.Date !");
             }
         }
     }
@@ -106,6 +110,12 @@ public class ModifierCVController {
             success.setContentText("CV modifié avec succès !");
             success.show();
 
+            // Mise à jour de la TableView
+            if (tableViewCVs != null) {
+                // Remplacer l'élément modifié dans la TableView avec la version mise à jour
+                tableViewCVs.getItems().set(tableViewCVs.getItems().indexOf(cvToModify), cvToModify);
+            }
+
             // Fermer la fenêtre après modification
             Stage stage = (Stage) btnModifier.getScene().getWindow();
             stage.close();
@@ -121,7 +131,7 @@ public class ModifierCVController {
     @FXML
     void handleAnnuler(ActionEvent event) {
         // Fermer la fenêtre de modification sans sauvegarder
-        Stage stage = (Stage) btnAnnulerr.getScene().getWindow();
+        Stage stage = (Stage) btnAnnuler.getScene().getWindow();
         stage.close();
     }
 }

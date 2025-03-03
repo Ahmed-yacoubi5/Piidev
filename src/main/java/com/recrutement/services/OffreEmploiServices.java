@@ -59,7 +59,17 @@ public class OffreEmploiServices implements iservices<offreemploi> {
     public List<offreemploi> rechercher() {
         return getAllOffres();
     }
+    private List<offreemploi> favoris = new ArrayList<>();
 
+    public void ajouterFavoris(offreemploi offre) {
+        if (!favoris.contains(offre)) {
+            favoris.add(offre);
+        }
+    }
+
+    public List<offreemploi> getFavoris() {
+        return favoris;
+    }
     public List<offreemploi> getAllOffres() {
         List<offreemploi> offreemplois = new ArrayList<>();
         String req = "SELECT * FROM offreemploi";
@@ -79,18 +89,4 @@ public class OffreEmploiServices implements iservices<offreemploi> {
         }
         return offreemplois;
     }
-    public boolean supprimerParTitre(String titre) {
-        String query = "DELETE FROM offreemploi WHERE titre = ?";
-        try (PreparedStatement pstmt = connection.prepareStatement(query)) {
-            pstmt.setString(1, titre);
-            int rowsAffected = pstmt.executeUpdate();
-            return rowsAffected > 0;
-        } catch (SQLException e) {
-            System.err.println("❌ Erreur lors de la suppression par titre : " + e.getMessage());
-            return false;
-        }
-    }
-    }
-
-
-
+}

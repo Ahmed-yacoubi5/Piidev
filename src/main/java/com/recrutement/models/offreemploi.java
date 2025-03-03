@@ -1,54 +1,85 @@
 package com.recrutement.models;
 
-import java.util.Date;
-
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import java.sql.Date;
 
 public class offreemploi {
 
-    private int id;
-    private String titre;
-    private String description;
-    private Date date_publication;
+    private SimpleIntegerProperty id;
+    private SimpleStringProperty titre;
+    private SimpleStringProperty description;
+    private Date date_publication; // Note: Date cannot be a Simple property, leave as Date type
     private statut statut;
 
+
+    // Constructor with ID
     public offreemploi(int id, String titre, String description, Date date_publication, statut statut) {
-        this.id = id;
-        this.titre = titre;
-        this.description = description;
+        this.id = new SimpleIntegerProperty(id);
+        this.titre = new SimpleStringProperty(titre);
+        this.description = new SimpleStringProperty(description);
         this.date_publication = date_publication;
         this.statut = statut;
     }
 
+    // Constructor without ID (for adding to the database)
     public offreemploi(String titre, String description, Date date_publication, statut statut) {
-        this.titre = titre;
-        this.description = description;
+        this.titre = new SimpleStringProperty(titre);
+        this.description = new SimpleStringProperty(description);
         this.date_publication = date_publication;
         this.statut = statut;
     }
 
-    public int getId() {
+    // Getter and Setter for ID (as Property)
+    public SimpleIntegerProperty idProperty() {
+        if (id == null) {
+            id = new SimpleIntegerProperty();
+        }
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public int getId() {
+        return id.get();
     }
 
-    public String getTitre() {
+    public void setId(int id) {
+        this.id.set(id);
+    }
+
+    // Getter and Setter for Titre
+    public SimpleStringProperty titreProperty() {
+        if (titre == null) {
+            titre = new SimpleStringProperty();
+        }
         return titre;
     }
 
-    public void setTitre(String titre) {
-        this.titre = titre;
+    public String getTitre() {
+        return titre.get();
     }
 
-    public String getDescription() {
+    public void setTitre(String titre) {
+        this.titre.set(titre);
+    }
+
+    // Getter and Setter for Description
+    public SimpleStringProperty descriptionProperty() {
+        if (description == null) {
+            description = new SimpleStringProperty();
+        }
         return description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public String getDescription() {
+        return description.get();
     }
+
+    public void setDescription(String description) {
+        this.description.set(description);
+    }
+
+    // Getter and Setter for Date of Publication
     public Date getDate_publication() {
         return date_publication;
     }
@@ -57,6 +88,7 @@ public class offreemploi {
         this.date_publication = date_publication;
     }
 
+    // Getter and Setter for Statut
     public statut getStatut() {
         return statut;
     }
@@ -65,14 +97,15 @@ public class offreemploi {
         this.statut = statut;
     }
 
+    // Enhanced toString method
     @Override
     public String toString() {
-        return "offreemploi{" +
-                ", titre='" + titre + '\'' +
-                ", description='" + description + '\'' +
-                ", date_publication='" + date_publication + '\'' +
-                ", statut='" + statut + '\'' +
+        return "OffreEmploi{" +
+                "id=" + id.get() +
+                ", titre='" + titre.get() + '\'' +
+                ", description='" + description.get() + '\'' +
+                ", date_publication=" + date_publication +
+                ", statut=" + statut +
                 '}';
     }
 }
-

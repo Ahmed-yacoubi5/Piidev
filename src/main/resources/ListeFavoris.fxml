@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.recrutement.controllers.ListeFavorisController">
+    <TableView fx:id="tableViewFavoris" layoutX="10" layoutY="10" prefHeight="400" prefWidth="600">
+        <columns>
+            <TableColumn fx:id="colTitre" prefWidth="150" text="Titre" />
+            <TableColumn fx:id="colDescription" prefWidth="250" text="Description" />
+            <TableColumn fx:id="colDatePublication" prefWidth="100" text="Date Publication" />
+            <TableColumn fx:id="colStatut" prefWidth="100" text="Statut" />
+        </columns>
+    </TableView>
+
+    <Button layoutX="10" layoutY="420" text="Retour" onAction="#handleRetour" />
+</AnchorPane>

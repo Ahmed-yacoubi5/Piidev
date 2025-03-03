@@ -5,23 +5,39 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.recrutement.controllers.ModifierCVController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="root" stylesheets="@style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.recrutement.controllers.ModifierCVController">
     <children>
-        <Label layoutX="286.0" layoutY="14.0" text="Modifier CV" />
-        <Label layoutX="43.0" layoutY="118.0" text="Nom" />
-        <Label layoutX="43.0" layoutY="162.0" text="Prénom" />
-        <Label layoutX="7.0" layoutY="211.0" text="Date de Naissance" />
-        <Label layoutX="43.0" layoutY="249.0" text="Adresse" />
-        <Label layoutX="43.0" layoutY="303.0" text="Email" />
-        <Label layoutX="43.0" layoutY="349.0" text="Téléphone" />
-        <TextField fx:id="txtNom" layoutX="106.0" layoutY="114.0" />
-        <TextField fx:id="txtPrenom" layoutX="106.0" layoutY="158.0" />
-        <TextField fx:id="txtAdresse" layoutX="106.0" layoutY="245.0" />
-        <TextField fx:id="txtEmail" layoutX="106.0" layoutY="299.0" />
-        <TextField fx:id="txtTelephone" layoutX="106.0" layoutY="345.0" />
-        <Button fx:id="btnModifier" layoutX="420.0" layoutY="102.0" mnemonicParsing="false" onAction="#handleModifier" text="Modifier" />
-        <Button fx:id="btnAnnulerr" layoutX="420.0" layoutY="167.0" mnemonicParsing="false" onAction="#handleAnnuler" text="Annuler" />
-        <DatePicker fx:id="datePickerNaissance" layoutX="106.0" layoutY="207.0" />
+        <!-- Titre principal -->
+        <Text layoutX="220.0" layoutY="50.0" styleClass="title-text" text="✏️ Modifier CV">
+            <font>
+                <Font size="25.0" />
+            </font>
+        </Text>
+
+        <!-- Formulaire de modification -->
+        <Label layoutX="43.0" layoutY="118.0" styleClass="form-label" text="👤 Nom :" />
+        <TextField fx:id="txtNom" layoutX="160.0" layoutY="113.0" styleClass="text-field" />
+
+        <Label layoutX="43.0" layoutY="162.0" styleClass="form-label" text="👤 Prénom :" />
+        <TextField fx:id="txtPrenom" layoutX="160.0" layoutY="157.0" styleClass="text-field" />
+
+        <Label layoutX="43.0" layoutY="211.0" styleClass="form-label" text="📅 Date de Naissance :" />
+        <DatePicker fx:id="datePickerNaissance" layoutX="160.0" layoutY="206.0" styleClass="date-picker" />
+
+        <Label layoutX="43.0" layoutY="249.0" styleClass="form-label" text="🏠 Adresse :" />
+        <TextField fx:id="txtAdresse" layoutX="160.0" layoutY="244.0" styleClass="text-field" />
+
+        <Label layoutX="43.0" layoutY="303.0" styleClass="form-label" text="📧 Email :" />
+        <TextField fx:id="txtEmail" layoutX="160.0" layoutY="298.0" styleClass="text-field" />
+
+        <Label layoutX="43.0" layoutY="349.0" styleClass="form-label" text="📞 Téléphone :" />
+        <TextField fx:id="txtTelephone" layoutX="160.0" layoutY="344.0" styleClass="text-field" />
+
+        <!-- Boutons d'action -->
+        <Button fx:id="btnModifier" layoutX="420.0" layoutY="100.0" onAction="#handleModifier" styleClass="button" text="✅ Modifier" />
+        <Button fx:id="btnAnnuler" layoutX="420.0" layoutY="160.0" onAction="#handleAnnuler" styleClass="button-exit" text="❌ Annuler" />
     </children>
 </AnchorPane>

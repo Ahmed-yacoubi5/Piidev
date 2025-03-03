@@ -13,7 +13,7 @@ public class CvServices {
 
     // Ajouter un CV
     public void ajouter(cv cv) {
-        String req = "INSERT INTO cv (nom, prenom, dateDeNaissance, adresse, email, telephone) VALUES (?, ?, ?, ?, ?, ?)";
+        String req = "INSERT INTO cv (nom, prenom, dateDeNaissance, adresse, email, telephone, image) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement pst = connection.prepareStatement(req)) {
             pst.setString(1, cv.getNom());
             pst.setString(2, cv.getPrenom());
@@ -21,6 +21,7 @@ public class CvServices {
             pst.setString(4, cv.getAdresse());
             pst.setString(5, cv.getEmail());
             pst.setInt(6, cv.getTelephone());
+            pst.setString(7, cv.getImage());  // Stocker le chemin de l'image dans la base de données
             pst.executeUpdate();
             System.out.println("✅ CV ajouté avec succès !");
         } catch (SQLException e) {
@@ -64,6 +65,8 @@ public class CvServices {
         try (PreparedStatement pst = connection.prepareStatement(req);
              ResultSet rs = pst.executeQuery()) {
             while (rs.next()) {
+                String image = rs.getString("image");  // Récupérer le chemin de l'image
+
                 cvs.add(new cv(
                         rs.getInt("idCv"),
                         rs.getString("nom"),
@@ -71,7 +74,8 @@ public class CvServices {
                         rs.getDate("dateDeNaissance"),
                         rs.getString("adresse"),
                         rs.getString("email"),
-                        rs.getInt("telephone")
+                        rs.getInt("telephone"),
+                        image  // Passer le chemin de l'image
                 ));
             }
         } catch (SQLException e) {
@@ -79,7 +83,6 @@ public class CvServices {
         }
         return cvs;
     }
-
     // Récupérer tous les CVs
 
 

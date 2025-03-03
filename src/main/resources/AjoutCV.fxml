@@ -5,25 +5,45 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.recrutement.controllers.AjoutCvController">
+<?import javafx.scene.image.ImageView?>
+<AnchorPane prefHeight="500.0" prefWidth="700.0" styleClass="root" stylesheets="@style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.recrutement.controllers.AjoutCvController">
    <children>
-      <Label layoutX="247.0" layoutY="55.0" text="Ajouter un CV" />
-      <Label layoutX="55.0" layoutY="124.0" text="Nom" />
-      <Label layoutX="55.0" layoutY="160.0" text="Prénom" />
-      <Label layoutX="55.0" layoutY="220.0" text="Date de Naissance" />
-      <Label layoutX="55.0" layoutY="191.0" text="Adresse" />
-      <Label layoutX="55.0" layoutY="250.0" text="Email" />
-      <Label layoutX="55.0" layoutY="280.0" text="Téléphone" />
-      <TextField fx:id="txtNom" layoutX="209.0" layoutY="120.0" />
-      <TextField fx:id="txtPrenom" layoutX="209.0" layoutY="156.0" />
-      <TextField fx:id="txtAdresse" layoutX="209.0" layoutY="187.0" />
-      <TextField fx:id="txtEmail" layoutX="209.0" layoutY="246.0" />
-      <TextField fx:id="txtTelephone" layoutX="209.0" layoutY="276.0" />
-      <DatePicker fx:id="datePicker" layoutX="209.0" layoutY="216.0" prefWidth="150.0" />
-      <Button fx:id="btnAjouter" layoutX="121.0" layoutY="330.0" mnemonicParsing="false" onAction="#ajouterCv" text="Ajouter" />
-      <Button fx:id="btnAnnuler" layoutX="483.0" layoutY="330.0" mnemonicParsing="false" onAction="#annuler" text="Annuler" />
-      <Button layoutX="247.0" layoutY="330.0" mnemonicParsing="false" onAction="#afficherCVs" text="Afficher" />
-      <Button fx:id="btnRetour" layoutX="370.0" layoutY="330.0" onAction="#handleRetour" text="Retour" />
+      <!-- Titre principal -->
+      <Text layoutX="280.0" layoutY="60.0" styleClass="title-text" text="Ajouter un CV" underline="true">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Text>
+
+      <!-- Formulaire de saisie -->
+      <Label layoutX="100.0" layoutY="120.0" styleClass="form-label" text="👤 Nom :" />
+      <TextField fx:id="txtNom" layoutX="250.0" layoutY="115.0" styleClass="text-field" />
+
+      <Label layoutX="100.0" layoutY="160.0" styleClass="form-label" text="👤 Prénom :" />
+      <TextField fx:id="txtPrenom" layoutX="250.0" layoutY="155.0" styleClass="text-field" />
+
+      <Label layoutX="100.0" layoutY="200.0" styleClass="form-label" text="🏠 Adresse :" />
+      <TextField fx:id="txtAdresse" layoutX="250.0" layoutY="195.0" styleClass="text-field" />
+
+      <Label layoutX="100.0" layoutY="240.0" styleClass="form-label" text="📅 Date de Naissance :" />
+      <DatePicker fx:id="datePicker" layoutX="250.0" layoutY="235.0" prefWidth="200.0" styleClass="date-picker" />
+
+      <Label layoutX="100.0" layoutY="280.0" styleClass="form-label" text="📧 Email :" />
+      <TextField fx:id="txtEmail" layoutX="250.0" layoutY="275.0" styleClass="text-field" />
+
+      <Label layoutX="100.0" layoutY="320.0" styleClass="form-label" text="📞 Téléphone :" />
+      <TextField fx:id="txtTelephone" layoutX="250.0" layoutY="315.0" styleClass="text-field" />
+      <Button layoutX="250.0" layoutY="360.0" text="📷 Télécharger une Image" onAction="#handleImageUpload" styleClass="button" />
+      <ImageView fx:id="imageView" layoutX="250.0" layoutY="400.0" fitWidth="200.0" fitHeight="200.0"/>
+
+
+      <!-- Boutons d'action -->
+      <Button layoutX="502.0" layoutY="114.0" onAction="#ajouterCv" styleClass="button" text="➕ Ajouter" />
+      <Button layoutX="505.0" layoutY="301.0" onAction="#handleRetour" styleClass="button-exit" text="🔙 Retour" />
+      <Button layoutX="501.0" layoutY="212.0" onAction="#annuler" styleClass="button" text="❌ Annuler" />
+
    </children>
 </AnchorPane>
