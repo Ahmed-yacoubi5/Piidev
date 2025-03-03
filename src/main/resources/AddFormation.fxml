@@ -5,19 +5,35 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-
 <?import javafx.scene.layout.HBox?>
-<AnchorPane prefHeight="583.0" prefWidth="853.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.Controllers.FormationController">
+<?import javafx.scene.layout.VBox?>
+
+<?import java.net.URL?>
+<AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.Controllers.FormationController">
+   <stylesheets>
+      <URL value="@style.css" />
+   </stylesheets>
    <children>
       <fx:include source="NavBar.fxml" />
-      <TextField fx:id="diplome" layoutX="278.0" layoutY="124.0" prefHeight="25.0" prefWidth="245.0" />
-      <Label layoutX="102.0" layoutY="128.0" prefHeight="17.0" prefWidth="118.0" text="Diplome" />
-      <Label layoutX="102.0" layoutY="221.0" text="Institution" />
-      <Label layoutX="102.0" layoutY="323.0" text="Année D'obtention" />
-      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="639.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true" />
-      <Button layoutX="521.0" layoutY="124.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="118.0" text="Browse" />
-      <TextField fx:id="institution" layoutX="278.0" layoutY="217.0" prefHeight="25.0" prefWidth="363.0" />
-      <TextField fx:id="anne" layoutX="278.0" layoutY="319.0" prefHeight="25.0" prefWidth="363.0" />
-      <Button layoutX="355.0" layoutY="455.0" mnemonicParsing="false" onAction="#addButtonEmp" prefHeight="93.0" prefWidth="143.0" text="Add" />
+      <VBox layoutX="50.0" layoutY="100.0" spacing="15.0">
+         <children>
+            <Label text="Diplome" styleClass="label" />
+            <TextField fx:id="diplome" promptText="Enter your diploma" styleClass="text-field" />
+
+            <Label text="Institution" styleClass="label" />
+            <TextField fx:id="institution" promptText="Enter institution name" styleClass="text-field" />
+
+            <Label text="Année D'obtention" styleClass="label" />
+            <TextField fx:id="anne" promptText="Enter year of obtaining" styleClass="text-field" />
+
+            <HBox spacing="10">
+               <children>
+                  <Button text="Browse" styleClass="button" />
+                  <Button text="Add" onAction="#addButtonEmp" styleClass="button-add" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <ImageView fitHeight="200.0" fitWidth="300.0" layoutX="950.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>

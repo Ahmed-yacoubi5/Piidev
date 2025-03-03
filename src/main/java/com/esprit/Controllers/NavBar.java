@@ -48,4 +48,14 @@ public class NavBar {
     public void handleProfile() {
         System.out.println("Profile Handling button clicked (Functionality not yet implemented)");
     }
+    public void redirectToFeatures() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Features.fxml"));
+        AnchorPane newPane = loader.load();
+
+        Stage currentStage = (Stage) summaryButton.getScene().getWindow();
+        currentStage.setScene(new Scene(newPane));
+        currentStage.show();
+        AppData.getInstance().setCurrentSelectedId(0);
+        AppData.getInstance().setSelectedCandidatId(0);
+    }
 }

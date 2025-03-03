@@ -47,16 +47,26 @@ public class ProfilService implements IService<Profil> {
 
     @Override
     public void supprimer(Profil profil) {
-        String req = "DELETE from profil WHERE id=?";
+        String req1 = "DELETE from profil WHERE id=?";
+        String req2 = "DELETE from imageprofil WHERE id=?";
         try {
-            PreparedStatement pst = connection.prepareStatement(req);
-            pst.setInt(1, profil.getId());
-            pst.executeUpdate();
-            System.out.println("Personne supprimée");
+            // Prepare and execute the first statement to delete from profil
+            PreparedStatement pst1 = connection.prepareStatement(req1);
+            pst1.setInt(1, profil.getId());
+            pst1.executeUpdate();
+
+            // Prepare and execute the second statement to delete from imageprofil
+            PreparedStatement pst2 = connection.prepareStatement(req2);
+            pst2.setInt(1, profil.getId());
+            pst2.executeUpdate();
+
+            System.out.println("Profil and associated image deleted successfully");
+
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
     }
+
     public void suppressionTotale(int id){
         String req = "DELETE from profil WHERE id=?";
         try {
@@ -133,5 +143,29 @@ public class ProfilService implements IService<Profil> {
         }
         return profil;
     }
+    public List<Profil> rechercherTop5() {
+        List<Profil> profils = new ArrayList<>();
+        String req = "SELECT * FROM profil ORDER BY niveauFormation DESC LIMIT 5";
+        try {
+            PreparedStatement pst = connection.prepareStatement(req);
+            ResultSet rs = pst.executeQuery();
+            while (rs.next()) {
+                Profil profil = new Profil(
+                        rs.getInt("id"),
+                        rs.getDouble("niveauFormation"),
+                        rs.getString("competence"),
+                        rs.getString("experience"),
+                        rs.getString("certification")
+                );
+                System.out.println("Profil retrieved: " + profil);
+                profils.add(profil);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        System.out.println("Final profiles list: " + profils);
+        return profils;
+    }
+
 
 }
