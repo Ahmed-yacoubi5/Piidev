@@ -1,6 +1,6 @@
+// DataSource.java
+
 package com.esprit.utils;
-
-
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -13,7 +13,6 @@ public class DataSource {
     private final String USERNAME = "root";
     private final String PASSWORD = "";
 
-
     private DataSource() {
         try {
             connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
@@ -22,6 +21,7 @@ public class DataSource {
             System.out.println(e.getMessage());
         }
     }
+
     public static DataSource getInstance() {
         if(instance == null)
             instance = new DataSource();

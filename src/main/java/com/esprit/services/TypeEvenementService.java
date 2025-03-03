@@ -14,7 +14,7 @@ public class TypeEvenementService {
         con = DataSource.getInstance().getConnection();
     }
 
-    public void ajouter(TypeEvenement te) {  // Vérifie bien que c'est TypeEvenement et pas Evenement
+    public void ajouter(TypeEvenement te) {
         String req = "INSERT INTO typeevenement (nom, description) VALUES (?, ?)";
         try {
             PreparedStatement pst = con.prepareStatement(req);

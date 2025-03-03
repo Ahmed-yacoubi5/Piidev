@@ -2,19 +2,16 @@ package com.esprit.tests;
 
 
 import com.esprit.models.RetourEvenement;
-import com.esprit.services.RetourEvenementService;
+
 
 import java.time.LocalDateTime;
 
 public class Main {
-    public static
+    public static void main(String[] args) {
+      /*  RetourEvenementService res = new RetourEvenementService();
 
 
-    void main(String[] args) {
-        RetourEvenementService res = new RetourEvenementService();
-
-
-        RetourEvenement retour1 = new RetourEvenement(1, 2, "Super événement, bien organisé !", 5);
+        RetourEvenement retour1 = new RetourEvenement(1, 2, "Super événement, bien organisé !","d", 5);
         res.ajouter(retour1);
 
 
@@ -24,7 +21,7 @@ public class Main {
 
         res.supprimer(1);
 
-        System.out.println("Liste des retours : " + res.rechercher());
+        System.out.println("Liste des retours : " + res.rechercher());*/
     }
 }
 

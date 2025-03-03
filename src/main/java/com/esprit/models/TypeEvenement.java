@@ -9,7 +9,6 @@ public class TypeEvenement {
         this.id=id;
         this.nom=nom;
         this.description=description;
-
     }
 
     public TypeEvenement(String nom,String description){

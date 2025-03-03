@@ -1,37 +1,91 @@
 package com.esprit.models;
 
-import java.util.Date;
-import java.util.Objects;
+import java.sql.Date;
+import java.time.LocalDateTime;
 
 public class Evenement {
     private int id;
     private String nom;
-    private String type;
-    private String titre;
-    private Date DateDebut;
-    private Date DateFin;
+    private int remise;
+    private double prix;
+    private String img;
+    private String description;
 
-    // No-argument constructor
+    private String lieu;
+    private LocalDateTime dateDebut;
+    private LocalDateTime dateFin;
+
+    private static String searchValue;
+
+    public static int actionTest = 0;
+
+    public static int getIdEvenement() {
+        return idEvenement;
+    }
+
+    public static void setIdEvenement(int idEvenement) {
+        Evenement.idEvenement = idEvenement;
+    }
+
+    private static int idEvenement;
+    public Evenement(int id, String nom, String img, String description,  String lieu, LocalDateTime dateDebut, LocalDateTime dateFin) {
+        this.id = id;
+        this.nom = nom;
+        this.img = img;
+        this.description = description;
+        this.lieu = lieu;
+        this.dateDebut = dateDebut;
+        this.dateFin = dateFin;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getLieu() {
+        return lieu;
+    }
+
+    public void setLieu(String lieu) {
+        this.lieu = lieu;
+    }
+
+    public LocalDateTime getDateDebut() {
+        return dateDebut;
+    }
+
+    public void setDateDebut(LocalDateTime dateDebut) {
+        this.dateDebut = dateDebut;
+    }
+
+    public LocalDateTime getDateFin() {
+        return dateFin;
+    }
+
+    public void setDateFin(LocalDateTime dateFin) {
+        this.dateFin = dateFin;
+    }
+
+
     public Evenement() {
     }
 
-    public Evenement(int id, String nom, String type, String titre, Date DateDebut, Date DateFin) {
-        this.id = id;
-        this.nom = nom;
-        this.type = type;
-        this.titre = titre;
-        this.DateDebut = DateDebut;
-        this.DateFin = DateFin;
-    }
 
-    public Evenement(String nom, String type, String titre, Date DateDebut, Date DateFin) {
-        this.nom = nom;
-        this.type = type;
-        this.titre = titre;
-        this.DateDebut = DateDebut;
-        this.DateFin = DateFin;
-    }
 
+
+    // Getters et setters
     public int getId() {
         return id;
     }
@@ -48,60 +102,34 @@ public class Evenement {
         this.nom = nom;
     }
 
-    public String getType() {
-        return type;
+    public int getRemise() {
+        return remise;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setRemise(int remise) {
+        this.remise = remise;
     }
 
-    public String getTitre() {
-        return titre;
+    public double getPrix() {
+        return prix;
+    }
+    public static String getSearchValue() {
+        return searchValue;
+    }
+    public static void setSearchValue(String searchValue) {
+        Evenement.searchValue = searchValue;
+    }
+    public void setPrix(double prix) {
+        this.prix = prix;
     }
 
-    public void setTitre(String titre) {
-        this.titre = titre;
+    public static int getActionTest() {
+        return actionTest;
     }
 
-    public Date getDateDebut() {
-        return DateDebut;
+    public static void setActionTest(int actionTest) {
+        Evenement.actionTest = actionTest;
     }
 
-    public void setDateDebut(Date DateDebut) {
-        this.DateDebut = DateDebut;
-    }
 
-    public Date getDateFin() {
-        return DateFin;
-    }
-
-    public void setDateFin(Date DateFin) {
-        this.DateFin = DateFin;
-    }
-
-    @Override
-    public String toString() {
-        return "Evenement{" +
-                "id=" + id +
-                ", nom='" + nom + '\'' +
-                ", type='" + type + '\'' +
-                ", titre='" + titre + '\'' +
-                ", DateDebut=" + DateDebut +
-                ", DateFin=" + DateFin +
-                '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Evenement evenement = (Evenement) o;
-        return id == evenement.id && Objects.equals(nom, evenement.nom) && Objects.equals(type, evenement.type) && Objects.equals(titre, evenement.titre) && Objects.equals(DateDebut, evenement.DateDebut) && Objects.equals(DateFin, evenement.DateFin);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, nom, type, titre, DateDebut, DateFin);
-    }
 }

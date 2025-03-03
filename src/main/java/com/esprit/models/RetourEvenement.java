@@ -2,40 +2,33 @@ package com.esprit.models;
 import java.time.LocalDateTime;
 
 public class RetourEvenement {
-
-
-
         private int id;
         private int evenementId;
         private int utilisateurId;
         private String commentaire;
         private int note;
-        private LocalDateTime dateRetour;
-
+        private String date;
         public RetourEvenement() {}
 
-        public RetourEvenement(int evenementId, int utilisateurId, String commentaire, int note) {
+        public RetourEvenement(int evenementId, int utilisateurId,String date, String commentaire, int note) {
             this.evenementId = evenementId;
             this.utilisateurId = utilisateurId;
             this.commentaire = commentaire;
             this.note = note;
-            this.dateRetour = LocalDateTime.now();
+            this.date = date;
         }
 
-        public RetourEvenement(int id, int evenementId, int utilisateurId, String commentaire, int note, LocalDateTime dateRetour) {
+        public RetourEvenement(int id, int evenementId, int utilisateurId, String commentaire, int note, String date) {
             this.id = id;
             this.evenementId = evenementId;
             this.utilisateurId = utilisateurId;
             this.commentaire = commentaire;
             this.note = note;
-            this.dateRetour = dateRetour;
+            this.date = date;
         }
-
-        // Getters et Setters
         public int getId() {
             return id;
         }
-
         public void setId(int id) {
             this.id = id;
         }
@@ -76,25 +69,25 @@ public class RetourEvenement {
             }
         }
 
-        public LocalDateTime getDateRetour() {
-            return dateRetour;
-        }
-
-        public void setDateRetour(LocalDateTime dateRetour) {
-            this.dateRetour = dateRetour;
-        }
-
-        @Override
-        public String toString() {
-            return "RetourEvenement{" +
-                    "id=" + id +
-                    ", evenementId=" + evenementId +
-                    ", utilisateurId=" + utilisateurId +
-                    ", commentaire='" + commentaire + '\'' +
-                    ", note=" + note +
-                    ", dateRetour=" + dateRetour +
-                    '}';
-        }
+    public String getDate() {
+        return date;
     }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    @Override
+    public String toString() {
+        return "RetourEvenement{" +
+                "id=" + id +
+                ", evenementId=" + evenementId +
+                ", utilisateurId=" + utilisateurId +
+                ", commentaire='" + commentaire + '\'' +
+                ", note=" + note +
+                ", date='" + date + '\'' +
+                '}';
+    }
+}
 
 

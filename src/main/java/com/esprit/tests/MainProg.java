@@ -1,29 +1,23 @@
 package com.esprit.tests;
 
-import com.esprit.models.Evenement;
-import com.esprit.services.EvenementService;
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
-public class MainProg {
-    public static void main(String[] args) {
-        EvenementService ev = new EvenementService();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-
-        try {
-            Date dateDebut = dateFormat.parse("2003-12-09");
-            Date dateFin = dateFormat.parse("2004-12-09");
-
-            ev.ajouter(new Evenement("OMAIMA", "a", "aa", dateDebut, dateFin));
-
-            ev.modifier(new Evenement("kk", "a", "aa", dateDebut, dateFin));
-            ev.supprimer(new Evenement("abc", "", "", dateDebut, dateFin));
-
-            System.out.println(ev.rechercher());
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+public class MainProg extends Application {
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/Home.fxml"));
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+        primaryStage.setTitle("EVENT");
+        primaryStage.setScene(scene);
+        primaryStage.show();
     }
+    public static void main(String[] args) {
+        launch(args);
+    }
+
 }
