@@ -6,6 +6,9 @@ import com.esprit.utils.database;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.sql.ResultSet;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ServiceConges {
     private final Connection connection;
@@ -16,7 +19,7 @@ public class ServiceConges {
 
     // Méthode pour ajouter un congé
     public void ajouter(conges conges) {
-        String req = "INSERT INTO conges (type, datedebut, datefin, employe_id, statut) VALUES (?, ?, ?, ?, ?)";
+        String req = "INSERT INTO conges (type, datedebut, datefin, employee_id, statut) VALUES (?, ?, ?, ?, ?)";
 
         try (PreparedStatement ps = connection.prepareStatement(req)) {
             ps.setString(1, conges.getType());
@@ -39,7 +42,7 @@ public class ServiceConges {
 
     // Méthode pour modifier un congé
     public void modifier(conges conges) {
-        String req = "UPDATE conges SET type = ?, datedebut = ?, datefin = ?, employe_id = ?, statut = ? WHERE employe_id = ?";
+        String req = "UPDATE conges SET type = ?, datedebut = ?, datefin = ?, employee_id = ?, statut = ? WHERE employee_id = ?";
 
         try (PreparedStatement ps = connection.prepareStatement(req)) {
             ps.setString(1, conges.getType());
@@ -63,7 +66,7 @@ public class ServiceConges {
 
     // Méthode pour supprimer un congé
     public void supprimer(int id) {
-        String req = "DELETE FROM conges WHERE employe_id = ?";
+        String req = "DELETE FROM conges WHERE employee_id = ?";
 
         try (PreparedStatement ps = connection.prepareStatement(req)) {
             ps.setInt(1, id);
@@ -89,7 +92,7 @@ public class ServiceConges {
                         rs.getString("type"),
                         rs.getString("datedebut"),
                         rs.getString("datefin"),
-                        rs.getInt("employe_id"),
+                        rs.getInt("employee_id"),
                         rs.getString("statut")
                 );
                 congesList.add(c);
@@ -100,5 +103,52 @@ public class ServiceConges {
         }
 
         return congesList;
+    }
+    public int getTotalConges() {
+        int total = 0;
+        String query = "SELECT COUNT(*) FROM conges";
+        try (PreparedStatement stmt = connection.prepareStatement(query);
+             ResultSet rs = stmt.executeQuery()) {
+            if (rs.next()) {
+                total = rs.getInt(1);
+            }
+        } catch (Exception e) {
+            System.out.println("❌ Erreur SQL : " + e.getMessage());
+        }
+        return total;
+    }
+
+    /**
+     * Retourne le nombre de congés par type.
+     */
+    public Map<String, Integer> getCongesParType() {
+        Map<String, Integer> stats = new HashMap<>();
+        String query = "SELECT type, COUNT(*) FROM conges GROUP BY type";
+        try (PreparedStatement stmt = connection.prepareStatement(query);
+             ResultSet rs = stmt.executeQuery()) {
+            while (rs.next()) {
+                stats.put(rs.getString("type"), rs.getInt(2));
+            }
+        } catch (Exception e) {
+            System.out.println("❌ Erreur SQL : " + e.getMessage());
+        }
+        return stats;
+    }
+
+    /**
+     * Retourne le nombre de congés par statut.
+     */
+    public Map<String, Integer> getCongesParStatut() {
+        Map<String, Integer> stats = new HashMap<>();
+        String query = "SELECT statut, COUNT(*) FROM conges GROUP BY statut";
+        try (PreparedStatement stmt = connection.prepareStatement(query);
+             ResultSet rs = stmt.executeQuery()) {
+            while (rs.next()) {
+                stats.put(rs.getString("statut"), rs.getInt(2));
+            }
+        } catch (Exception e) {
+            System.out.println("❌ Erreur SQL : " + e.getMessage());
+        }
+        return stats;
     }
 }

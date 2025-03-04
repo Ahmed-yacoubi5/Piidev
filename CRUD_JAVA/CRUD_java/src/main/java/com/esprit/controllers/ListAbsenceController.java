@@ -14,6 +14,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 
 public class ListAbsenceController {
@@ -171,44 +172,36 @@ public class ListAbsenceController {
         alert.setContentText(contenu);
         alert.showAndWait();
     }
+
     @FXML
-    void afficherStatistiques(ActionEvent event) {
+    void ButtonActionStatistiques(ActionEvent event) {
         try {
-            ServiceAbsence serviceAbsence = new ServiceAbsence();
-            List<absence> absenceList = serviceAbsence.afficher();
-
-            int totalAbsences = absenceList.size();
-
-            // Calcul des absences par type
-            long justifiees = absenceList.stream().filter(a -> a.getType().equalsIgnoreCase("justifiée")).count();
-            long nonJustifiees = absenceList.stream().filter(a -> a.getType().equalsIgnoreCase("non justifiée")).count();
-
-            // Calcul des absences par statut
-            long enCours = absenceList.stream().filter(a -> a.getStatut().equalsIgnoreCase("en cours")).count();
-            long terminees = absenceList.stream().filter(a -> a.getStatut().equalsIgnoreCase("terminée")).count();
-            long prochainement = absenceList.stream().filter(a -> a.getStatut().equalsIgnoreCase("prochainement")).count();
-
-            // Construction du message des statistiques
-            String message = "📊 Statistiques des Absences :\n\n" +
-                    "🔹 Total des absences : " + totalAbsences + "\n\n" +
-                    "🟢 Par Type :\n" +
-                    "   ✅ Justifiées : " + justifiees + "\n" +
-                    "   ❌ Non Justifiées : " + nonJustifiees + "\n\n" +
-                    "🟠 Par Statut :\n" +
-                    "   🔄 En cours : " + enCours + "\n" +
-                    "   ✅ Terminées : " + terminees + "\n" +
-                    "   ⏳ Prochainement : " + prochainement;
-
-            // Affichage d'une boîte de dialogue avec les statistiques
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Statistiques des Absences");
-            alert.setHeaderText(null);
-            alert.setContentText(message);
-            alert.showAndWait();
-
-        } catch (Exception e) {
+            Parent root = FXMLLoader.load(getClass().getResource("/StatistiquesAbsence.fxml"));
+            TableViewListAbsence.getScene().setRoot(root);
+        } catch (IOException e) {
             afficherAlerte("⚠️ Erreur ", "Impossible de charger les statistques", e.getMessage());
         }
+    }
+    @FXML
+    void ButtonActionTrierCroissant(ActionEvent event) {
+        TableViewListAbsence.getSortOrder().clear(); // Réinitialiser le tri
+        ColumnDateDebut.setComparator((date1, date2) -> {
+            LocalDate d1 = LocalDate.parse(date1);
+            LocalDate d2 = LocalDate.parse(date2);
+            return d1.compareTo(d2);  // 🔹 Ordre croissant
+        });
+        TableViewListAbsence.getSortOrder().add(ColumnDateDebut);
+    }
+
+    @FXML
+    void ButtonActionTrierDecroissant(ActionEvent event) {
+        TableViewListAbsence.getSortOrder().clear(); // Réinitialiser le tri
+        ColumnDateDebut.setComparator((date1, date2) -> {
+            LocalDate d1 = LocalDate.parse(date1);
+            LocalDate d2 = LocalDate.parse(date2);
+            return d2.compareTo(d1);  // 🔹 Ordre décroissant
+        });
+        TableViewListAbsence.getSortOrder().add(ColumnDateDebut);
     }
 
 }

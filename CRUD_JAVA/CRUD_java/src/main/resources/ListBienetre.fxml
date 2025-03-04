@@ -19,6 +19,8 @@
             <TableColumn fx:id="ColumnNom" prefWidth="200" text="🏷️ Nom" />
             <TableColumn fx:id="ColumnReview" prefWidth="350" text="📝 Review" />
             <TableColumn fx:id="ColumnRate" prefWidth="150" text="⭐ Taux " />
+            <TableColumn fx:id="ColumnSentiment" prefWidth="150" text="⭐ sentiment " />
+
         </columns>
     </TableView>
 

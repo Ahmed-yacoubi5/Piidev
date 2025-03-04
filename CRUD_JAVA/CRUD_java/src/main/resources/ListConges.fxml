@@ -23,7 +23,7 @@
     </Text>
 
     <!-- Tableau de la liste des congés -->
-    <TableView fx:id="TableViewListConges" layoutX="326.0" layoutY="183.0" prefHeight="390.0" prefWidth="521.0" styleClass="table-view">
+    <TableView fx:id="TableViewListConges" layoutX="300.0" layoutY="233.0" prefHeight="370.0" prefWidth="554.0" styleClass="table-view">
         <columns>
             <TableColumn fx:id="ColumnId" prefWidth="42.4" text="ID" />
             <TableColumn fx:id="ColumnType" prefWidth="60.0" text="Type" />
@@ -37,7 +37,7 @@
     <Label layoutX="-5.0" prefHeight="697.0" prefWidth="263.0" style="-fx-background-color: #F4E7FF;" />
 
     <!-- Champ de recherche -->
-    <TextField fx:id="searchField" layoutX="500.0" layoutY="140.0" prefHeight="35.0" prefWidth="330.0"
+    <TextField fx:id="searchField" layoutX="630.0" layoutY="148.0" prefHeight="35.0" prefWidth="300.0"
                promptText="🔍 Rechercher..."
                style="-fx-background-color: #ffffff; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" />
 
@@ -52,14 +52,22 @@
         </image>
     </ImageView>
 
-    <Button layoutX="33.0" layoutY="400.0" onAction="#afficherStatistiques" prefHeight="36.0" prefWidth="194.0" styleClass="button" text="📊 Statistiques">
-        <graphic>
-            <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                <image>
-                    <Image url="@/images/stat.png" />
-                </image>
-            </ImageView>
-        </graphic>
+
+    <!-- Boutons de tri à gauche -->
+    <Button layoutX="300.0" layoutY="148.0" prefHeight="35.0" prefWidth="150.0"
+            onAction="#ButtonActionTrierCroissant" text="⬆️ Trier ↑"
+            style="-fx-background-color: #E0F7FA; -fx-border-color: #00796B; -fx-border-radius: 2em;" />
+
+    <Button layoutX="460.0" layoutY="148.0" prefHeight="35.0" prefWidth="150.0"
+            onAction="#ButtonActionTrierDecroissant" text="⬇️ Trier ↓"
+            style="-fx-background-color: #FFEBEE; -fx-border-color: #C62828; -fx-border-radius: 2em;" />
+
+
+    <!-- Bouton pour les statistiques -->
+    <Button layoutX="22.0" layoutY="400.0" onAction="#ButtonActionStatistiques"
+            prefHeight="44.0" prefWidth="203.0" styleClass="button"
+            text="📊 Voir Statistiques">
     </Button>
+
 
 </AnchorPane>

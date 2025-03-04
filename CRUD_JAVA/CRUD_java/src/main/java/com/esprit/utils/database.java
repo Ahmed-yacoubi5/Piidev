@@ -8,7 +8,7 @@ public class database {
     private Connection connection;
     private static database instance;
 
-    private final String URL = "jdbc:mysql://localhost:3306/3A5";
+    private final String URL = "jdbc:mysql://localhost:3306/baha";
     private final String USER = "root";
     private final String PASSWORD = "";
 
