@@ -7,7 +7,7 @@
       prefHeight="629.0" prefWidth="1084.0" styleClass="dash__container-card"
       stylesheets="@../assets/style/aliStyle.css" xmlns="http://javafx.com/javafx/19"
       xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.esprit.Controllers.AddEvenementController">
+      fx:controller="com.esprit.controllers.AddEvenementController">
     <children>
         <ScrollPane fx:id="scrollPane" fitToHeight="true" layoutX="24.0" layoutY="16.0" maxHeight="-Infinity"
                     maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="602.0"

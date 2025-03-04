@@ -1,21 +1,12 @@
-package com.esprit.Controllers;
+package com.esprit.controllers;
 import com.esprit.models.Commentaire;
-import com.esprit.models.Evenement;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import com.esprit.services.IService;
 import com.esprit.services.ServiceCommentaire;
-
-import java.io.IOException;
-import java.sql.SQLException;
 
 public class OneCommentListCardController {
     @FXML

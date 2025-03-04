@@ -7,7 +7,7 @@
 
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.esprit.Controllers.TopProfilesController"
+            fx:controller="com.esprit.controllers.TopProfilesController"
             prefHeight="400.0" prefWidth="600.0">
     <Label text="Top 5 Qualified Profiles" layoutX="20.0" layoutY="20.0"/>
     <Slider fx:id="niveauFormationSlider" layoutX="20.0" layoutY="60.0" min="0" max="100" blockIncrement="1" showTickLabels="true" showTickMarks="true" prefWidth="560.0"/>

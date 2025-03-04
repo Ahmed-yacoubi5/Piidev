@@ -1,4 +1,4 @@
-package com.esprit.Controllers;
+package com.esprit.controllers;
 
 import com.esprit.models.Commentaire;
 import com.esprit.models.Evenement;
