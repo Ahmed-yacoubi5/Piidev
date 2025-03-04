@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+<VBox alignment="CENTER" prefHeight="617.0" prefWidth="939.0" spacing="30"
+      style="-fx-background-color: linear-gradient(to bottom right, #F4E7FD, #F4E7FF);"
+      xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.recrutement.controllers.HomeController">
+
+    <!-- Titre principal -->
+    <Text text="🏡 Menu Principal" style="-fx-font-size: 32px; -fx-font-weight: bold; -fx-fill: #ffffff; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.6), 10, 0.5, 0, 3);" />
+
+    <!-- Boutons de navigation -->
+    <Button fx:id="btnOffreemploi" text="👨‍💼 Gérer les Offres Emplois" style="-fx-background-color: linear-gradient(to right, #6d219c , #9e5ac3  ); -fx-text-fill: #ffffff; -fx-font-size: 18px; -fx-padding: 15 40; -fx-border-radius: 15; -fx-background-radius: 15;" />
+    <Button fx:id="btnCV" text="🏖️ Gérer les CVs" style="-fx-background-color: linear-gradient(to right, #6d219c, #653b80); -fx-text-fill: #ffffff; -fx-font-size: 18px; -fx-padding: 15 40; -fx-border-radius: 15; -fx-background-radius: 15;" />
+
+    <!-- Bouton de sortie -->
+    <Button fx:id="btnQuitter" text="❌ Quitter" style="-fx-background-color: linear-gradient(to right, #783834, #e80108); -fx-text-fill: #ffffff; -fx-font-size: 18px; -fx-padding: 15 40; -fx-border-radius: 15; -fx-background-radius: 15;" />
+</VBox>
