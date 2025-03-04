@@ -15,51 +15,36 @@ public class User {
     private String numDeTelephone;
     private String status;
 
-    public User(int id, String email, String password, String nom, String prenom, Date dateDeNaissance, String genre, String roles, String adresse, String numDeTelephone, String status) {
+    public User(int id, String email, String password, String nom, String prenom, Date dateDeNaissance,
+                String roles, String genre, String adresse, String numDeTelephone, String status) {
         this.id = id;
         this.email = email;
         this.password = password;
         this.nom = nom;
         this.prenom = prenom;
         this.dateDeNaissance = dateDeNaissance;
-        this.genre = genre;
         this.roles = roles;
+        this.genre = genre;
         this.adresse = adresse;
         this.numDeTelephone = numDeTelephone;
         this.status = status;
     }
 
-    public User(String email, String password, String nom, String prenom, String roles, Date dateDeNaissance, String genre, String adresse, String numDeTelephone, String status) {
+    public User(String email, String password, String nom, String prenom, Date dateDeNaissance,
+                String roles, String genre, String adresse, String numDeTelephone, String status) {
         this.email = email;
         this.password = password;
         this.nom = nom;
         this.prenom = prenom;
-        this.roles = roles;
         this.dateDeNaissance = dateDeNaissance;
+        this.roles = roles;
         this.genre = genre;
         this.adresse = adresse;
         this.numDeTelephone = numDeTelephone;
         this.status = status;
     }
 
-    public User(String mail, String securePass123, String doe, String john, Date date, String roleUser, String male, String adresse, String number, String active) {
-        this.email = mail;
-        this.password = securePass123;
-        this.nom = doe;
-        this.prenom = john;
-        this.dateDeNaissance = date;
-        this.roles = roleUser;
-        this.genre = male;
-        this.adresse = adresse;
-        this.numDeTelephone = number;
-        this.status = active;
-
-    }
-
-    public User(String text, String mdpInputText, String nomInputText, String prenomInputText, Date dateDeNaissance, String value, String selectedGender, String adresseInputText, String numtelInputText, String active, String image, String privileges, int fidelityPoints, String selectedDepartment) {
-
-    }
-// Getters and Setters
+    // Getters and Setters
 
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }

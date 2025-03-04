@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<?import java.net.URL?>
+<AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.Controllers.FormationController">
+   <stylesheets>
+      <URL value="@style.css" />
+   </stylesheets>
+   <children>
+      <fx:include source="NavBar.fxml" />
+      <VBox layoutX="50.0" layoutY="100.0" spacing="15.0">
+         <children>
+            <Label text="Diplome" styleClass="label" />
+            <TextField fx:id="diplome" promptText="Enter your diploma" styleClass="text-field" />
+
+            <Label text="Institution" styleClass="label" />
+            <TextField fx:id="institution" promptText="Enter institution name" styleClass="text-field" />
+
+            <Label text="Année D'obtention" styleClass="label" />
+            <TextField fx:id="anne" promptText="Enter year of obtaining" styleClass="text-field" />
+
+            <HBox spacing="10">
+               <children>
+                  <Button text="Browse" styleClass="button" />
+                  <Button text="Add" onAction="#addButtonEmp" styleClass="button-add" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <ImageView fitHeight="200.0" fitWidth="300.0" layoutX="950.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true" />
+   </children>
+</AnchorPane>

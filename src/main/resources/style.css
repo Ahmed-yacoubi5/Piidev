@@ -1,0 +1,43 @@
+/* style.css */
+
+.label {
+    -fx-font-size: 18px;
+    -fx-text-fill: #4A4A4A;
+    -fx-font-weight: bold;
+}
+
+.text-field {
+    -fx-pref-height: 40px;
+    -fx-pref-width: 400px;
+    -fx-font-size: 16px;
+    -fx-padding: 5px;
+    -fx-border-color: #0078D4;
+    -fx-border-width: 1px;
+}
+
+.button, .nav-button {
+    -fx-background-color: #0078D4;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-pref-height: 45px;
+    -fx-pref-width: 120px;
+    -fx-cursor: hand;
+    -fx-padding: 10px 20px;
+    -fx-background-radius: 5px;
+}
+
+.button-add {
+    -fx-background-color: #28A745;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-pref-height: 40px;
+    -fx-pref-width: 150px;
+    -fx-cursor: hand;
+    -fx-padding: 10px 20px;
+    -fx-background-radius: 5px;
+}
+
+AnchorPane {
+    -fx-background-color: #F0F0F0;
+    -fx-padding: 20px;
+}
