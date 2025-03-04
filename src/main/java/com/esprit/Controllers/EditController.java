@@ -1,4 +1,4 @@
-package com.esprit.Controllers;
+package com.esprit.controllers;
 import javafx.stage.FileChooser;
 import java.io.File;
 import java.io.IOException;

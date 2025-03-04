@@ -7,6 +7,8 @@ import java.util.Date;
 
 public class MainProg {
     public static void main(String[] args) {
+
+
         UserService userService = new UserService();
 
         User newUser = new User("test@example.com", "securePass123", "Doe", "John",

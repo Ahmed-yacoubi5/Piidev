@@ -28,6 +28,9 @@ public class Profil {
         this.certification = cer;
     }
 
+    public Profil(int id, String text, String text1, String text2, String text3) {
+    }
+
     public int getId() {
         return id;
     }

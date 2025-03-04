@@ -1,4 +1,4 @@
-package com.esprit.Controllers;
+package com.esprit.controllers;
 
 import com.esprit.models.Candidat;
 import com.esprit.services.CandidatService;
