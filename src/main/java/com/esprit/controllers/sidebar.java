@@ -5,6 +5,7 @@ package com.esprit.controllers;
 
 
 import com.esprit.models.Admin;
+import com.esprit.utils.DataSource;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -40,6 +41,7 @@ public class sidebar {
 
     @FXML
     private Button btnHelp;
+    private DataSource SharedDataModel;
 
     @FXML
     private void handleLogoutClick(Event event) {

@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="715.0" prefWidth="1273.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.controllers.login">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="715.0" prefWidth="1273.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.controllers.login">
 
    <!-- Background Image -->
    <ImageView fitHeight="720" fitWidth="1280" preserveRatio="false">
@@ -23,7 +23,7 @@
       <!-- Welcome Text -->
       <Label layoutX="80" layoutY="20" style="-fx-text-fill: black; -fx-font-size: 24px; -fx-font-weight: bold;" text="WELCOME BACK" />
 
-      <Label layoutX="30" layoutY="60" maxWidth="290" style="-fx-text-fill: black; -fx-font-size: 14px; -fx-text-alignment: center;" text="Log in to your account to access your personalized fitness journey." wrapText="true" />
+      <Label layoutX="30" layoutY="60" maxWidth="290" style="-fx-text-fill: black; -fx-font-size: 14px; -fx-text-alignment: center;" text="Log in to your account to access your employee data." wrapText="true" />
 
       <!-- Username Field -->
       <Pane layoutX="30" layoutY="110" prefHeight="40" prefWidth="290" style="-fx-background-color: #444;                      -fx-border-radius: 25px;                      -fx-background-radius: 25px;                      -fx-padding: 10px;">

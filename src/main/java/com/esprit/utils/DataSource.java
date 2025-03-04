@@ -1,5 +1,7 @@
 package com.esprit.utils;
 
+import com.esprit.models.Admin;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -30,5 +32,9 @@ public class DataSource {
 
     public Connection getConnection() {
         return connection;
+    }
+
+    public Admin getLoggedInAdmin() {
+        return 0;
     }
 }
