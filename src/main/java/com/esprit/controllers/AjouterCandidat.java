@@ -2,6 +2,7 @@ package com.esprit.controllers;
 
 import com.esprit.models.Candidat;
 import com.esprit.services.CandidatService;
+import com.esprit.services.IService;
 import com.esprit.utils.AppData;
 import com.esprit.utils.IdUtil;
 import javafx.beans.value.ChangeListener;
@@ -19,12 +20,11 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 
-import static com.esprit.utils.IdUtil.getExistingIdsFromDatabase;
 import static com.esprit.utils.IdUtil.generateUniqueRandomId;
+import static com.esprit.utils.IdUtil.getExistingIdsFromDatabase;
 import static java.lang.Integer.parseInt;
 
 public class AjouterCandidat implements Initializable {
@@ -90,9 +90,10 @@ public class AjouterCandidat implements Initializable {
         });
     }
     public void ajouterCandidat(javafx.event.ActionEvent actionEvent) throws SQLException, IOException {
-        CandidatService cs = new CandidatService();
+        IService<Candidat> cs = new CandidatService();
         if (!IdUtil.getExistingIdsFromDatabase().contains(parseInt(this.id.getText()))) {
-            cs.ajouter(new Candidat(nom.getText(), prenom.getText(), email.getText(), cv.getText(), Integer.valueOf(id.getText())));
+            Candidat candidat = new Candidat(nom.getText(), prenom.getText(), email.getText(), cv.getText(), Integer.valueOf(id.getText()));
+            cs.ajouter(candidat);
 
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Confirmation");
@@ -130,7 +131,6 @@ public class AjouterCandidat implements Initializable {
             idAlert.setContentText("Id already exists.");
             idAlert.showAndWait();
         }
-
     }
 
     public void autoId() throws SQLException {
@@ -162,18 +162,13 @@ public class AjouterCandidat implements Initializable {
                 System.out.println(destinationFile.getAbsolutePath());
 
                 // Update the cv field with the file path
-                String filePath = destinationFile.getAbsolutePath();
                 cv.setText("profile/cv/"+String.valueOf(id.getText()));
-
-
 
             } catch (IOException e) {
                 System.out.println("Error copying the image: " + e.getMessage());
-
             }
         } else {
             System.out.println("No file selected.");
-
         }
     }
 
@@ -182,5 +177,4 @@ public class AjouterCandidat implements Initializable {
         int index = fileName.lastIndexOf('.');
         return (index > 0) ? fileName.substring(index) : "";
     }
-
 }

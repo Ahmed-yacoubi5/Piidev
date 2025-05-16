@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 
-<AnchorPane prefHeight="717.0" prefWidth="906.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.controllers.EditController">
+<AnchorPane prefHeight="717.0" prefWidth="906.0" xmlns="http://javafx.com/javafx/20.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.controllers.EditController">
 
    <children>
       <fx:include source="NavBar.fxml" />

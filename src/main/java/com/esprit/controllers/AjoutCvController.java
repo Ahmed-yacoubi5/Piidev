@@ -1,7 +1,7 @@
-package com.recrutement.controllers;
+package com.esprit.controllers;
 
-import com.recrutement.models.cv;
-import com.recrutement.services.CvServices;
+import com.esprit.models.cv;
+import com.esprit.services.CvServices;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,7 +17,6 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Date;
 import java.time.LocalDate;

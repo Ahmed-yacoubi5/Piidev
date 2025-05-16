@@ -1,97 +1,146 @@
 package com.esprit.models;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public class User {
-    private int id;
+
+	public User(String firstName, String lastName, String phoneNumber) {
+		super();
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.phoneNumber = phoneNumber;
+	}
+
+
+
+	private int id;
     private String email;
+    private String role;
     private String password;
-    private String nom;
-    private String prenom;
-    private Date dateDeNaissance;
-    private String roles;
-    private String genre;
-    private String adresse;
-    private String numDeTelephone;
+    private String firstName;
+    private String lastName;
+    private String phoneNumber;
+    private String image;
     private String status;
+    private boolean isActive;
+    private LocalDateTime lastLogin;
 
-    public User(int id, String email, String password, String nom, String prenom, Date dateDeNaissance,
-                String roles, String genre, String adresse, String numDeTelephone, String status) {
+    public User(int id, String email, String role, String password, String firstName, String lastName,
+			String phoneNumber, String image, String status) {
+		this.id = id;
+		this.email = email;
+		this.role = role;
+		this.password = password;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.phoneNumber = phoneNumber;
+		this.image = image;
+		this.status = status;
+	}
+
+    public User() {
+		// TODO Auto-generated constructor stub
+	}
+
+
+	public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
         this.id = id;
-        this.email = email;
-        this.password = password;
-        this.nom = nom;
-        this.prenom = prenom;
-        this.dateDeNaissance = dateDeNaissance;
-        this.roles = roles;
-        this.genre = genre;
-        this.adresse = adresse;
-        this.numDeTelephone = numDeTelephone;
-        this.status = status;
     }
 
-    public User(String email, String password, String nom, String prenom, Date dateDeNaissance,
-                String roles, String genre, String adresse, String numDeTelephone, String status) {
-        this.email = email;
-        this.password = password;
-        this.nom = nom;
-        this.prenom = prenom;
-        this.dateDeNaissance = dateDeNaissance;
-        this.roles = roles;
-        this.genre = genre;
-        this.adresse = adresse;
-        this.numDeTelephone = numDeTelephone;
-        this.status = status;
+    public String getEmail() {
+        return email;
     }
 
-    // Getters and Setters
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
+    public String getRole() {
+        return role;
+    }
 
-    public String getEmail() { return email; }
-    public void setEmail(String email) { this.email = email; }
+    public void setRole(String role) {
+        this.role = role;
+    }
 
-    public String getPassword() { return password; }
-    public void setPassword(String password) { this.password = password; }
+    public String getPassword() {
+        return password;
+    }
 
-    public String getNom() { return nom; }
-    public void setNom(String nom) { this.nom = nom; }
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-    public String getPrenom() { return prenom; }
-    public void setPrenom(String prenom) { this.prenom = prenom; }
+    public String getFirstName() {
+        return firstName;
+    }
 
-    public Date getDateDeNaissance() { return dateDeNaissance; }
-    public void setDateDeNaissance(Date dateDeNaissance) { this.dateDeNaissance = dateDeNaissance; }
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
-    public String getRoles() { return roles; }
-    public void setRoles(String roles) { this.roles = roles; }
+    public String getLastName() {
+        return lastName;
+    }
 
-    public String getGenre() { return genre; }
-    public void setGenre(String genre) { this.genre = genre; }
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
-    public String getAdresse() { return adresse; }
-    public void setAdresse(String adresse) { this.adresse = adresse; }
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
 
-    public String getNumDeTelephone() { return numDeTelephone; }
-    public void setNumDeTelephone(String numDeTelephone) { this.numDeTelephone = numDeTelephone; }
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
 
-    public String getStatus() { return status; }
-    public void setStatus(String status) { this.status = status; }
+    public String getImage() {
+        return image;
+    }
 
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+    
+    public boolean isActive() {
+        return isActive;
+    }
+    
+    public void setIsActive(boolean isActive) {
+        this.isActive = isActive;
+    }
+    
+    public LocalDateTime getLastLogin() {
+        return lastLogin;
+    }
+    
+    public void setLastLogin(LocalDateTime lastLogin) {
+        this.lastLogin = lastLogin;
+    }
+    
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
                 ", email='" + email + '\'' +
-                ", nom='" + nom + '\'' +
-                ", prenom='" + prenom + '\'' +
-                ", dateDeNaissance=" + dateDeNaissance +
-                ", roles='" + roles + '\'' +
-                ", genre='" + genre + '\'' +
-                ", adresse='" + adresse + '\'' +
-                ", numDeTelephone='" + numDeTelephone + '\'' +
-                ", status='" + status + '\'' +
+                ", role='" + role + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", isActive=" + isActive +
+                ", lastLogin=" + lastLogin +
                 '}';
     }
 }

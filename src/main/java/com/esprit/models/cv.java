@@ -1,8 +1,8 @@
-package com.recrutement.models;
+package com.esprit.models;
 
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.SimpleObjectProperty;
+
 import java.sql.Date;
 
 public class cv {

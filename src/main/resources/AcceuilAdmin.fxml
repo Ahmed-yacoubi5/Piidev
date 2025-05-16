@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox fx:id="mainContainer" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" spacing="30" style="-fx-background-color: linear-gradient(to bottom right, #F4E7FD, #F4E7FF);" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.controllers.AcceuilAdminController">
+    
+    <!-- En-tête -->
+    <VBox alignment="CENTER_LEFT" style="-fx-padding: 20; -fx-background-color: rgba(255, 255, 255, 0.2); -fx-background-radius: 0 0 20 20;">
+        <Text style="-fx-font-size: 32px; -fx-font-weight: bold; -fx-fill: #6d219c; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0.5, 0, 2);" text="👋 Bienvenue, Administrateur" />
+        <Text style="-fx-font-size: 16px; -fx-fill: #666; -fx-text-alignment: center; -fx-wrap-text: true; -fx-max-width: 600;" text="Gérez facilement tous les aspects de votre application depuis ce tableau de bord." />
+    </VBox>
+    
+    <!-- Message de bienvenue -->
+    <VBox alignment="CENTER" spacing="10" style="-fx-background-color: rgba(255, 255, 255, 0.8); -fx-background-radius: 15; -fx-padding: 40; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0.5, 0, 4);">
+        <Text style="-fx-font-size: 32px; -fx-font-weight: bold; -fx-fill: #6d219c; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0.5, 0, 2);" text="👋 Bienvenue, Administrateur" />
+        <Text style="-fx-font-size: 16px; -fx-fill: #666; -fx-text-alignment: center; -fx-wrap-text: true; -fx-max-width: 600;" text="Gérez facilement tous les aspects de votre application depuis ce tableau de bord." />
+    </VBox>
+    
+    <!-- Cartes de statistiques -->
+    <HBox alignment="CENTER" spacing="20" style="-fx-padding: 20;">
+        <!-- Carte Utilisateurs -->
+        <VBox alignment="CENTER" style="-fx-background-color: white; -fx-background-radius: 15; -fx-padding: 20; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0.5, 0, 3); -fx-pref-width: 280;">
+            <Text style="-fx-font-size: 14px; -fx-fill: #666;" text="UTILISATEURS" />
+            <Label fx:id="userCountLabel" style="-fx-font-size: 36px; -fx-font-weight: bold; -fx-fill: #6d219c;" text="1,248" />
+            <Text style="-fx-font-size: 12px; -fx-fill: #4CAF50;" text="↑ 12% ce mois-ci" />
+        </VBox>
+        
+        <!-- Carte Activité -->
+        <VBox alignment="CENTER" style="-fx-background-color: white; -fx-background-radius: 15; -fx-padding: 20; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0.5, 0, 3); -fx-pref-width: 280;">
+            <Text style="-fx-font-size: 14px; -fx-fill: #666;" text="ACTIVITÉ" />
+            <Label fx:id="activityCountLabel" style="-fx-font-size: 36px; -fx-font-weight: bold; -fx-fill: #2196F3;" text="3,542" />
+            <Text style="-fx-font-size: 12px; -fx-fill: #F44336;" text="↓ 5% ce mois-ci" />
+        </VBox>
+    </HBox>
+    
+    <!-- Bouton d'action principal -->
+    <Button fx:id="manageUsersBtn" mnemonicParsing="false"  prefHeight="55.0" prefWidth="300.0" style="-fx-background-color: linear-gradient(to right, #6d219c, #9e5ac3); -fx-text-fill: white; -fx-font-size: 18px; -fx-font-weight: bold; -fx-background-radius: 15; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0.5, 0, 3);" text="👥 Gérer les Utilisateurs" />
+    
+    <!-- Pied de page -->
+    <HBox fx:id="footerContainer" alignment="CENTER" spacing="10" style="-fx-padding: 20;">
+        <Button fx:id="logoutBtn" mnemonicParsing="false" style="-fx-background-color: transparent; -fx-text-fill: #6d219c; -fx-underline: true; -fx-cursor: hand;" text="Déconnexion" />
+        <Label fx:id="lastLoginLabel" style="-fx-font-size: 12px; -fx-fill: #999;" text="Dernière connexion: aujourd'hui à 14:30" />
+    </HBox>
+</VBox>

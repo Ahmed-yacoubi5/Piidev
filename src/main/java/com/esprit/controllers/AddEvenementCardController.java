@@ -4,6 +4,8 @@ import com.esprit.models.Evenement;
 import com.esprit.services.IService;
 import com.esprit.services.ServiceEvenement;
 import com.esprit.utils.TrayNotificationAlert;
+import com.esprit.utils.TrayNotificationAlert.AnimationType;
+import com.esprit.utils.TrayNotificationAlert.NotificationType;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -21,8 +23,6 @@ import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.util.Duration;
-import tray.animations.AnimationType;
-import tray.notification.NotificationType;
 
 import java.io.File;
 import java.io.IOException;
@@ -301,7 +301,7 @@ public class AddEvenementCardController implements Initializable {
     }
 
     private void switchToEvenementsList(MouseEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/EvenementsList.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/EvenementsList.fxml"));
         Parent root = loader.load();
         Pane contentArea = (Pane) ((Node) event.getSource()).getScene().lookup("#content_area");
         contentArea.getChildren().clear();
@@ -309,6 +309,6 @@ public class AddEvenementCardController implements Initializable {
     }
 
     private void showNotification(String title, String message, NotificationType type) {
-        TrayNotificationAlert.notif(title, message, type, AnimationType.POPUP, Duration.millis(2500));
+        TrayNotificationAlert.notif(title, message, type, AnimationType.FADE, Duration.millis(2500));
     }
 }

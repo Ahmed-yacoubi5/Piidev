@@ -37,7 +37,7 @@
     </TableView>
 
     <!-- Champ de recherche -->
-    <TextField fx:id="searchField" layoutX="630.0" layoutY="148.0" prefHeight="35.0" prefWidth="300.0"
+    <TextField fx:id="searchField" layoutX="502.0" layoutY="148.0" prefHeight="39.0" prefWidth="347.0"
                promptText="🔍 Rechercher..."
                style="-fx-background-color: #ffffff; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" />
 
@@ -46,41 +46,30 @@
         <graphic>
             <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                 <image>
-                    <Image url="@/images/add.png" />
+                    <Image url="@images/add.png" />
                 </image>
             </ImageView>
         </graphic>
     </Button>
 
-    <Button layoutX="22.0" layoutY="342.0" prefHeight="44.0" prefWidth="196.0" styleClass="button"
-            text="📊 Statistiques" onAction="#ButtonActionStatistiques">
+    <Button layoutX="22.0" layoutY="342.0" onAction="#afficherStatistiques" prefHeight="44.0" prefWidth="196.0" styleClass="button" text=" Statistiques">
         <graphic>
             <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                 <image>
-                    <Image url="@/images/stat.png" />
+                    <Image url="@images/stat.png" />
                 </image>
             </ImageView>
         </graphic>
     </Button>
-
 
     <Button layoutX="22.0" layoutY="412.0" onAction="#ButtonActionRetourMenu" prefHeight="44.0" prefWidth="203.0" styleClass="button-exit" text="   Retour au Menu">
         <graphic>
             <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                 <image>
-                    <Image url="@/images/home.png" />
+                    <Image url="@images/home.png" />
                 </image>
             </ImageView>
         </graphic>
     </Button>
-    <!-- Boutons de tri à gauche -->
-    <Button layoutX="300.0" layoutY="148.0" prefHeight="35.0" prefWidth="150.0"
-            onAction="#ButtonActionTrierCroissant" text="⬆️ Trier ↑"
-            style="-fx-background-color: #E0F7FA; -fx-border-color: #00796B; -fx-border-radius: 2em;" />
-
-    <Button layoutX="460.0" layoutY="148.0" prefHeight="35.0" prefWidth="150.0"
-            onAction="#ButtonActionTrierDecroissant" text="⬇️ Trier ↓"
-            style="-fx-background-color: #FFEBEE; -fx-border-color: #C62828; -fx-border-radius: 2em;" />
-
 
 </AnchorPane>

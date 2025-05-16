@@ -1,30 +1,33 @@
-package com.recrutement.controllers;
+package com.esprit.controllers;
 
-import com.recrutement.models.cv;
-import com.recrutement.services.CvServices;
+import com.esprit.models.cv;
+import com.esprit.services.CvServices;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
-import javafx.event.ActionEvent;
 import javafx.util.Callback;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+import java.awt.*;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.awt.Desktop;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.collections.ObservableList;
 public class AfficheCV {
 
     @FXML
@@ -74,7 +77,10 @@ public class AfficheCV {
         // Pour les colonnes avec IntegerProperty (telles que colId et colTelephone),
         // nous devons les convertir en ObservableValue<Integer>
         colTelephone.setCellValueFactory(cellData -> cellData.getValue().telephoneProperty().asObject());  // asObject() convertit IntegerProperty en ObservableValue<Integer>
-
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        colDateNaissance.setCellValueFactory(cellData ->
+                new SimpleStringProperty(dateFormat.format(cellData.getValue().getDateDeNaissance()))
+        );
         // Configurer la colonne d'image pour afficher l'image à partir du chemin
         colImage.setCellValueFactory(cellData -> {
             // On suppose que vous avez une propriété 'imagePath' de type StringProperty dans votre modèle 'cv'

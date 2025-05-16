@@ -6,7 +6,6 @@ import com.esprit.services.CandidatService;
 import com.esprit.services.EmployeService;
 import com.esprit.utils.AppData;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -21,7 +20,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 

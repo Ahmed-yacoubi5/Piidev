@@ -1,32 +1,32 @@
-package com.recrutement.models;
+package com.esprit.models;
 
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
+
 import java.sql.Date;
 
 public class offreemploi {
-
     private SimpleIntegerProperty id;
     private SimpleStringProperty titre;
     private SimpleStringProperty description;
-    private Date date_publication; // Note: Date cannot be a Simple property, leave as Date type
+    private SimpleStringProperty adresse;
+    private Date date_publication;
     private statut statut;
 
-
-    // Constructor with ID
-    public offreemploi(int id, String titre, String description, Date date_publication, statut statut) {
+    // Constructeurs
+    public offreemploi(int id, String titre, String description, String adresse, Date date_publication, statut statut) {
         this.id = new SimpleIntegerProperty(id);
         this.titre = new SimpleStringProperty(titre);
         this.description = new SimpleStringProperty(description);
+        this.adresse = new SimpleStringProperty(adresse);
         this.date_publication = date_publication;
         this.statut = statut;
     }
 
-    // Constructor without ID (for adding to the database)
-    public offreemploi(String titre, String description, Date date_publication, statut statut) {
+    public offreemploi(String titre, String description, String adresse, Date date_publication, statut statut) {
         this.titre = new SimpleStringProperty(titre);
         this.description = new SimpleStringProperty(description);
+        this.adresse = new SimpleStringProperty(adresse);
         this.date_publication = date_publication;
         this.statut = statut;
     }
@@ -96,6 +96,20 @@ public class offreemploi {
     public void setStatut(statut statut) {
         this.statut = statut;
     }
+    public SimpleStringProperty adresseProperty() {
+        if (adresse == null) {
+            adresse = new SimpleStringProperty();
+        }
+        return adresse;
+    }
+
+    public String getAdresse() {
+        return adresse.get();
+    }
+
+    public void setAdresse(String adresse) {
+        this.adresse.set(adresse);
+    }
 
     // Enhanced toString method
     @Override
@@ -104,6 +118,7 @@ public class offreemploi {
                 "id=" + id.get() +
                 ", titre='" + titre.get() + '\'' +
                 ", description='" + description.get() + '\'' +
+                ", adresse='" + adresse.get() + '\'' +
                 ", date_publication=" + date_publication +
                 ", statut=" + statut +
                 '}';

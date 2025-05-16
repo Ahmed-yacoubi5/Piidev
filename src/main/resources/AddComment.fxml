@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<Pane fx:id="content_area" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" styleClass="dash__container-card" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.controllers.AddCommentCardController">
+    <children>
+        <VBox alignment="CENTER" layoutX="175.0" layoutY="100.0" prefHeight="400.0" prefWidth="450.0" spacing="20">
+            <children>
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Ajouter un commentaire" wrappingWidth="400.0">
+                    <font>
+                        <Font name="System Bold" size="24.0" />
+                    </font>
+                </Text>
+                
+                <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="450.0">
+                    <children>
+                        <Label prefWidth="100.0" text="Nom:" />
+                        <TextField fx:id="nameInput" prefHeight="35.0" prefWidth="300.0" promptText="Votre nom" onKeyTyped="#nameTypedInput" />
+                    </children>
+                </HBox>
+                
+                <!-- Error message for name input -->
+                <HBox fx:id="nameInputErrorHbox" alignment="CENTER_LEFT" prefHeight="20.0" prefWidth="450.0" visible="false">
+                    <children>
+                        <Label prefWidth="100.0" />
+                        <Text fx:id="nameInputError" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="Veuillez entrer votre nom" />
+                    </children>
+                </HBox>
+                
+                <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="450.0">
+                    <children>
+                        <Label prefWidth="100.0" text="Contenu:" />
+                        <TextArea fx:id="ContenuInput" prefHeight="100.0" prefWidth="300.0" promptText="Votre commentaire" wrapText="true" />
+                    </children>
+                </HBox>
+                
+                <Button mnemonicParsing="false" onMouseClicked="#addNewComments" prefHeight="40.0" prefWidth="200.0" styleClass="button" text="Envoyer">
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                </Button>
+            </children>
+            <padding>
+                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+            </padding>
+        </VBox>
+    </children>
+</Pane>

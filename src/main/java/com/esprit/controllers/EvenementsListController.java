@@ -1,6 +1,8 @@
 package com.esprit.controllers;
 
 import com.esprit.models.Evenement;
+import com.esprit.services.IService;
+import com.esprit.services.ServiceEvenement;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -15,15 +17,10 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
-import com.esprit.PDFExporter;
-import com.esprit.services.IService;
-import com.esprit.services.ServiceEvenement;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import tray.animations.AnimationType;
-import tray.notification.NotificationType;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -124,7 +121,7 @@ public class EvenementsListController implements Initializable {
     @FXML
     private void open_addEvenement(MouseEvent event) throws IOException {
         Evenement.actionTest = 0;
-        Parent fxml = FXMLLoader.load(getClass().getResource("/FXML/AddEvenement.fxml"));
+        Parent fxml = FXMLLoader.load(getClass().getResource("/AddEvenement.fxml"));
         content_area.getChildren().removeAll();
         content_area.getChildren().setAll(fxml);
     }
@@ -154,7 +151,7 @@ public class EvenementsListController implements Initializable {
         int row = 1;
         try {
             for (Evenement evenement : evenements) {
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/FXML/OneEvenementListCard.fxml"));
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/OneEvenementListCard.fxml"));
                 HBox oneEvenementCard = fxmlLoader.load();
                 OneEvenementListCardController evenementCardController = fxmlLoader.getController();
                 evenementCardController.setEvenementData(evenement);

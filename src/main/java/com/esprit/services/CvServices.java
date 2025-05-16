@@ -1,7 +1,7 @@
-package com.recrutement.services;
+package com.esprit.services;
 
-import com.recrutement.models.cv;
-import com.recrutement.utils.DataSources;
+import com.esprit.models.cv;
+import com.esprit.utils.database;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -9,7 +9,7 @@ import java.util.List;
 
 public class CvServices {
 
-    private final Connection connection = DataSources.getInstance().getConnection();
+    private final Connection connection = database.getInstance().getConnection();
 
     // Ajouter un CV
     public void ajouter(cv cv) {
@@ -17,7 +17,7 @@ public class CvServices {
         try (PreparedStatement pst = connection.prepareStatement(req)) {
             pst.setString(1, cv.getNom());
             pst.setString(2, cv.getPrenom());
-            pst.setDate(3, new java.sql.Date(cv.getDateDeNaissance().getTime()));
+            pst.setDate(3, new Date(cv.getDateDeNaissance().getTime()));
             pst.setString(4, cv.getAdresse());
             pst.setString(5, cv.getEmail());
             pst.setInt(6, cv.getTelephone());
@@ -35,7 +35,7 @@ public class CvServices {
         try (PreparedStatement pst = connection.prepareStatement(req)) {
             pst.setString(1, cv.getNom());
             pst.setString(2, cv.getPrenom());
-            pst.setDate(3, new java.sql.Date(cv.getDateDeNaissance().getTime()));
+            pst.setDate(3, new Date(cv.getDateDeNaissance().getTime()));
             pst.setString(4, cv.getAdresse());
             pst.setString(5, cv.getEmail());
             pst.setInt(6, cv.getTelephone());
@@ -84,7 +84,4 @@ public class CvServices {
         return cvs;
     }
     // Récupérer tous les CVs
-
-
-
 }

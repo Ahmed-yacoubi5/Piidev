@@ -1,8 +1,9 @@
-package com.recrutement.controllers;
+package com.esprit.controllers;
 
-import com.recrutement.models.offreemploi;
-import com.recrutement.models.statut;
-import com.recrutement.services.OffreEmploiServices;
+import com.esprit.models.offreemploi;
+import com.esprit.models.statut;
+import com.esprit.services.OffreEmploiServices;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -10,7 +11,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import javafx.event.ActionEvent; // Correction de l'importation
 
 import java.io.IOException;
 import java.net.URL;

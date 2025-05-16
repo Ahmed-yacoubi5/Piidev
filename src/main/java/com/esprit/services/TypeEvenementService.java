@@ -1,8 +1,8 @@
 package com.esprit.services;
 
-
 import com.esprit.models.TypeEvenement;
-import com.esprit.utils.DataSource;
+import com.esprit.utils.database;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +11,7 @@ public class TypeEvenementService {
     private Connection con;
 
     public TypeEvenementService() {
-        con = DataSource.getInstance().getConnection();
+        con = database.getInstance().getConnection();
     }
 
     public void ajouter(TypeEvenement te) {

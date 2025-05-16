@@ -1,8 +1,9 @@
-package com.recrutement.services;
+// OffreEmploiServices.java
+package com.esprit.services;
 
-import com.recrutement.models.statut;
-import com.recrutement.models.offreemploi;
-import com.recrutement.utils.DataSources;
+import com.esprit.models.offreemploi;
+import com.esprit.models.statut;
+import com.esprit.utils.database;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -10,16 +11,17 @@ import java.util.List;
 
 public class OffreEmploiServices implements iservices<offreemploi> {
 
-    private final Connection connection = DataSources.getInstance().getConnection();
+    private final Connection connection = database.getInstance().getConnection();
 
     @Override
     public void ajouter(offreemploi offreemploi) {
-        String req = "INSERT INTO offreemploi (titre, description, date_publication, statut) VALUES (?, ?, ?, ?)";
+        String req = "INSERT INTO offreemploi (titre, description, adresse, date_publication, statut) VALUES (?, ?, ?, ?, ?)";
         try (PreparedStatement pst = connection.prepareStatement(req)) {
             pst.setString(1, offreemploi.getTitre());
             pst.setString(2, offreemploi.getDescription());
-            pst.setDate(3, new java.sql.Date(offreemploi.getDate_publication().getTime()));
-            pst.setString(4, offreemploi.getStatut().toString());
+            pst.setString(3, offreemploi.getAdresse());
+            pst.setDate(4, new Date(offreemploi.getDate_publication().getTime()));
+            pst.setString(5, offreemploi.getStatut().toString());
             pst.executeUpdate();
             System.out.println("✅ Offre d'emploi ajoutée avec succès !");
         } catch (SQLException e) {
@@ -29,13 +31,14 @@ public class OffreEmploiServices implements iservices<offreemploi> {
 
     @Override
     public void modifier(offreemploi offreemploi) {
-        String req = "UPDATE offreemploi SET titre=?, description=?, date_publication=?, statut=? WHERE id=?";
+        String req = "UPDATE offreemploi SET titre=?, description=?, adresse=?, date_publication=?, statut=? WHERE id=?";
         try (PreparedStatement pst = connection.prepareStatement(req)) {
             pst.setString(1, offreemploi.getTitre());
             pst.setString(2, offreemploi.getDescription());
-            pst.setDate(3, new java.sql.Date(offreemploi.getDate_publication().getTime()));
-            pst.setString(4, offreemploi.getStatut().toString());
-            pst.setInt(5, offreemploi.getId());
+            pst.setString(3, offreemploi.getAdresse());
+            pst.setDate(4, new Date(offreemploi.getDate_publication().getTime()));
+            pst.setString(5, offreemploi.getStatut().toString());
+            pst.setInt(6, offreemploi.getId());
             pst.executeUpdate();
             System.out.println("✅ Offre d'emploi modifiée avec succès !");
         } catch (SQLException e) {
@@ -59,6 +62,7 @@ public class OffreEmploiServices implements iservices<offreemploi> {
     public List<offreemploi> rechercher() {
         return getAllOffres();
     }
+
     private List<offreemploi> favoris = new ArrayList<>();
 
     public void ajouterFavoris(offreemploi offre) {
@@ -70,6 +74,7 @@ public class OffreEmploiServices implements iservices<offreemploi> {
     public List<offreemploi> getFavoris() {
         return favoris;
     }
+
     public List<offreemploi> getAllOffres() {
         List<offreemploi> offreemplois = new ArrayList<>();
         String req = "SELECT * FROM offreemploi";
@@ -80,6 +85,7 @@ public class OffreEmploiServices implements iservices<offreemploi> {
                         rs.getInt("id"),
                         rs.getString("titre"),
                         rs.getString("description"),
+                        rs.getString("adresse"),
                         rs.getDate("date_publication"),
                         statut.valueOf(rs.getString("statut"))
                 ));

@@ -1,14 +1,10 @@
 package com.esprit.controllers;
-import javafx.stage.FileChooser;
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.StandardCopyOption;
 
 import com.esprit.models.Candidat;
 import com.esprit.models.Employe;
 import com.esprit.services.CandidatService;
 import com.esprit.services.EmployeService;
+import com.esprit.services.IService;
 import com.esprit.utils.AppData;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -17,10 +13,15 @@ import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.sql.Date;
+import java.sql.SQLException;
 
 import static java.lang.Integer.parseInt;
 
@@ -61,8 +62,8 @@ public class EditController {
             empPane.setVisible(false);
             Candidat candidat = new Candidat();
             candidat.setId(AppData.getInstance().getSelectedCandidatId());
-            CandidatService candidatService = new CandidatService();
-            candidatService.candidatAff(candidat);
+            IService<Candidat> candidatService = new CandidatService();
+            ((CandidatService) candidatService).candidatAff(candidat);
             id.setText(String.valueOf(candidat.getId()));
             nom.setText(candidat.getNom());
             prenom.setText(candidat.getPrenom());
@@ -95,9 +96,13 @@ public class EditController {
     public void submit(){
         if (modified) {
             if(!isemp) {
-                Candidat candidat = new Candidat(nom.getText(),prenom.getText(),email.getText(),null,parseInt(id.getText()));
-                CandidatService candidatService = new CandidatService();
-                candidatService.modifier(candidat);
+                Candidat candidat = new Candidat(nom.getText(),prenom.getText(),email.getText(),cv,parseInt(id.getText()));
+                IService<Candidat> candidatService = new CandidatService();
+                try {
+                    candidatService.modifier(candidat);
+                } catch (SQLException e) {
+                    System.out.println("Error modifying candidat: " + e.getMessage());
+                }
             }
             else{
                 Employe employe = new Employe(parseInt(id.getText()),nom.getText(),prenom.getText(),email.getText(), poste.getText(), Date.valueOf(dateEmbauche.getValue()));
@@ -131,8 +136,8 @@ public class EditController {
                 // Update the cv field with the file path
                 String filePath = destinationFile.getAbsolutePath();
                 cv = filePath;
-            modified=true;
-                System.out.println("CV uploaded successfully. File path: " + filePath);
+                modified=true;
+                System.out.println("CV uploaded successfully. File path: " + cv);
 
             } catch (IOException e) {
                 System.out.println("Error copying the CV: " + e.getMessage());
@@ -147,5 +152,4 @@ public class EditController {
         int index = fileName.lastIndexOf('.');
         return (index > 0) ? fileName.substring(index) : "";
     }
-
 }

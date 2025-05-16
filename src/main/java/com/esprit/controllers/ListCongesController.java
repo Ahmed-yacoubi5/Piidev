@@ -168,36 +168,38 @@ public class ListCongesController {
         alert.setContentText(message);
         alert.showAndWait();
     }
-
-    /**
-     * Trie les congés par date de début en ordre croissant.
-     */
     @FXML
-    void ButtonActionTrierCroissant(ActionEvent event) {
-        observableCongesList.sort((c1, c2) -> c1.getDatedebut().compareTo(c2.getDatedebut()));
-    }
+    void afficherStatistiques(ActionEvent event) {
+        ServiceConges serviceConges = new ServiceConges();
+        List<conges> congesList = serviceConges.afficher();
 
-    /**
-     * Trie les congés par date de début en ordre décroissant.
-     */
-    @FXML
-    void ButtonActionTrierDecroissant(ActionEvent event) {
-        observableCongesList.sort((c1, c2) -> c2.getDatedebut().compareTo(c1.getDatedebut()));
-    }
+        // Calcul du total
+        int totalConges = congesList.size();
 
-    /**
-     * Affiche la page des statistiques des congés.
-     */
-    @FXML
-    void ButtonActionStatistiques(ActionEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/StatistiquesConges.fxml"));
-            Parent root = loader.load();
-            TableViewListConges.getScene().setRoot(root);
-        } catch (IOException e) {
-            e.printStackTrace(); // Affiche l'erreur dans la console pour déboguer
-            afficherAlerte("⚠️ Erreur", "Impossible de charger les statistiques : " + e.getMessage());
-        }
+        // Compter les congés par type
+        long totalType1 = congesList.stream().filter(c -> "Type1".equalsIgnoreCase(c.getType())).count();
+        long totalType2 = congesList.stream().filter(c -> "Type2".equalsIgnoreCase(c.getType())).count();
+
+        // Compter les congés par statut
+        long totalEnCours = congesList.stream().filter(c -> "en cours".equalsIgnoreCase(c.getStatut())).count();
+        long totalTermines = congesList.stream().filter(c -> "terminé".equalsIgnoreCase(c.getStatut())).count();
+        long totalAvenir = congesList.stream().filter(c -> "prochainement".equalsIgnoreCase(c.getStatut())).count();
+
+        // Affichage dans une boîte de dialogue
+        String message = "📊 Statistiques des Congés\n"
+                + "----------------------------------\n"
+                + "Total des congés : " + totalConges + "\n\n"
+                + "📝 Type1 : " + totalType1 + "\n"
+                + "📌 Type2 : " + totalType2 + "\n\n"
+                + "🟡 En cours : " + totalEnCours + "\n"
+                + "🟢 Terminés : " + totalTermines + "\n"
+                + "🔵 Prochainement : " + totalAvenir;
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Statistiques des Congés");
+        alert.setHeaderText("Détails des congés");
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 
 

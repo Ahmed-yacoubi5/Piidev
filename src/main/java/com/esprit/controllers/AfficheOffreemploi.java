@@ -1,32 +1,34 @@
-package com.recrutement.controllers;
+package com.esprit.controllers;
 
-import com.recrutement.models.cv;
-import com.recrutement.models.offreemploi;
-import com.recrutement.models.statut;
-import com.recrutement.services.OffreEmploiServices;
+import com.esprit.models.offreemploi;
+import com.esprit.models.statut;
+import com.esprit.services.OffreEmploiServices;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.fxml.FXML;
-import javafx.scene.chart.PieChart;
-import javafx.scene.control.*;
 import javafx.event.ActionEvent;
-import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.fxml.FXMLLoader;
+import javafx.scene.chart.PieChart;
+import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+import java.awt.*;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.awt.Desktop;
-import java.io.File;
-import java.util.stream.Collectors;
 
 public class AfficheOffreemploi {
+    public PieChart statChart;
     @FXML
     private Button btnRetour;
     @FXML
@@ -44,6 +46,8 @@ public class AfficheOffreemploi {
     @FXML
     private TableColumn<offreemploi, String> colDescription;
     @FXML
+    private TableColumn<offreemploi, String> colAdresse;
+    @FXML
     private TableColumn<offreemploi, String> colDatePublication;
     @FXML
     private TableColumn<offreemploi, String> colStatut;
@@ -51,6 +55,10 @@ public class AfficheOffreemploi {
     private Button btnModifier;
     @FXML
     private Button btnSupprimer;
+    @FXML
+    private Button btnAjouter;
+    @FXML
+    private Button btnExportPDF;
 
     private OffreEmploiServices offreService = new OffreEmploiServices();
     private List<offreemploi> listOffres = new ArrayList<>();
@@ -60,6 +68,7 @@ public class AfficheOffreemploi {
         // Initialiser les colonnes du TableView
         colTitre.setCellValueFactory(cellData -> cellData.getValue().titreProperty());
         colDescription.setCellValueFactory(cellData -> cellData.getValue().descriptionProperty());
+        colAdresse.setCellValueFactory(cellData -> cellData.getValue().adresseProperty());
         colDatePublication.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDate_publication().toString()));
 
         // For 'statut', we will convert it to String (i.e., DISPONIBLE or INDISPONIBLE)
@@ -80,6 +89,7 @@ public class AfficheOffreemploi {
         Parent root = loader.load();
         Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(root));
+        stage.setTitle("Menu Principal");
         stage.show();
     }
 
@@ -88,52 +98,6 @@ public class AfficheOffreemploi {
         listOffres.sort((o1, o2) -> o1.getTitre().compareTo(o2.getTitre()));
         tableViewOffres.setItems(FXCollections.observableArrayList(listOffres));
     }
-
-
-    @FXML
-    void handleStatistiquesParStatut(ActionEvent event) {
-        if (listOffres == null || listOffres.isEmpty()) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Statistiques indisponibles");
-            alert.setHeaderText(null);
-            alert.setContentText("Aucune offre d'emploi disponible pour générer des statistiques.");
-            alert.show();
-            return;
-        }
-
-        // Compter les offres disponibles et indisponibles
-        int disponible = 0;
-        int indisponible = 0;
-
-        for (offreemploi offre : listOffres) {
-            if (offre.getStatut() == statut.DISPONIBLE) {
-                disponible++;
-            } else if (offre.getStatut() == statut.INDISPONIBLE) {
-                indisponible++;
-            }
-        }
-
-        // Créer un PieChart
-        PieChart chart = new PieChart();
-        chart.setTitle("Répartition des Offres d'Emploi");
-
-        // Ajouter les données
-        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(
-                new PieChart.Data("DISPONIBLES", disponible),
-                new PieChart.Data("INDISPONIBLES", indisponible)
-        );
-        chart.setData(pieChartData);
-
-        // Afficher dans une nouvelle fenêtre
-        Stage stage = new Stage();
-        Scene scene = new Scene(new StackPane(chart), 500, 400);
-        stage.setTitle("Statistiques des Offres");
-        stage.setScene(scene);
-        stage.show();
-    }
-
-
-
 
     @FXML
     void handleRechercher(ActionEvent event) {
@@ -209,8 +173,9 @@ public class AfficheOffreemploi {
 
         stage.show();
     }
+
     @FXML
-    private void handleExportToExcel(ActionEvent event) {
+    void handleExportToExcel(ActionEvent event) {
         // Créer un nouveau classeur Excel
         Workbook workbook = new XSSFWorkbook();
         Sheet sheet = workbook.createSheet("Offres d'Emploi");
@@ -273,6 +238,7 @@ public class AfficheOffreemploi {
             }
         }
     }
+
     @FXML
     void handleAjouterFavoris(ActionEvent event) {
         offreemploi selectedOffre = tableViewOffres.getSelectionModel().getSelectedItem();
@@ -292,6 +258,7 @@ public class AfficheOffreemploi {
         success.setContentText("Offre ajoutée aux favoris avec succès !");
         success.show();
     }
+
     @FXML
     void handleAfficherFavoris(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficheFavoris.fxml"));
@@ -305,6 +272,7 @@ public class AfficheOffreemploi {
         stage.setScene(new Scene(root));
         stage.show();
     }
+
     @FXML
     void handleAjouter(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjoutOffreemploi.fxml"));
@@ -312,5 +280,58 @@ public class AfficheOffreemploi {
         Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(root));
         stage.show();
+    }
+
+    @FXML
+    void handleExportPDF(ActionEvent event) {
+        showNotImplementedAlert("Exporter en PDF");
+    }
+
+    @FXML
+    void handleStatistiquesParStatut(ActionEvent event) {
+        // Récupérer les données d'offres
+        List<offreemploi> offres = offreService.getAllOffres();
+        
+        // Compter les offres par statut
+        int disponibles = 0;
+        int indisponibles = 0;
+        
+        for (offreemploi offre : offres) {
+            if (offre.getStatut() == statut.DISPONIBLE) {
+                disponibles++;
+            } else {
+                indisponibles++;
+            }
+        }
+        
+        // Créer les données pour le graphique PieChart
+        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(
+            new PieChart.Data("Disponibles", disponibles),
+            new PieChart.Data("Indisponibles", indisponibles)
+        );
+        
+        // Mettre à jour le graphique
+        statChart.setData(pieChartData);
+        statChart.setTitle("Offres par statut");
+        statChart.setLegendVisible(true);
+        statChart.setVisible(true);
+        
+        // Animation pour les tranches du PieChart (optional)
+        pieChartData.forEach(data -> {
+            data.getNode().setOnMouseEntered(e -> {
+                data.getNode().setStyle("-fx-pie-color: derive(" + data.getNode().getStyle() + ", 20%);");
+            });
+            data.getNode().setOnMouseExited(e -> {
+                data.getNode().setStyle("");
+            });
+        });
+    }
+
+    private void showNotImplementedAlert(String action) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Fonctionnalité non implémentée");
+        alert.setHeaderText(null);
+        alert.setContentText("La fonctionnalité \"" + action + "\" n'a pas encore été implémentée.");
+        alert.showAndWait();
     }
 }

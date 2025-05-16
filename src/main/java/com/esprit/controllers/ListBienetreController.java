@@ -26,8 +26,6 @@ public class ListBienetreController {
 
     @FXML
     private TableColumn<bienetre, String> ColumnReview;
-    @FXML
-    private TableColumn<bienetre, String> ColumnSentiment;
 
     @FXML
     private TableView<bienetre> TableViewListBienetre;
@@ -46,7 +44,6 @@ public class ListBienetreController {
             ColumnNom.setCellValueFactory(new PropertyValueFactory<>("nom"));
             ColumnRate.setCellValueFactory(new PropertyValueFactory<>("rate"));
             ColumnReview.setCellValueFactory(new PropertyValueFactory<>("review"));
-            ColumnSentiment.setCellValueFactory(new PropertyValueFactory<>("sentiment"));
 
             TableViewListBienetre.setItems(observableBienetreList);
         } catch (Exception e) {

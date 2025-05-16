@@ -2,6 +2,12 @@ package com.esprit.controllers;
 
 import com.esprit.models.Commentaire;
 import com.esprit.models.Evenement;
+import com.esprit.services.IService;
+import com.esprit.services.ServiceCommentaire;
+import com.esprit.services.ServiceEvenement;
+import com.esprit.utils.TrayNotificationAlert;
+import com.esprit.utils.TrayNotificationAlert.AnimationType;
+import com.esprit.utils.TrayNotificationAlert.NotificationType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -18,11 +24,7 @@ import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.util.Duration;
-import com.esprit.services.IService;
-import com.esprit.services.ServiceCommentaire;
-import com.esprit.services.ServiceEvenement;
-import tray.animations.AnimationType;
-import tray.notification.NotificationType;
+
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -34,7 +36,6 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.ResourceBundle;
-import com.esprit.utils.TrayNotificationAlert;
 
 public class AddCommentCardController implements Initializable {
     @FXML
@@ -140,13 +141,20 @@ public class AddCommentCardController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         System.out.println(Evenement.actionTest);
-//
-//        nameInputErrorHbox.setVisible(false);
-//        descriptionInputErrorHbox.setVisible(false);
-//        prixInputErrorHbox.setVisible(false);
-//        fxLieuErrorHbox.setVisible(false);
-//        fxdateFinErrorHbox.setVisible(false);
-//        fxdateDebutErrorHbox.setVisible(false);
+
+        // Set error boxes to invisible only if they exist
+        if (nameInputErrorHbox != null) nameInputErrorHbox.setVisible(false);
+        if (descriptionInputErrorHbox != null) descriptionInputErrorHbox.setVisible(false);
+        if (prixInputErrorHbox != null) prixInputErrorHbox.setVisible(false);
+        if (fxLieuErrorHbox != null) fxLieuErrorHbox.setVisible(false);
+        if (fxdateFinErrorHbox != null) fxdateFinErrorHbox.setVisible(false);
+        if (fxdateDebutErrorHbox != null) fxdateDebutErrorHbox.setVisible(false);
+        if (numberInputErrorHbox != null) numberInputErrorHbox.setVisible(false);
+        if (photoInputErrorHbox != null) photoInputErrorHbox.setVisible(false);
+        if (pointsInputErrorHbox != null) pointsInputErrorHbox.setVisible(false);
+        if (priceInputErrorHbox != null) priceInputErrorHbox.setVisible(false);
+        
+        // Rest of initialization code
 //        if (Evenement.actionTest == 0) {
 //            update_EvenementBtn.setVisible(false);
 //        } else {
@@ -190,12 +198,16 @@ public class AddCommentCardController implements Initializable {
         commentaire.setNomuser(nameInput.getText());
         commentaire.setContenu(ContenuInput.getText());
         commentaire.setEvenement_id(Evenement.getIdEvenement());
-        IService serviceCommentaire = new ServiceCommentaire();
+        
+        // Set current date for date_creation
+        commentaire.setDate(java.time.LocalDateTime.now().toString());
+        
+        IService<Commentaire> serviceCommentaire = new ServiceCommentaire();
         try {
             serviceCommentaire.ajouter(commentaire);
-             System.out.println("ID du Evenement : " + Evenement.getIdEvenement());
+            System.out.println("ID du Evenement : " + Evenement.getIdEvenement());
             Evenement.setIdEvenement(Evenement.getIdEvenement());
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/CommentsList.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/CommentsList.fxml"));
             try {
                 Parent root = loader.load();
                 Pane contentArea = (Pane) ((Node) event.getSource()).getScene().lookup("#content_area");
@@ -212,12 +224,14 @@ public class AddCommentCardController implements Initializable {
     void nameTypedInput(KeyEvent event) {
         String nameText = ((TextField) event.getSource()).getText();
         if (!nameText.isEmpty()) {
-            nameInputErrorHbox.setVisible(false);
+            if (nameInputErrorHbox != null) {
+                nameInputErrorHbox.setVisible(false);
+            }
             nomTest = 1;
         }
     }
     private void showNotification(String title, String message, NotificationType type) {
-        TrayNotificationAlert.notif(title, message, type, AnimationType.POPUP, Duration.millis(2500));
+        TrayNotificationAlert.notif(title, message, type, AnimationType.FADE, Duration.millis(2500));
     }
 
 
@@ -244,7 +258,7 @@ public class AddCommentCardController implements Initializable {
 
 
     private void switchToEvenementsList(MouseEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/project/ShowEvenementCardFront.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/CommentsList.fxml"));
         Parent root = loader.load();
         Pane contentArea = (Pane) ((Node) event.getSource()).getScene().lookup("#content_area");
         contentArea.getChildren().clear();

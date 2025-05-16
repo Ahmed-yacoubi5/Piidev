@@ -1,10 +1,12 @@
 package com.esprit.utils;
 
-import java.sql.*;
-import java.util.Stack;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class ImageSrc {
-    private static Connection connection = DataSource.getInstance().getConnection();
+    private static Connection connection = database.getInstance().getConnection();
 
     public static String getSrc(int id) {
         String src = null;

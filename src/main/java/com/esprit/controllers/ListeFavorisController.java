@@ -1,6 +1,6 @@
-package com.recrutement.controllers;
+package com.esprit.controllers;
 
-import com.recrutement.models.offreemploi;
+import com.esprit.models.offreemploi;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;

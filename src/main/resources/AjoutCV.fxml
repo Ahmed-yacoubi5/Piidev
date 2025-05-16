@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Text?>
 
 <?import javafx.scene.image.ImageView?>
-<AnchorPane prefHeight="500.0" prefWidth="700.0" styleClass="root" stylesheets="@style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.recrutement.controllers.AjoutCvController">
+<AnchorPane prefHeight="500.0" prefWidth="700.0" styleClass="root" stylesheets="@style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.controllers.AjoutCvController">
    <children>
       <!-- Titre principal -->
       <Text layoutX="280.0" layoutY="60.0" styleClass="title-text" text="Ajouter un CV" underline="true">

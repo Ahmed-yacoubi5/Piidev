@@ -1,6 +1,11 @@
 package com.esprit.controllers;
 
 import com.esprit.models.Commentaire;
+import com.esprit.services.IService;
+import com.esprit.services.ServiceCommentaire;
+import com.esprit.utils.TrayNotificationAlert;
+import com.esprit.utils.TrayNotificationAlert.AnimationType;
+import com.esprit.utils.TrayNotificationAlert.NotificationType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -18,11 +23,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
-import com.esprit.services.IService;
-import com.esprit.services.ServiceCommentaire;
-import tray.animations.AnimationType;
-import tray.notification.NotificationType;
-import com.esprit.utils.TrayNotificationAlert;
 
 import java.io.IOException;
 import java.net.URL;
@@ -123,40 +123,53 @@ public class CommentsListController implements Initializable {
 
     }
     private void setCommentGridPaneList() throws SQLException {
-        IService commentaireService = new ServiceCommentaire();
-        List<Commentaire> commentaires = commentaireService.afficher();
-        int column = 0;
-        int row = 1;
+        IService<Commentaire> commentaireService = new ServiceCommentaire();
         try {
-            for (Commentaire commentaire : commentaires) {
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/FXML/OneCommentListCard.fxml"));
-                HBox oneCommentCard = fxmlLoader.load();
-                OneCommentListCardController commentCardController = fxmlLoader.getController();
-                commentCardController.setCommentData(commentaire);
-                if (column == 1) {
-                    column = 0;
-                    ++row;
-                }
-                CommentsListContainer.add(oneCommentCard, column++, row);
-                GridPane.setMargin(oneCommentCard, new Insets(0, 10, 25, 10));
-                oneCommentCard.setStyle("-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.09), 25, 0.1, 0, 0);");
+            List<Commentaire> commentaires = commentaireService.afficher();
+            
+            if (commentaires.isEmpty()) {
+                System.out.println("No comments found to display");
+                return;
             }
-        } catch (IOException e) {
+            
+            int column = 0;
+            int row = 1;
+            
+            for (Commentaire commentaire : commentaires) {
+                try {
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/OneCommentListCard.fxml"));
+                    HBox oneCommentCard = fxmlLoader.load();
+                    OneCommentListCardController commentCardController = fxmlLoader.getController();
+                    commentCardController.setCommentData(commentaire);
+                    if (column == 1) {
+                        column = 0;
+                        ++row;
+                    }
+                    CommentsListContainer.add(oneCommentCard, column++, row);
+                    GridPane.setMargin(oneCommentCard, new Insets(0, 10, 25, 10));
+                    oneCommentCard.setStyle("-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.09), 25, 0.1, 0, 0);");
+                } catch (IOException e) {
+                    System.out.println("Error loading comment card: " + e.getMessage());
+                    e.printStackTrace();
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Error retrieving comments: " + e.getMessage());
             e.printStackTrace();
         }
     }
     @FXML
     private void open_addComment(MouseEvent event) throws IOException {
-        Parent fxml = FXMLLoader.load(getClass().getResource("/FXML/AddComment.fxml"));
+        Parent fxml = FXMLLoader.load(getClass().getResource("/AddComment.fxml"));
         content_area.getChildren().removeAll();
         content_area.getChildren().setAll(fxml);
 
     }
     private void showNotification(String title, String message, NotificationType type) {
-        TrayNotificationAlert.notif(title, message, type, AnimationType.POPUP, Duration.millis(2500));
+        TrayNotificationAlert.notif(title, message, type, AnimationType.FADE, Duration.millis(2500));
     }
     private void switchToEvenementsList(MouseEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/CommentsList.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/CommentsList.fxml"));
         Parent root = loader.load();
         Pane contentArea = (Pane) ((Node) event.getSource()).getScene().lookup("#content_area");
         contentArea.getChildren().clear();

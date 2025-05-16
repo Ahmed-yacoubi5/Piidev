@@ -1,6 +1,5 @@
 package com.esprit.models;
 
-import java.sql.Date;
 import java.time.LocalDateTime;
 
 public class Evenement {

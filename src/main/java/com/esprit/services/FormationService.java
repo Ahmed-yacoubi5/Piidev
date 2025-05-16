@@ -1,13 +1,16 @@
 package com.esprit.services;
-import com.esprit.models.Formation;
-import com.esprit.utils.AppData;
-import com.esprit.utils.DataSource;
 
-import java.sql.*;
+import com.esprit.models.Formation;
+import com.esprit.utils.database;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 public class FormationService {
-    private Connection connection = DataSource.getInstance().getConnection();
+    private Connection connection = database.getInstance().getConnection();
 
 
     public void ajouter( Formation formation) {
@@ -54,15 +57,15 @@ public class FormationService {
             System.out.println(e.getMessage());
         }
     }
-    public void suppressionComplete(int id) {
+    public void suppressionComplete(int id) throws SQLException {
         String req = "DELETE from formation WHERE id=? ";
         try {
             PreparedStatement pst = connection.prepareStatement(req);
             pst.setInt(1,id);
             pst.executeUpdate();
-
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            System.out.println("Error deleting formations: " + e.getMessage());
+            throw e;
         }
     }
 

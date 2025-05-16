@@ -4,18 +4,22 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<VBox alignment="CENTER" prefHeight="617.0" prefWidth="939.0" spacing="30"
-      style="-fx-background-color: linear-gradient(to bottom right, #F4E7FD, #F4E7FF);"
-      xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.recrutement.controllers.HomeController">
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="932.0" prefWidth="1280.0" spacing="30" style="-fx-background-color: linear-gradient(to bottom right, #F4E7FD, #F4E7FF);" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.controllers.HomeController">
 
     <!-- Titre principal -->
-    <Text text="🏡 Menu Principal" style="-fx-font-size: 32px; -fx-font-weight: bold; -fx-fill: #ffffff; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.6), 10, 0.5, 0, 3);" />
+    <Text style="-fx-font-size: 32px; -fx-font-weight: bold; -fx-fill: #ffffff; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.6), 10, 0.5, 0, 3);" text="🏡 Menu Principal" />
 
     <!-- Boutons de navigation -->
-    <Button fx:id="btnOffreemploi" text="👨‍💼 Gérer les Offres Emplois" style="-fx-background-color: linear-gradient(to right, #6d219c , #9e5ac3  ); -fx-text-fill: #ffffff; -fx-font-size: 18px; -fx-padding: 15 40; -fx-border-radius: 15; -fx-background-radius: 15;" />
-    <Button fx:id="btnCV" text="🏖️ Gérer les CVs" style="-fx-background-color: linear-gradient(to right, #6d219c, #653b80); -fx-text-fill: #ffffff; -fx-font-size: 18px; -fx-padding: 15 40; -fx-border-radius: 15; -fx-background-radius: 15;" />
+    <Button fx:id="btnAbsences" style="-fx-background-color: linear-gradient(to right, #6d219c , #9e5ac3  ); -fx-text-fill: #ffffff; -fx-font-size: 18px; -fx-padding: 15 40; -fx-border-radius: 15; -fx-background-radius: 15;" text="👨‍💼 Gérer les Absences" />
+    <Button fx:id="btnConges" style="-fx-background-color: linear-gradient(to right, #6d219c, #653b80); -fx-text-fill: #ffffff; -fx-font-size: 18px; -fx-padding: 15 40; -fx-border-radius: 15; -fx-background-radius: 15;" text="🏖️ Gérer les Congés" />
+    <Button fx:id="btnBienEtre" style="-fx-background-color: linear-gradient(to right, #673c7e, #56197a); -fx-text-fill: #ffffff; -fx-font-size: 18px; -fx-padding: 15 40; -fx-border-radius: 15; -fx-background-radius: 15;" text="🌿 Gérer le Bien-être" />
+    <Button fx:id="btnEmployees" style="-fx-background-color: linear-gradient(to right, #5c1e5f, #9c27b0); -fx-text-fill: #ffffff; -fx-font-size: 18px; -fx-padding: 15 40; -fx-border-radius: 15; -fx-background-radius: 15;" text="👥 Gérer les Employés" />
+    <Button fx:id="btnProfile" style="-fx-background-color: linear-gradient(to right, #1e3a8a, #3949ab); -fx-text-fill: #ffffff; -fx-font-size: 18px; -fx-padding: 15 40; -fx-border-radius: 15; -fx-background-radius: 15;" text="👤 Gérer les Profils" />
+    <Button fx:id="btnCV" style="-fx-background-color: linear-gradient(to right, #2b3990, #4e7ac7); -fx-text-fill: #ffffff; -fx-font-size: 18px; -fx-padding: 15 40; -fx-border-radius: 15; -fx-background-radius: 15;" text="📄 Gérer les CV" />
+    <Button fx:id="btnOffres" style="-fx-background-color: linear-gradient(to right, #1e5631, #3ca370); -fx-text-fill: #ffffff; -fx-font-size: 18px; -fx-padding: 15 40; -fx-border-radius: 15; -fx-background-radius: 15;" text="💼 Gérer les Offres d'emploi" />
+    <Button fx:id="btnCommentaires" style="-fx-background-color: linear-gradient(to right, #026873, #59c1bd); -fx-text-fill: #ffffff; -fx-font-size: 18px; -fx-padding: 15 40; -fx-border-radius: 15; -fx-background-radius: 15;" text="💬 Gérer les Commentaires" />
+    <Button fx:id="btnEvenements" style="-fx-background-color: linear-gradient(to right, #c06c00, #ffb24d); -fx-text-fill: #ffffff; -fx-font-size: 18px; -fx-padding: 15 40; -fx-border-radius: 15; -fx-background-radius: 15;" text="🎭 Gérer les Événements" />
 
     <!-- Bouton de sortie -->
-    <Button fx:id="btnQuitter" text="❌ Quitter" style="-fx-background-color: linear-gradient(to right, #783834, #e80108); -fx-text-fill: #ffffff; -fx-font-size: 18px; -fx-padding: 15 40; -fx-border-radius: 15; -fx-background-radius: 15;" />
+    <Button fx:id="btnQuitter" style="-fx-background-color: linear-gradient(to right, #783834, #e80108); -fx-text-fill: #ffffff; -fx-font-size: 18px; -fx-padding: 15 40; -fx-border-radius: 15; -fx-background-radius: 15;" text="❌ Quitter" />
 </VBox>

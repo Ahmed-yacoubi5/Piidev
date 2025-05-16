@@ -8,25 +8,21 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javafx.fxml.Initializable;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.nio.file.StandardCopyOption;
-import java.util.UUID;
+import java.sql.SQLException;
 
 public class ProfileSetupController {
     @FXML
-    private javafx.scene.control.Button setup;
+    private Button setup;
     @FXML
     private Slider slider;
     @FXML
@@ -56,25 +52,37 @@ public void initialize() {
 public void setupProfile() throws IOException {
     profile = new Profil(AppData.getInstance().getPendingId(), slider.getValue(), competence.getText(), experience.getText(), certification.getText());
     ProfilService ps = new ProfilService();
-    ps.ajouter(profile);
-    if(imageIsSet) {
-        ps.handleImageProfile(AppData.getInstance().getPendingId(), getNewImageUrl());
-    }
-    else {
-        ps.handleImageProfile(AppData.getInstance().getPendingId(), "/images/Default.jpg");
-    }
-    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-    alert.setTitle("Information");
-    alert.setHeaderText("Information");
-    alert.setContentText("Profile is Setup");
-    alert.showAndWait();
+    
+    try {
+        ps.ajouter(profile);
+        
+        if(imageIsSet) {
+            ps.handleImageProfile(AppData.getInstance().getPendingId(), getNewImageUrl());
+        }
+        else {
+            ps.handleImageProfile(AppData.getInstance().getPendingId(), "/images/Default.jpg");
+        }
+        
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Information");
+        alert.setHeaderText("Information");
+        alert.setContentText("Profile is Setup");
+        alert.showAndWait();
 
-    FXMLLoader loader = new FXMLLoader(getClass().getResource("/SummaryView.fxml"));
-    AnchorPane newPane = loader.load();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/SummaryView.fxml"));
+        AnchorPane newPane = loader.load();
 
-    Stage currentStage = (Stage) setup.getScene().getWindow();
-    currentStage.setScene(new Scene(newPane));
-    currentStage.show();
+        Stage currentStage = (Stage) setup.getScene().getWindow();
+        currentStage.setScene(new Scene(newPane));
+        currentStage.show();
+    } catch (SQLException e) {
+        System.out.println("Database error: " + e.getMessage());
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Database Error");
+        alert.setHeaderText("Failed to setup profile");
+        alert.setContentText("An error occurred while setting up your profile: " + e.getMessage());
+        alert.showAndWait();
+    }
 }
     public void handleChooseImage() {
         // Create a file chooser to select an image

@@ -1,4 +1,4 @@
-package com.recrutement.controllers;
+package com.esprit.controllers;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -17,7 +17,8 @@ public class Home extends Application {
     @Override
     public void start(Stage primaryStage) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/Home.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/login.fxml"));
+            Parent root = loader.load();
             Scene scene = new Scene(root);
             primaryStage.setTitle("🏡 Menu Principal");
             primaryStage.setScene(scene);

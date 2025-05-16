@@ -11,7 +11,6 @@ import com.esprit.services.ProfilService;
 import com.esprit.utils.AppData;
 import com.esprit.utils.AutoMail;
 import com.esprit.utils.ImageSrc;
-import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -19,7 +18,6 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 

@@ -10,7 +10,7 @@
 
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
-<AnchorPane prefHeight="685.0" prefWidth="897.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.recrutement.controllers.AfficheFavorisController">
+<AnchorPane prefHeight="685.0" prefWidth="897.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.controllers.AfficheFavorisController">
 
     <Label layoutX="-6.0" prefHeight="687.0" prefWidth="254.0" style="-fx-background-color: #F4E7FF;" />
 
@@ -36,7 +36,7 @@
         <graphic>
             <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                 <image>
-                    <Image url="@/images/home.png" />
+                    <Image url="@images/home.png" />
                 </image>
             </ImageView>
         </graphic>

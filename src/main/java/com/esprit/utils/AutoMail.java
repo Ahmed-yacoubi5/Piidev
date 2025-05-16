@@ -1,8 +1,8 @@
 package com.esprit.utils;
 
+import jakarta.mail.*;
+import jakarta.mail.internet.*;
 import java.util.Properties;
-import javax.mail.*;
-import javax.mail.internet.*;
 
 public class AutoMail {
 
@@ -17,7 +17,7 @@ public class AutoMail {
         properties.put("mail.smtp.auth", "true");
         properties.put("mail.smtp.starttls.enable", "true");
 
-        Session session = Session.getInstance(properties, new javax.mail.Authenticator() {
+        Session session = Session.getInstance(properties, new Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
                 return new PasswordAuthentication(from, password);
             }

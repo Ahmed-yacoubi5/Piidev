@@ -1,14 +1,14 @@
-package com.recrutement.controllers;
+package com.esprit.controllers;
 
-import com.recrutement.models.cv;
-import com.recrutement.services.CvServices;
+import com.esprit.models.cv;
+import com.esprit.services.CvServices;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import javafx.event.ActionEvent;
+
 import java.sql.Date;
 import java.time.LocalDate;
-import javafx.scene.control.TableView;
 
 public class ModifierCVController {
 
@@ -55,8 +55,8 @@ public class ModifierCVController {
         txtTelephone.setText(String.valueOf(cv.getTelephone()));
         if (cv.getDateDeNaissance() != null) {
             // Vérifie si c'est bien une instance de java.sql.Date avant de convertir
-            if (cv.getDateDeNaissance() instanceof java.sql.Date) {
-                LocalDate localDate = ((java.sql.Date) cv.getDateDeNaissance()).toLocalDate();
+            if (cv.getDateDeNaissance() instanceof Date) {
+                LocalDate localDate = ((Date) cv.getDateDeNaissance()).toLocalDate();
                 datePickerNaissance.setValue(localDate);
             } else {
                 System.err.println("❌ Erreur : date_de_naissance n'est pas une instance de java.sql.Date !");

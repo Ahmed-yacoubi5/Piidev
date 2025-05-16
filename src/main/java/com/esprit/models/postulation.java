@@ -1,4 +1,4 @@
-package com.recrutement.models;
+package com.esprit.models;
 
 import java.util.Date;
 

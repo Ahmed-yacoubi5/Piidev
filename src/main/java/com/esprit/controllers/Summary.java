@@ -1,33 +1,25 @@
 package com.esprit.controllers;
 
-import com.esprit.models.Employe;
 import com.esprit.models.Candidat;
+import com.esprit.models.Employe;
 import com.esprit.models.Formation;
-import com.esprit.models.Profil;
 import com.esprit.services.CandidatService;
 import com.esprit.services.EmployeService;
 import com.esprit.services.FormationService;
 import com.esprit.services.ProfilService;
 import com.esprit.utils.AppData;
-import com.esprit.utils.IdUtil;
-import com.esprit.utils.ImageSrc;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.control.*;
 import javafx.stage.Stage;
-import javafx.scene.control.ButtonType;
 
 import java.awt.*;
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
@@ -225,7 +217,7 @@ public class Summary {
         candidatFormationView.setItems(FXCollections.observableList(candidatList));
     }
 
-    public void empDeleteButton() throws IOException {
+    public void empDeleteButton() throws IOException, SQLException {
 
         // Create the confirmation alert
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -238,23 +230,32 @@ public class Summary {
         alert.showAndWait().ifPresent(response -> {
             if (response == ButtonType.OK) {
                 ProfilService profilService = new ProfilService();
-                // Proceed with the delete action if 'Yes' is clicked
-                formationService.suppressionComplete(employeTableView.getSelectionModel().getSelectedItem().getId());
-                profilService.suppressionTotale(employeTableView.getSelectionModel().getSelectedItem().getId());
-                employeService.supprimer(employeTableView.getSelectionModel().getSelectedItem());
-                employeTableView.getItems().remove(employeTableView.getSelectionModel().getSelectedItem());
-                employeTableView.refresh();
+                try {
+                    // Proceed with the delete action if 'Yes' is clicked
+                    int employeId = employeTableView.getSelectionModel().getSelectedItem().getId();
+                    formationService.suppressionComplete(employeId);
+                    profilService.suppressionTotale(employeId);
+                    employeService.supprimer(employeTableView.getSelectionModel().getSelectedItem());
+                    employeTableView.getItems().remove(employeTableView.getSelectionModel().getSelectedItem());
+                    employeTableView.refresh();
 
-                System.out.println("Action confirmed!");
+                    System.out.println("Action confirmed!");
+                } catch (SQLException e) {
+                    System.out.println("Error deleting employe: " + e.getMessage());
+                    Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                    errorAlert.setTitle("Database Error");
+                    errorAlert.setHeaderText("Failed to delete employee");
+                    errorAlert.setContentText("An error occurred while deleting the employee: " + e.getMessage());
+                    errorAlert.showAndWait();
+                }
             } else {
                 // Cancel the action if 'No' is clicked
                 System.out.println("Action canceled.");
             }
-
         });
     }
 
-    public void candDeleteButton() throws IOException {
+    public void candDeleteButton() throws IOException, SQLException {
 
         // Create the confirmation alert
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -268,19 +269,28 @@ public class Summary {
             if (response == ButtonType.OK) {
                 ProfilService profilService = new ProfilService();
 
-                // Proceed with the delete action if 'Yes' is clicked
-                candidatService.supprimer(candidatTableView.getSelectionModel().getSelectedItem());
-                formationService.suppressionComplete(candidatTableView.getSelectionModel().getSelectedItem().getId());
-                profilService.suppressionTotale(candidatTableView.getSelectionModel().getSelectedItem().getId());
-                candidatTableView.getItems().remove(candidatTableView.getSelectionModel().getSelectedItem());
-                candidatTableView.refresh();
+                try {
+                    // Proceed with the delete action if 'Yes' is clicked
+                    int candidatId = candidatTableView.getSelectionModel().getSelectedItem().getId();
+                    candidatService.supprimer(candidatId);
+                    formationService.suppressionComplete(candidatId);
+                    profilService.suppressionTotale(candidatId);
+                    candidatTableView.getItems().remove(candidatTableView.getSelectionModel().getSelectedItem());
+                    candidatTableView.refresh();
 
-                System.out.println("Action confirmed!");
+                    System.out.println("Action confirmed!");
+                } catch (SQLException e) {
+                    System.out.println("Error deleting candidat: " + e.getMessage());
+                    Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                    errorAlert.setTitle("Database Error");
+                    errorAlert.setHeaderText("Failed to delete candidate");
+                    errorAlert.setContentText("An error occurred while deleting the candidate: " + e.getMessage());
+                    errorAlert.showAndWait();
+                }
             } else {
                 // Cancel the action if 'No' is clicked
                 System.out.println("Action canceled.");
             }
-
         });
     }
 
