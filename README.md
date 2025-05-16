@@ -37,6 +37,6 @@ Voici les modules principaux que j'ai implémentés dans ce projet :
 -Lancer xammp ou wamp server et soyer sur d'avoir importé la base de donné requise sur phpmyadmin
 -retourner à votre IDE et exécuter
 
-##Remerciemnt
+## Remerciemnt
 
 nous remercions notre prof de java et moniteur de pidev sprint java mr abdelmonnem aissa pour son encadrement tout le long du sprint java 
