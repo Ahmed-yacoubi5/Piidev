@@ -14,10 +14,10 @@ Voici les modules principaux que j'ai implémentés dans ce projet :
 
 ## ⚙️ Technologies utilisées
 
-- Java (version à préciser)
-- Frameworks : (ex. Spring Boot, JavaFX, etc.)
-- Base de données : (ex. MySQL, PostgreSQL, H2...)
-- Outils : Maven ou Gradle, Git
+- Java 17
+- Frameworks : JAVA FX
+- Base de données : My SQL
+- Outils : Maven , Github , scene builder (UI) 
 
 ## 📁 Structure du projet
 
