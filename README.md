@@ -33,8 +33,11 @@ Voici les modules principaux que j'ai implémentés dans ce projet :
 ## 🚀 Lancement du projet
 
 -cloner le repertoire (git clone https://github.com/Ahmed-yacoubi5/Piidev)
+
 -lancer avec intellij ou n'importe autre IDE compatible
+
 -Lancer xammp ou wamp server et soyer sur d'avoir importé la base de donné requise sur phpmyadmin
+
 -retourner à votre IDE et exécuter
 
 ## Remerciemnt
